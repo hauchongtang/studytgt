@@ -2,7 +2,7 @@ import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } f
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const NavBar = () => {
+const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
     return (
