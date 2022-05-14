@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import splat_pic from '../assets/splat_temp.png'
+import splat_pic from '../assets/splat-logo.png'
 
 const Home = () => {
     const description = 'We aim to help you study smart'
