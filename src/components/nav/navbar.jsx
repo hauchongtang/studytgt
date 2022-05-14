@@ -8,7 +8,7 @@ const NavBar = () => {
     return (
         <div id="navbar-top">
             <Navbar color="faded" light expand="sm">
-                <NavbarBrand href="/" >studytgt</NavbarBrand>
+                <NavbarBrand href="/" >SPLAT!</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
