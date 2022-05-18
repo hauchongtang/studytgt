@@ -71,3 +71,55 @@
     transform: translateY(-10px);
   }
 }
+
+#login-component.container {
+  margin-top: 25px;
+  width: 450px;
+  color: grey;
+}
+
+form {
+  border: 3px solid #f1f1f1;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+button#loginbutton {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
+  width: 388.027px;
+}
+
+button#loginbutton:hover {
+  background: salmon;
+  color: black;
+}
+
+button#loadingbutton {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
+  width: 388.027px;
+}
+
+.loginloadingspinner {
+  height: 16px;
+  width: 16px;
+}
