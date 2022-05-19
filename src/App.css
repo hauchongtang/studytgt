@@ -123,3 +123,24 @@ button#loadingbutton {
   height: 16px;
   width: 16px;
 }
+
+a.btn-signup {
+  text-align: center;
+  width: 388.027px;
+  margin-top: 8px;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+}
+
+a.btn-signup:hover {
+  background: salmon;
+  color: black;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Form, FormGroup, Input, Label, Button, Spinner } from 'reactstrap'
+import { Form, FormGroup, Input, Label, Spinner } from 'reactstrap'
+import { NavLink } from "react-router-dom";
 import { postForm } from '../../api/users'
 import splat_pic from '../../assets/splat-pic.png'
 
@@ -68,6 +69,7 @@ const Login = ({ setLoggedIn }) => {
                     <button type='submit' id='loginbutton'>
                         Login
                     </button>}
+                    <NavLink to="/signup" className="btn-signup">Sign Up</NavLink>
                 </Form>
             </div>
     )
