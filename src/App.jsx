@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
 import Home from './components/homepage'
 import Login from './components/auth/login'
+import SignUp from './components/auth/signup'
 import { createBrowserHistory } from 'history'
 
 let history = createBrowserHistory()
@@ -17,6 +18,7 @@ const App = () => {
       <HistoryRouter history={history}>      
         <Routes>
           <Route path='/' element={loggedIn ? <Home /> : <Login setLoggedIn={setLoggedIn}/>} />
+          <Route path='/signup' element={<SignUp/>} />
           <Route path='/leaderboard' element={<>leaderboard</>} />
           <Route path='/calendar' element={<>calendar</>} />
           <Route path='/planner' element={<></>} />
