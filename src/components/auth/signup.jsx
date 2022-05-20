@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { postSignUp } from '../../api/users'
-import { Form, FormGroup, Input, Label, Button, Spinner } from 'reactstrap'
+import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody } from 'reactstrap'
 
 // TODO: Pass the state down from login to signup
 const SignUp = () => {
@@ -9,6 +9,8 @@ const SignUp = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
 
     const handleFirstNameChange = ({ target: { name, value } }) => {
         setFirstName(value)
@@ -31,8 +33,12 @@ const SignUp = () => {
         setLoading(true)
 
         postSignUp(firstname, lastname, email, password).then(response => {
+            setError(false)
             console.log(response)
+            return response
         }).catch(err => {
+            setError(true)
+            setErrMsg(err)
             console.log(err)
         })
     }
@@ -88,10 +94,20 @@ const SignUp = () => {
                             onChange={handlePasswordChange}
                         />
                     </FormGroup>
-                    {loading ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>:
-                    <button type='submit' id='loginbutton'>
-                        Login
+                    {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>:
+                    <button type='submit' id='submitbutton'>
+                        Submit
                     </button>}
+                    <div className='container' id='signup-err'>
+                    <Toast isOpen={error}>
+                        <ToastHeader toggle={()=>{}}>
+                            Unable to create account
+                        </ToastHeader>
+                        <ToastBody>
+                            {errMsg != null ? "err" : ""}
+                        </ToastBody>
+                    </Toast>
+                    </div>
                 </Form>
         </div>
     )

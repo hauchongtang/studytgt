@@ -78,6 +78,12 @@
   color: grey;
 }
 
+#signup-component.container {
+  margin-top: 25px;
+  width: 600px;
+  color: grey;
+}
+
 form {
   border: 3px solid #f1f1f1;
   border-radius: 12px;
@@ -131,7 +137,8 @@ a.btn-signup {
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;
-  display: inline-block;
+  margin: 8 auto;
+  display: block;
   padding: 10px 30px;
   border-radius: 50px;
   transition: 0.5s;
@@ -143,4 +150,26 @@ a.btn-signup {
 a.btn-signup:hover {
   background: salmon;
   color: black;
+}
+
+button#submitbutton:hover {
+  background: salmon;
+  color: black;
+}
+
+button#submitbutton {
+  width: 388.027px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
 }

@@ -14,14 +14,10 @@ const Login = ({ setLoggedIn }) => {
         event.preventDefault()
         setError(null)
         setLoading(true)
-        postForm(email, password).then(response => {
-            console.log(response)
-            setLoggedIn(true)
-        }).catch(err => {
-            console.log(err.response)
-            if (err.response.status === 500) setError(err.response.data.message)
-            else setError("Something went wrong, please try again later !")
-        })
+
+        const result = postForm(email, password, setLoggedIn)
+
+        console.log(result)
     }
 
     const handleEmailChange = ({ target: { name, value } }) => {
