@@ -2,9 +2,10 @@ import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } f
 import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const NavBar = () => {
+const NavBar = ({handleLogOut}) => {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
+    const signedIn = localStorage.getItem("user") != null
     return (
         <div id="navbar-top">
             <Navbar color="faded" light expand="sm">
@@ -27,6 +28,7 @@ const NavBar = () => {
                             </NavLink>
                         </NavItem>
                     </Nav>
+                    {signedIn && <button id="logout" onClick={handleLogOut}>Log Out</button>}
                 </Collapse>
             </Navbar>
         </div>

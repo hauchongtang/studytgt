@@ -1,28 +1,21 @@
 const axios = require('axios')
 
-export const postForm = async (email, password, setLoggedIn) => {
+export const postForm = async (email, password, setError) => {
     try {
         const response = await axios.post('https://splatbackend.herokuapp.com/users/login',
         {
             "email": email,
             "password": password
-        },
-        {
-            headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "https://splatbackend.herokuapp.com"
-            }
         }
         )
-
-        setLoggedIn(true)
         return response.data
     } catch (error) {
+        setError(true)
         console.log(error)
     }
 }
 
-export const postSignUp = async (firstname, lastname, email, password) => {
+export const postSignUp = async (firstname, lastname, email, password, setError) => {
     try {
         const response = await axios.post('https://splatbackend.herokuapp.com/users/signup',
         {
@@ -30,11 +23,23 @@ export const postSignUp = async (firstname, lastname, email, password) => {
             "last_name": lastname,
             "email": email,
             "password": password
-        },
+        }
+        )
+
+        return response.data
+    } catch (error) {
+        setError(true)
+        console.log(error)
+    }
+}
+
+// Authenticate with backend server using refresh token to see if its expired
+export const authLoginSession = async (refreshToken) => {
+    try {
+        const response = await axios.get('https://splatbackend.herokuapp.com/splat/api',
         {
             headers: {
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Origin": "https://splatbackend.herokuapp.com"
+                'token': refreshToken
             }
         }
         )
