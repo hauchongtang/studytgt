@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { postSignUp } from '../../api/users'
-import { Form, FormGroup, Input, Label, Button, Spinner } from 'reactstrap'
+import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody } from 'reactstrap'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 // TODO: Pass the state down from login to signup
 const SignUp = () => {
@@ -9,6 +10,11 @@ const SignUp = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    const [errMsg, setErrMsg] = useState("")
+    const [signupresponse, setSignUpResponse] = useState(null)
+
+    let navigate = useNavigate()
 
     const handleFirstNameChange = ({ target: { name, value } }) => {
         setFirstName(value)
@@ -26,15 +32,20 @@ const SignUp = () => {
         setPassword(value)
     }
 
+    const signUpRequest = async () => {
+        const result = await postSignUp(firstname, lastname, email, password, setError)
+        setSignUpResponse(result)
+        console.log(result)
+        if (!setError && setSignUpResponse !== null) {
+            console.log("go back to sign in")
+            return navigate("/")
+        }
+    }
+
     const handleSignUp = (event) => {
         event.preventDefault()
         setLoading(true)
-
-        postSignUp(firstname, lastname, email, password).then(response => {
-            console.log(response)
-        }).catch(err => {
-            console.log(err)
-        })
+        signUpRequest()
     }
 
     return (
@@ -88,9 +99,9 @@ const SignUp = () => {
                             onChange={handlePasswordChange}
                         />
                     </FormGroup>
-                    {loading ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>:
-                    <button type='submit' id='loginbutton'>
-                        Login
+                    {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>:
+                    <button type='submit' id='submitbutton'>
+                        {error ? "Email or Password taken, try again" : "Submit"}
                     </button>}
                 </Form>
         </div>
