@@ -111,7 +111,9 @@ const SignUp = () => {
                     />
                 </FormGroup>
                 {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
-                    <button type='submit' id='submitbutton'>
+                    <button type='submit' id='submitbutton' onMouseOver={() => {
+                        if (error) setErrMsg("Submit")
+                    }}>
                         {error ? errMsg : "Submit"}
                     </button>}
             </Form>
