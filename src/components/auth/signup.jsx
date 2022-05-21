@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { postSignUp } from '../../api/users'
 import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody } from 'reactstrap'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -34,11 +34,22 @@ const SignUp = () => {
 
     const signUpRequest = async () => {
         const result = await postSignUp(firstname, lastname, email, password, setError)
-        setSignUpResponse(result)
-        console.log(result)
-        if (!error && result !== null) {
-            console.log("go back to sign in")
-            return navigate("/")
+        if (password.length < 6) {
+            setError(true)
+            setErrMsg("Password too short! Min: 6")
+        } else if (!email.includes("@") || !email.includes(".")) {
+            setError(true)
+            setErrMsg("Not an email")
+        }
+        else {
+            setSignUpResponse(result)
+            setError(false)
+            console.log(result)
+            if (!error && result !== null) {
+                console.log("go back to sign in")
+                return navigate("/")
+            }
+            return navigate("/")  
         }
     }
 
@@ -51,59 +62,59 @@ const SignUp = () => {
     return (
         <div id='signup-component' className='container'>
             <Form onSubmit={handleSignUp}>
-                    <FormGroup>
-                        <Label for='first_name'>
-                            First Name
-                        </Label>
-                        <Input
-                            id='firstname-input-signup'
-                            name='firstname'
-                            placeholder='Enter your First Name'
-                            type='text'
-                            onChange={handleFirstNameChange}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for='last_name'>
-                            Last Name
-                        </Label>
-                        <Input
-                            id='lastname-input-signup'
-                            name='lastname'
-                            placeholder='Enter your Last Name'
-                            type='text'
-                            onChange={handleLastNameChange}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for='email'>
-                            Email
-                        </Label>
-                        <Input
-                            id='email-input-signup'
-                            name='email'
-                            placeholder='Enter your email address'
-                            type='text'
-                            onChange={handleEmailChange}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label for='password'>
-                            Password
-                        </Label>
-                        <Input
-                            id='password-input-signup'
-                            name='password'
-                            placeholder='Enter your Password'
-                            type='text'
-                            onChange={handlePasswordChange}
-                        />
-                    </FormGroup>
-                    {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>:
+                <FormGroup>
+                    <Label for='first_name'>
+                        First Name
+                    </Label>
+                    <Input
+                        id='firstname-input-signup'
+                        name='firstname'
+                        placeholder='Enter your First Name'
+                        type='text'
+                        onChange={handleFirstNameChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for='last_name'>
+                        Last Name
+                    </Label>
+                    <Input
+                        id='lastname-input-signup'
+                        name='lastname'
+                        placeholder='Enter your Last Name'
+                        type='text'
+                        onChange={handleLastNameChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for='email'>
+                        Email
+                    </Label>
+                    <Input
+                        id='email-input-signup'
+                        name='email'
+                        placeholder='Enter your email address'
+                        type='text'
+                        onChange={handleEmailChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Label for='password'>
+                        Password
+                    </Label>
+                    <Input
+                        id='password-input-signup'
+                        name='password'
+                        placeholder='Enter your Password'
+                        type='text'
+                        onChange={handlePasswordChange}
+                    />
+                </FormGroup>
+                {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
                     <button type='submit' id='submitbutton'>
-                        {error ? "Email or Password taken, try again" : "Submit"}
+                        {error ? errMsg : "Submit"}
                     </button>}
-                </Form>
+            </Form>
         </div>
     )
 }

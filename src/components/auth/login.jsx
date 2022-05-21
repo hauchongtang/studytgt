@@ -72,7 +72,7 @@ const Login = ({ setLoggedIn, setUser }) => {
                     <Input
                         id='password-input'
                         name='password'
-                        placeholder='Enter your password (min 2 characters)'
+                        placeholder='Enter your password (min 6 characters)'
                         type='text'
                         onChange={handlePasswordChange}
                         onClick={() => setErrorTxt("Log in")}
