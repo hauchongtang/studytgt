@@ -36,7 +36,7 @@ const SignUp = () => {
         const result = await postSignUp(firstname, lastname, email, password, setError)
         setSignUpResponse(result)
         console.log(result)
-        if (!setError && setSignUpResponse !== null) {
+        if (!error && result !== null) {
             console.log("go back to sign in")
             return navigate("/")
         }

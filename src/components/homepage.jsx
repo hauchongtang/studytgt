@@ -5,6 +5,11 @@ import splat_pic from '../assets/splat-pic.png'
 const Home = () => {
     const description = 'We aim to help you study smart'
     const additional = 'We provide a pomodoro timer, planner, leaderboard features, personalised statistics and more..'
+    const signedIn = localStorage.getItem("user") != null
+    let name = ""
+    if (signedIn) {
+        name = localStorage.getItem("name")
+    }
     return (
         <>
             <section id="header" className="d-flex align-items-center">
@@ -13,6 +18,7 @@ const Home = () => {
             <div className="col-10 mx-auto">
               <div className="row">
                 <div className="col-md-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex justify-content-center flex-column">
+                  {signedIn && <h1>Hi, <strong className='name'>{name != null ? name : "User"}</strong></h1>}
                   <h1>
                     {"This is "}
                     <strong className="brand-name"> SPLAT! </strong>
