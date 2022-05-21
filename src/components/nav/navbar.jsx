@@ -17,7 +17,7 @@ const NavBar = ({handleLogOut}) => {
                 <NavbarBrand href="/" >SPLAT!</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
-                    <Nav className="me-auto" navbar>
+                    {signedIn && <Nav className="me-auto" navbar>
                         <NavItem>
                             <NavLink href="/leaderboard">
                                 Leaderboard
@@ -32,7 +32,7 @@ const NavBar = ({handleLogOut}) => {
                                 Planner
                             </NavLink>
                         </NavItem>
-                    </Nav>
+                    </Nav>}
                     {signedIn && <MdAccountCircle size="21"/>}
                     {signedIn && <button id="profile">{name !== null ? name : "User"}</button>}
                     {signedIn && <button id="logout" onClick={handleLogOut}>Log Out</button>}
