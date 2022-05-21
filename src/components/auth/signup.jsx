@@ -105,7 +105,7 @@ const SignUp = () => {
                     <Input
                         id='password-input-signup'
                         name='password'
-                        placeholder='Enter your Password'
+                        placeholder='Enter your Password (Min 6 characters)'
                         type='text'
                         onChange={handlePasswordChange}
                     />
