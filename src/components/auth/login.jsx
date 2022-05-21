@@ -17,6 +17,7 @@ const Login = ({ setLoggedIn, setUser }) => {
         try {
             setUser(fetchedData.refresh_token)
             localStorage.setItem("user", fetchedData.refresh_token)
+            localStorage.setItem("name", fetchedData.first_name + " " + fetchedData.last_name)
             console.log(fetchedData.refresh_token)
         } catch {
             console.log("Wrong credentials")
