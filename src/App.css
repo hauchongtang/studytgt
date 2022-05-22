@@ -151,14 +151,15 @@ button#logout:hover {
   color: black;
 }
 
-button#profile {
+a#profile {
   transition: 0.6s;
   border: #fff;
   background-color: #fff;
   font-size: 20.8px;
   margin-right: 16px;
+  color: grey;
 }
-button#profile:hover {
+a#profile:hover {
   color: salmon;
 }
 
@@ -198,6 +199,29 @@ button#submitbutton {
   text-align: center;
   display: block;
   margin: 0 auto;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+button#cancelbutton:hover {
+  background: salmon;
+  color: black;
+}
+
+button#cancelbutton {
+  width: 388.027px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;

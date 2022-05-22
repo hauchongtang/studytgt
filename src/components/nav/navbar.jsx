@@ -2,8 +2,10 @@ import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } f
 import React, { useState } from 'react'
 import { MdAccountCircle } from "react-icons/md";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({handleLogOut}) => {
+    let navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(!isOpen)
     const signedIn = localStorage.getItem("user") != null
@@ -34,8 +36,13 @@ const NavBar = ({handleLogOut}) => {
                         </NavItem>
                     </Nav>}
                     {signedIn && <MdAccountCircle size="21"/>}
-                    {signedIn && <button id="profile">{name !== null ? name : "User"}</button>}
-                    {signedIn && <button id="logout" onClick={handleLogOut}>Log Out</button>}
+                    {signedIn && <NavLink id="profile" href="/profile">{name !== null ? name : "User"}</NavLink>}
+                    {signedIn && <button id="logout" onClick={() => {
+                        navigate("/")
+                        handleLogOut()
+                        localStorage.clear()
+                        window.location.reload()
+                    }}>Log Out</button>}
                 </Collapse>
             </Navbar>
         </div>
