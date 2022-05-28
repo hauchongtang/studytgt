@@ -121,6 +121,11 @@ a.nav-link:hover {
   height: 100%;
 }
 
+.tableload {
+  text-align: center;
+  margin-top: 100px;
+}
+
 h1#leaderboard {
   text-align: center;
   margin-top: 12px;

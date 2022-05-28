@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "reactstrap";
+import { Spinner, Table } from "reactstrap";
 
 import {getAllUsers} from "../../api/users";
 
@@ -33,7 +33,7 @@ const Leaderboard = () => {
     return (
         <>
             <h1 id="leaderboard">Leaderboard 🔥 (All Time)</h1>
-            <Table className="container" hover>
+            {result.length === 0 ? <div className="container tableload"><Spinner id="tableload"/></div> : <Table className="container" hover>
                 <thead>
                     <tr>
                         <th>#</th>
@@ -42,25 +42,17 @@ const Leaderboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {(results !== null) ? results.map((data, idx) => {
+                    {result.map((data, idx) => {
                         return (
                             <tr>
-                                <th scope="row">{idx}</th>
-                                <td>{data.first_name + data.last_name}</td>
-                                <td>{data.points}</td>
-                            </tr>
-                        )
-                    }) : result.map((data, idx) => {
-                        return (
-                            <tr>
-                                <th scope="row">{idx}</th>
+                                <th scope="row">{idx+1}</th>
                                 <td>{data.first_name + data.last_name}</td>
                                 <td>{data.points}</td>
                             </tr>
                         )
                     })}
                 </tbody>
-            </Table>
+            </Table>}
         </>
     )
 }
