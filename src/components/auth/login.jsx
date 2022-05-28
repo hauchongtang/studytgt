@@ -21,6 +21,7 @@ const Login = ({ setLoggedIn, setUser }) => {
             localStorage.setItem("first_name", fetchedData.first_name)
             localStorage.setItem("last_name", fetchedData.last_name)
             localStorage.setItem("email", fetchedData.email)
+            localStorage.setItem("points", fetchedData.points)
             console.log(fetchedData.refresh_token)
         } catch {
             console.log("Wrong credentials")
@@ -66,6 +67,7 @@ const Login = ({ setLoggedIn, setUser }) => {
                         type='text'
                         onChange={handleEmailChange}
                         onClick={() => setErrorTxt("Log in")}
+                        invalid={error}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -79,6 +81,7 @@ const Login = ({ setLoggedIn, setUser }) => {
                         type='text'
                         onChange={handlePasswordChange}
                         onClick={() => setErrorTxt("Log in")}
+                        invalid={error}
                     />
                 </FormGroup>
 

@@ -7,6 +7,7 @@ import Home from './components/homepage'
 import Login from './components/auth/login'
 import SignUp from './components/auth/signup'
 import Profile from './components/profilepage'
+import Leaderboard from './components/leaderboard/leaderboard'
 import { createBrowserHistory } from 'history'
 import { authLoginSession } from './api/users'
 
@@ -46,7 +47,7 @@ const App = () => {
           <Route path='/' element={user && !loggedOut ? <Home /> : <Login setUser={setUser}/>} />
           <Route path='/signup' element={<SignUp setSignednUp={setSignedUp}/>} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/leaderboard' element={<>leaderboard</>} />
+          <Route path='/leaderboard' element={<Leaderboard/>} />
           <Route path='/calendar' element={<>calendar</>} />
           <Route path='/planner' element={<></>} />
         </Routes>

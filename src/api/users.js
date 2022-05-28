@@ -49,3 +49,37 @@ export const authLoginSession = async (refreshToken) => {
         console.log(error)
     }
 }
+
+export const modifyAccountDetails = async (firstname, lastname, email, setSuccess) => {
+    try {
+        const response = await axios.put('http://splatbackend.herokuapp.com/users', 
+        {
+            "first_name": firstname,
+            "last_name": lastname,
+            "email": email,
+        }
+        )
+        console.log(response.data)
+        setSuccess(true)
+        return response.data
+    } catch (error) {
+        setSuccess(false)
+        console.log(error)
+    }
+}
+
+export const getAllUsers = async (refreshToken) => {
+    try {
+        const response = await axios.get('http://splatbackend.herokuapp.com/users',
+        {
+            headers: {
+                'token': refreshToken
+            }
+        }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
