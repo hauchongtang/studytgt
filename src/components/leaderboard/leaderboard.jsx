@@ -42,7 +42,7 @@ const Leaderboard = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {(results.length) ? results.map((data, idx) => {
+                    {(results !== null) ? results.map((data, idx) => {
                         return (
                             <tr>
                                 <th scope="row">{idx}</th>

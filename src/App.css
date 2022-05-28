@@ -10,6 +10,9 @@ body {
 
 .navbar-light .navbar-nav .nav-link {
   border-radius: 50px;
+  margin-left: 12px;
+  margin-right: 12px;
+  font-weight: 700;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -194,7 +197,7 @@ h1#leaderboard {
 }
 
 form {
-  border: 3px solid #f1f1f1;
+  border: 0px solid #f1f1f1;
   border-radius: 12px;
   padding: 16px;
 }
@@ -336,4 +339,8 @@ button#cancelbutton {
   border: 2px solid salmon;
   text-decoration: none;
   background-color: #fff;
+}
+
+div.timetable#timetable {
+  height: 85% !important;
 }

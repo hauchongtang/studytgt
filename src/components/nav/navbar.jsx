@@ -24,14 +24,15 @@ const NavBar = ({handleLogOut}) => {
                             <NavLink href="/leaderboard">
                                 Leaderboard
                             </NavLink>
-                        </NavItem>                        <NavItem>
-                            <NavLink href="/calendar">
-                                Calendar
-                            </NavLink>
                         </NavItem>
                         <NavItem>
                             <NavLink href="/planner">
-                                Planner
+                                Planner (W.I.P)
+                            </NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink href="/timer">
+                                Timer
                             </NavLink>
                         </NavItem>
                     </Nav>}
