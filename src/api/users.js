@@ -52,7 +52,7 @@ export const authLoginSession = async (refreshToken) => {
 
 export const modifyAccountDetails = async (firstname, lastname, email, setSuccess) => {
     try {
-        const response = await axios.put('http://splatbackend.herokuapp.com/users', 
+        const response = await axios.put('https://splatbackend.herokuapp.com/users', 
         {
             "first_name": firstname,
             "last_name": lastname,
@@ -70,7 +70,7 @@ export const modifyAccountDetails = async (firstname, lastname, email, setSucces
 
 export const getAllUsers = async (refreshToken) => {
     try {
-        const response = await axios.get('http://splatbackend.herokuapp.com/users',
+        const response = await axios.get('https://splatbackend.herokuapp.com/users',
         {
             headers: {
                 'token': refreshToken
