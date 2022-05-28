@@ -10,6 +10,7 @@ import Profile from './components/profilepage'
 import Leaderboard from './components/leaderboard/leaderboard'
 import { createBrowserHistory } from 'history'
 import { authLoginSession } from './api/users'
+import Planner from './components/planner/planner'
 
 let history = createBrowserHistory()
 const App = () => {
@@ -48,8 +49,8 @@ const App = () => {
           <Route path='/signup' element={<SignUp setSignednUp={setSignedUp}/>} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/leaderboard' element={<Leaderboard/>} />
-          <Route path='/calendar' element={<>calendar</>} />
-          <Route path='/planner' element={<></>} />
+          <Route path='/timer' element={<>Timer</>} />
+          <Route path='/planner' element={<Planner/>} />
         </Routes>
       </HistoryRouter>
     </>
