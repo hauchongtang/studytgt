@@ -1,9 +1,15 @@
+body {
+  background-image: url("./assets/left-background.png"), url("./assets/right-background.png");
+    background-repeat: no-repeat, no-repeat;
+    background-position: bottom -80% left -25%, bottom 30% right -25%;
+}
+
 .navbar {
     background-color: #fff;
 }
 
 .navbar-light .navbar-nav .nav-link {
-  transition: 0.6s;
+  border-radius: 50px;
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
@@ -19,6 +25,104 @@
   color: black;
 }
 
+h1#profilename {
+  margin-top: 20px;
+  font-size: 50px;
+  text-align: center;
+  color: salmon;
+  font-weight: 400;
+}
+
+h2#lastname {
+  text-align: center;
+  font-weight: 100;
+  line-height: 16px;
+}
+
+div#points {
+  text-align: center;
+}
+button#points {
+  font-size: 24px;
+  margin-top: 12px;
+  border: 1px solid salmon;
+  border-radius: 50px;
+  width: 12em;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: salmon;
+  background-color: white;
+  transition: 0.6s;
+}
+
+button#points:hover {
+  color: black;
+  background-color: salmon;
+  border-radius: 50px;
+}
+
+#profilepic {
+  height: 15%;
+  text-align: center;
+  margin-bottom: 4em;
+}
+
+img#profilepic {
+  height: 150px;
+  border-radius: 50px;
+}
+
+div#last {
+  text-align: center;
+  width: 100%;
+  height: 62.5%;
+  margin-top: 12px;
+  overflow-y: scroll;
+}
+
+.card-header:first-child {
+  border-radius: 17px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  background-color: rgba(250, 126, 112, 0.4);
+}
+
+#last-activity {
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-top: 24px;
+  border-radius: 17px;
+}
+
+.tab-pane {
+  height: 75vh;
+  /* background-image: linear-gradient(to right,salmon, rgb(220, 92, 92)); */
+}
+
+a.nav-link {
+  color: salmon;
+}
+
+.active.nav-link {
+  color: grey;
+  border-radius: 12px;
+}
+
+a.nav-link:hover {
+  color: red;
+  border-radius: 12px;
+}
+
+.table {
+  margin-top: 36px;
+  height: 100%;
+}
+
+h1#leaderboard {
+  text-align: center;
+  margin-top: 12px;
+  color: red;
+}
 
 .navbar-light .navbar-brand {
   font-size: 1.9rem;
@@ -151,14 +255,15 @@ button#logout:hover {
   color: black;
 }
 
-button#profile {
+a#profile {
   transition: 0.6s;
   border: #fff;
   background-color: #fff;
   font-size: 20.8px;
   margin-right: 16px;
+  color: grey;
 }
-button#profile:hover {
+a#profile:hover {
   color: salmon;
 }
 
@@ -198,6 +303,29 @@ button#submitbutton {
   text-align: center;
   display: block;
   margin: 0 auto;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+button#cancelbutton:hover {
+  background: salmon;
+  color: black;
+}
+
+button#cancelbutton {
+  width: 388.027px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 16px;
   letter-spacing: 1px;

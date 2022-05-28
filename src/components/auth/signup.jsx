@@ -96,6 +96,7 @@ const SignUp = () => {
                         placeholder='Enter your email address'
                         type='text'
                         onChange={handleEmailChange}
+                        invalid={error}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -108,6 +109,7 @@ const SignUp = () => {
                         placeholder='Enter your Password (Min 6 characters)'
                         type='text'
                         onChange={handlePasswordChange}
+                        invalid={error}
                     />
                 </FormGroup>
                 {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
