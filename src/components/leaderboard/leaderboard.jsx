@@ -20,11 +20,11 @@ const Leaderboard = () => {
     const getAll = async () => {
         const result = await getAllUsers(refreshToken)
         setResult(result)
-        localStorage.setItem("result", JSON.stringify(result))
+        // localStorage.setItem("result", JSON.stringify(result))
         return result
     }    
-    var results = JSON.parse(localStorage.getItem("result"))
-    results = JSON.parse(localStorage.getItem("result"))
+    // var results = JSON.parse(localStorage.getItem("result"))
+    // results = JSON.parse(localStorage.getItem("result"))
 
     useEffect(() => {
         getAll()
