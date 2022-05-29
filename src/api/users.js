@@ -83,3 +83,38 @@ export const getAllUsers = async (refreshToken) => {
         console.log(error)
     }
 }
+
+export const getUserById = async (refreshToken, id) => {
+    try {
+        const response = await axios.get(`https://splatbackend.herokuapp.com/users/${id}`,
+            {
+                headers: {
+                    'token': refreshToken
+                }
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const increasePoints = async (refreshToken, toAdd, id) => {
+    try {
+        const response = await axios.put(`https://splatbackend.herokuapp.com/users/${id}`,null,
+            {
+                headers: {
+                    'token': refreshToken,
+                },
+                params: {
+                    'pointstoadd': Math.round(toAdd)
+                }
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}

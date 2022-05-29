@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Nav, NavItem, NavLink, TabContent, TabPane, Form, FormGroup, Label, Input, Spinner, Card, CardTitle, CardBody, CardHeader, CardText } from 'reactstrap'
 import classnames from 'classnames'
 
-import { modifyAccountDetails } from '../api/users'
+import { getUserById, modifyAccountDetails } from '../api/users'
 
 const ProfilePage = () => {
     const first_name = localStorage.getItem("first_name")
     const last_name = localStorage.getItem("last_name")
     const email_ = localStorage.getItem("email")
-    const points = localStorage.getItem("points")
     const [activeTab, setActiveTab] = useState("1")
     const [firstname, setFirstName] = useState(first_name !== null ? first_name : "")
     const [lastname, setLastName] = useState(last_name !== null ? last_name : "")
     const [email, setEmail] = useState(email_ !== null ? email_ : "")
     const [submitted, setSubmitted] = useState(false)
     const [success, setSuccess] = useState(true)
+    const [points, setPoints] = useState(localStorage.getItem("points"))
 
     const handleFirstNameChange = ({ target: { name, value } }) => {
         setFirstName(value)
@@ -61,6 +61,17 @@ const ProfilePage = () => {
             pointsGained: 9
         }
     ]
+
+    const getUserViaId = async () => {
+        const result = await getUserById(localStorage.getItem("user"), localStorage.getItem("_id"))
+        localStorage.setItem("points", result.points)
+        setPoints(result.points)
+        return result
+    }
+
+    useEffect(() => {
+        getUserViaId()
+    },[])
 
     return (
         <div id='profile-component' className='container'>
