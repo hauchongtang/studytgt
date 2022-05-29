@@ -349,3 +349,46 @@ button#cancelbutton {
 div.timetable#timetable {
   height: 85% !important;
 }
+
+/* Timer Styles */
+div.timer#timer {
+  justify-content: center;
+  display: flex;
+  margin-top: 9vh;
+  font-size: 40px;
+  margin-right: 0px;
+}
+
+button#start-stop {
+  width: 300px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  margin-top: 24px;
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: salmon;
+  border: 2px solid salmon;
+  text-decoration: none;
+  background-color: #fff;
+}
+
+button#start-stop:hover {
+  background: salmon;
+  color: black;
+}
+
+div.range-slider {
+  width: 100%;
+}
+
+.range-slider {
+  margin-top: 24px;
+  text-align: center;
+  width: 15%;
+  margin-right: 0px;
+}

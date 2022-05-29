@@ -17,6 +17,7 @@ const Login = ({ setLoggedIn, setUser }) => {
         try {
             setUser(fetchedData.refresh_token)
             localStorage.setItem("user", fetchedData.refresh_token)
+            localStorage.setItem("_id", fetchedData.user_id)
             localStorage.setItem("name", fetchedData.first_name + " " + fetchedData.last_name)
             localStorage.setItem("first_name", fetchedData.first_name)
             localStorage.setItem("last_name", fetchedData.last_name)
