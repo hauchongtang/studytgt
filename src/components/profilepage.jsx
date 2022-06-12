@@ -129,9 +129,9 @@ const ProfilePage = () => {
                     })}</div>
                 </TabPane>
                 <TabPane tabId="2" key={Math.random() * activeTab}>
-                    <Form>
+                    <Form key={'123'}>
                         <h1 id='profilename'>Change your name</h1>
-                        <FormGroup>
+                        <FormGroup key={activeTab}>
                             <Label for='first-name'>
                                 First Name
                             </Label>
@@ -141,9 +141,10 @@ const ProfilePage = () => {
                                 placeholder={firstname}
                                 type='text'
                                 onChange={handleFirstNameChange}
+                                key={activeTab}
                             />
                         </FormGroup>
-                        <FormGroup>
+                        <FormGroup key={activeTab}>
                             <Label for='first-name'>
                                 Last Name
                             </Label>
@@ -153,6 +154,7 @@ const ProfilePage = () => {
                                 placeholder={lastname}
                                 type='text'
                                 onChange={handleLastNameChange}
+                                key={activeTab}
                             />
                         </FormGroup>
                         {/* <FormGroup>

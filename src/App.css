@@ -347,7 +347,8 @@ button#cancelbutton {
 }
 
 div.timetable#timetable {
-  height: 85% !important;
+  margin-top: 12px;
+  background-color: white;
 }
 
 /* Timer Styles */
@@ -391,4 +392,12 @@ div.range-slider {
   text-align: center;
   width: 15%;
   margin-right: 0px;
+}
+
+button#color {
+  height: 16px;
+  width: 16px;
+  border: 1px solid black;
+  background-color: aqua;
+  margin-top: 16px;
 }

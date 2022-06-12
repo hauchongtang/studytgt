@@ -22,7 +22,7 @@ const Planner = () => {
 
     return (
         <div className="container">
-            {localStorage.getItem("timetable") === null && <Form onSubmit={handleOnSubmit} className="import">
+            {localStorage.getItem("timetable") !== null && <Form onSubmit={handleOnSubmit} className="import">
                 <h1 id="profilename">Import your timetable here</h1>
                 <FormGroup>
                     <Label for="import-link">
@@ -37,7 +37,7 @@ const Planner = () => {
                 {!loading ? <button type="submit" id="submitbutton">Submit</button> :
                 <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button>}
             </Form>}
-            {localStorage.getItem("timetable") !== null && <Timetable />}
+            { <Timetable />}
         </div>
     )
 }
