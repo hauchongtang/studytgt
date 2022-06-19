@@ -21,6 +21,7 @@ const Leaderboard = () => {
         const result = await getAllUsers(refreshToken)
         setResult(result)
         // localStorage.setItem("result", JSON.stringify(result))
+        console.log(result)
         return result
     }    
     // var results = JSON.parse(localStorage.getItem("result"))

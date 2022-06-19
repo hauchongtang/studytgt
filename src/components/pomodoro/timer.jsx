@@ -35,7 +35,7 @@ const Timer = () => {
     }
 
     const increasePointsById = async () => {
-        const result = await increasePoints(localStorage.getItem("user"), Number(time / 10), localStorage.getItem("_id"))
+        const result = await increasePoints(localStorage.getItem("user"), Number(time / 100), localStorage.getItem("_id"))
         console.log(result)
         return result
     }
@@ -79,7 +79,7 @@ const Timer = () => {
                 setDone(false)
             }}>Reset Timer</button>}
             <div className="range-slider">
-                {(!playing) && <Input className='range-slider' type={"range"} min="30" max="7200" value={time} step={300} onChange={handleSliderChange}></Input>}
+                {(!playing) && <Input className='range-slider' type={"range"} min="900" max="7200" value={time} step={300} onChange={handleSliderChange}></Input>}
                 <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
             </div>
         </>

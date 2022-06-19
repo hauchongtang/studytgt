@@ -118,3 +118,36 @@ export const increasePoints = async (refreshToken, toAdd, id) => {
         console.log(error)
     }
 }
+
+export const getModuleInfoByModuleCode = async (moduleCode, semester, lessonType, classNo) => { // cached semesterData in user storage
+    var type = 'Lecture'
+    switch (lessonType) {
+        case "LEC":
+            type = "Lecture"
+            break
+        case "TUT":
+            type = "Tutorial"
+            break
+        case "LAB": 
+            type = "Lab"
+            break
+        case "REC":
+            type = "Recitation"
+            break
+        default:
+            type = "Lecture"
+            break
+    }
+
+    try {
+        const response = await axios.get(`https://api.nusmods.com/v2/2022-2023/modules/${moduleCode}.json`)
+        if (localStorage.getItem(moduleCode+"-code") === null) {
+            localStorage.setItem(moduleCode+"-code", JSON.stringify(response.data.semesterData))
+            return response.data.semesterData[semester-1].timetable.filter(value => value.classNo === classNo && value.lessonType === type).map(value => value)
+        }
+        console.log("returned cached")
+        return JSON.parse(localStorage.getItem(moduleCode+"-code"))[semester-1].timetable.filter(value => value.classNo === classNo && value.lessonType === type)
+    } catch (error) {
+        console.log(error)
+    }
+}
