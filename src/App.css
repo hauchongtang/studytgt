@@ -401,3 +401,13 @@ button#color {
   background-color: aqua;
   margin-top: 16px;
 }
+
+button#open-imports {
+  color: white;
+  font-size: 20px;
+  padding: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 50px;
+  background-color: salmon;
+}

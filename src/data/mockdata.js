@@ -1,6 +1,6 @@
 import moment from "moment"
 
-const getDatesOfTargetDay = (day, idx) => {
+export const getDatesOfTargetDay = (day, idx) => {
     var result = []
     var targetDay = moment()
         .startOf('month')
@@ -29,39 +29,39 @@ const getDatesOfTargetDay = (day, idx) => {
 /*
     0 - Monday to 4 - Friday
 */
-const mockMapping = [
-    [
-        {
-            moduleCode: 'CS2103',
-            mode: 'Let',
-            start: 13,
-            end: 15
-        },
-        {
-            moduleCode: 'CS2101',
-            mode: 'Tut',
-            start: 9,
-            end: 10
-        },
-        {
-            moduleCode: 'CS2101',
-            mode: 'Rec',
-            start: 8,
-            end: 9
-        },
-    ],
-    [],
-    [
-        {
-            moduleCode: 'CS2102',
-            mode: 'Lab',
-            start: 10,
-            end: 12
-        },
-    ],
-    [],
-    []
-]
+// const mockMapping = [
+//     [
+//         {
+//             moduleCode: 'CS2103',
+//             mode: 'Let',
+//             start: 13,
+//             end: 15
+//         },
+//         {
+//             moduleCode: 'CS2101',
+//             mode: 'Tut',
+//             start: 9,
+//             end: 10
+//         },
+//         {
+//             moduleCode: 'CS2101',
+//             mode: 'Rec',
+//             start: 8,
+//             end: 9
+//         },
+//     ],
+//     [],
+//     [
+//         {
+//             moduleCode: 'CS2102',
+//             mode: 'Lab',
+//             start: 10,
+//             end: 12
+//         },
+//     ],
+//     [],
+//     []
+// ]
 
 const determineDay = (idx) => {
     switch (idx) {
@@ -78,40 +78,40 @@ const determineDay = (idx) => {
     }
 }
 
-const determineTitle = () => {
-    var result = new Map()
+// const determineTitle = () => {
+//     var result = new Map()
 
-    for (var i = 0; i < mockMapping.length; i++) {
-        result.set(determineDay(i+1), mockMapping[i])
-    }
+//     for (var i = 0; i < mockMapping.length; i++) {
+//         result.set(determineDay(i+1), mockMapping[i])
+//     }
 
-    return result
-}
+//     return result
+// }
 
 var uniqueModuleCode = []
 
 const eventsData = () => {
-    const timetableEvents = determineTitle()
+    const timetableEvents = ''
     const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     var result = []
-    for (var day of days) {
-        const daysOfWeek = getDatesOfTargetDay(day, 0)
-        for (var e of timetableEvents.get(day)) {
-            if (!uniqueModuleCode.includes(e.moduleCode)) {
-                uniqueModuleCode.push(e.moduleCode)
-            }
-            for (var i of daysOfWeek) {
-                const today = new Date(i);
-                result.push({
-                    id: Math.random(),
-                    title: e.moduleCode + ' ' + (e.mode),
-                    allDay: false,
-                    start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), e.start),
-                    end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), e.end)
-                })
-            }
-        }
-    }
+    // for (var day of days) {
+    //     const daysOfWeek = getDatesOfTargetDay(day, 0)
+    //     for (var e of timetableEvents.get(day)) {
+    //         if (!uniqueModuleCode.includes(e.moduleCode)) {
+    //             uniqueModuleCode.push(e.moduleCode)
+    //         }
+    //         for (var i of daysOfWeek) {
+    //             const today = new Date(i);
+    //             result.push({
+    //                 id: Math.random(),
+    //                 title: e.moduleCode + ' ' + (e.mode),
+    //                 allDay: false,
+    //                 start: new Date(today.getFullYear(), today.getMonth(), today.getDate(), e.start),
+    //                 end: new Date(today.getFullYear(), today.getMonth(), today.getDate(), e.end)
+    //             })
+    //         }
+    //     }
+    // }
 
     return result
 }

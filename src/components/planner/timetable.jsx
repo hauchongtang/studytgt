@@ -7,55 +7,32 @@ import classnames from 'classnames'
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
-import mockEventsData, { getUniqueModules } from "../../data/mockdata";
-import AddNewTask from "./addnewtask";
+import { getUniqueModules } from "../../data/parseImports";
 
-
-const setColorMapping = () => {
-    for (var moduleCode of getUniqueModules()) {
-        if (moduleCode === 'CS2101') { localStorage.setItem(moduleCode, 'red') }
-
-        if (moduleCode === 'CS2102') { localStorage.setItem(moduleCode, 'blue') }
-
-        if (moduleCode === 'CS2103') { localStorage.setItem(moduleCode, 'pink') }
-    }
-}
-
-const getColorMapping = (event) => {
-    var result = []
-    for (var moduleCode of getUniqueModules()) {
-        result.push((event.title.includes(moduleCode) && {
-            style: {
-                backgroundColor: localStorage.getItem(moduleCode)
-            }
-        }))
-    }
-
-    console.log(result)
-    return result
-}
-
-const Timetable = () => {
+const Timetable = ({moduleData}) => {
     const [activeTab, setActiveTab] = useState("1")
-    const [from, setFrom] = useState(0)
-    const [to, setTo] = useState(0)
-    const [title, setTitle] = useState("")
-    const [date, setDate] = useState(null)
-    const [data, setData] = useState(mockEventsData)
-    localStorage.setItem('moduleData', JSON.stringify(mockEventsData))
+    // const [from, setFrom] = useState(8)
+    // const [to, setTo] = useState(8)
+    // const [title, setTitle] = useState("")
+    // const [date, setDate] = useState(null)
+    // const [data, setData] = useState(moduleData)
 
-    const handleTitleChange = (event) => {
-        setTitle(event.target.value)
-    }
-    const handleFromChange = ({ target: { name, value } }) => {
-        setFrom(value)
-    }
-    const handleToChange = ({ target: { name, value } }) => {
-        setTo(value)
-    }
-    const handleDateChange = ({ target: { name, value } }) => {
-        setDate(value)
-    }
+    // const handleTitleChange = (event) => {
+    //     event.preventDefault()
+    //     setTitle(event.target.value)
+    // }
+    // const handleFromChange = (event) => {
+    //     event.preventDefault()
+    //     setFrom(event.target.value)
+    // }
+    // const handleToChange = (event) => {
+    //     event.preventDefault()
+    //     setTo(event.target.value)
+    // }
+    // // const handleDateChange = ({ target: { name, value } }) => {
+    // //     console.log(value)
+    // //     setDate(value)
+    // // }
 
     const { components } = useMemo(
         () => ({
@@ -82,51 +59,83 @@ const Timetable = () => {
                     backgroundColor: '#000',
                 },
             }),
+            ...{style: {color: 'white'}},
             ...(moment(start).hour() < 12 && {
                 className: 'powderBlue',
             }),
             ...(event.title.includes(getUniqueModules()[0]) && {
                 style: {
-                    backgroundColor: localStorage.getItem(getUniqueModules()[0])
+                    backgroundColor:colorMapper(0),
+                    color: 'white'
                 }
             }),
             ...(event.title.includes(getUniqueModules()[1]) && {
                 style: {
-                    backgroundColor: localStorage.getItem(getUniqueModules()[1])
+                    backgroundColor: colorMapper(1),
+                    color: 'white'
                 }
             }),
             ...(event.title.includes(getUniqueModules()[2]) && {
                 style: {
-                    backgroundColor: localStorage.getItem(getUniqueModules()[2])
+                    backgroundColor:colorMapper(2),
+                    color: 'white'
                 }
             }),
             ...(event.title.includes(getUniqueModules()[3]) && {
                 style: {
-                    backgroundColor: localStorage.getItem(getUniqueModules()[3])
+                    backgroundColor:colorMapper(3),
+                    color: 'white'
                 }
             }),
             ...(event.title.includes(getUniqueModules()[4]) && {
                 style: {
-                    backgroundColor: localStorage.getItem(getUniqueModules()[4])
+                    backgroundColor: colorMapper(4),
+                    color: 'white'
                 }
             })
         }),
         []
     )
 
-    const handleSubmit = () => {
-        setData([...data, {
-            title: title,
-            allDay: false,
-            start: new Date(date.getFullYear(), date.getMonth(), date.getDate(), from),
-            end: new Date(date.getFullYear(), date.getMonth(), date.getDate(), to),
-        }])
-        console.log(data)
+    // console.log(moduleData)
+
+    // const handleSubmit = (response) => {
+    //     if (date !== null)
+    //     setData([...moduleData, {
+    //         id: data.length,
+    //         title: title,
+    //         allDay: false,
+    //         start: new Date(date.getFullYear(), date.getMonth(), date.getDate(), from),
+    //         end: new Date(date.getFullYear(), date.getMonth(), date.getDate(), to),
+    //     }])
+    //     // console.log(data)
+    // }
+
+    const colorMapper = (idx) => {
+        switch (idx) {
+            case 1:
+                return 'green'
+            case 2:
+                return 'purple'
+            case 3:
+                return 'grey'
+            case 4:
+                return 'brown'
+            case 5:
+                return 'orange'
+            case 6:
+                return 'powderblue'
+            case 7:
+                return 'darkgreen'
+            default:
+                return 'black'
+        }
     }
 
     useEffect(() => {
-        setColorMapping()
-    }, [])
+        getUniqueModules()
+
+    },[activeTab])
 
     return (
         <div className="timetable" id="timetable">
@@ -158,26 +167,26 @@ const Timetable = () => {
                 <TabPane tabId={"1"} key={activeTab * Math.random()}>
                     <Calendar
                         localizer={momentLocalizer(moment)}
-                        events={data}
+                        events={moduleData}
                         defaultView={Views.WEEK}
                         min={new Date(2022, 5, 1, 8)}
-                        max={new Date(2022, 5, 1, 19)}
+                        max={new Date(2022, 5, 1, 23)}
                         components={components}
                         formats={formats}
                         eventPropGetter={eventPropGetter}
                         onSelectEvent={() => console.log('hello')}
                         style={{ height: '80%' }}
                     />
-                    <div className="container"><h2 style={{ fontSize: '24px', marginTop: '16px', textDecoration: 'underline' }}><strong>Modules Imported</strong></h2></div>
+                    <div className="container"><h2 style={{ fontSize: '22px', marginTop: '12px', textDecoration: 'underline' }}><strong>Modules Imported</strong></h2></div>
                     <div className="flex-container" style={{ display: 'flex' }}>
-                        {getUniqueModules().map((item, idx) => {
+                        {getUniqueModules().length > 0 && getUniqueModules().map((item, idx) => {
                             return (
-                                <div style={{ width: '110px', marginRight: '16px', marginLeft: '16px', marginTop: '16px' }}>
+                                <div style={{ width: '130px', marginRight: '16px', marginLeft: '16px', marginTop: '16px' }} key={idx}>
                                     <div style={{ display: 'flex' }}>
                                         <div className='container'><h3 style={{ fontSize: '20px' }}><strong>{item}</strong></h3>
                                             <h6>4 MCs</h6>
                                         </div>
-                                        <button id="color" style={{ backgroundColor: localStorage.getItem(item) }}></button>
+                                        <button id="color" style={{ backgroundColor: colorMapper(idx) }}></button>
                                     </div>
 
                                 </div>
@@ -188,7 +197,7 @@ const Timetable = () => {
                 </TabPane>
                 <TabPane tabId={"2"} key={2 * Math.random()}>
                     <>
-                        <Form>
+                        {/* <Form onSubmit={handleSubmit}>
                             <FormGroup>
                                 <Label for='title'>
                                     Title
@@ -235,11 +244,14 @@ const Timetable = () => {
                                     name="date"
                                     value={date}
                                     type="date"
-                                    onChange={handleDateChange}
+                                    onChange={(event) => {
+                                        event.preventDefault()
+                                        setDate(event.target.valueAsDate)
+                                    }}
                                 />
                             </FormGroup>
-                            <div className="container" style={{textAlign: 'center'}}><button type='submit' id='loginbutton' onClick={handleSubmit}>Submit</button></div>
-                        </Form>
+                            <div className="container" style={{textAlign: 'center'}}><button type='submit' id='loginbutton'>Submit</button></div>
+                        </Form> */}
                     </>
                 </TabPane>
             </TabContent>
@@ -247,17 +259,17 @@ const Timetable = () => {
     )
 }
 
-const InputName = ({ handleTitleChange, title }) => {
-    return (
-        <Input
-            id='title'
-            name='title'
-            type='text'
-            onChange={handleTitleChange}
-            value={title}
-            autoFocus
-        />
-    )
-}
+// const InputName = ({ handleTitleChange, title }) => {
+//     return (
+//         <Input
+//             id='title'
+//             name='title'
+//             type='text'
+//             onChange={handleTitleChange}
+//             value={title}
+//             autoFocus
+//         />
+//     )
+// }
 
 export default Timetable
