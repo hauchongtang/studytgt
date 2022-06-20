@@ -151,3 +151,21 @@ export const getModuleInfoByModuleCode = async (moduleCode, semester, lessonType
         console.log(error)
     }
 }
+
+export const setTimetableUrl = async (linktoadd, refreshToken, id) => {
+    try {
+        const response = await axios.put(`https://splatbackend.herokuapp.com/users/modules/${id}`,null,
+            {
+                headers: {
+                    'token': refreshToken,
+                },
+                params: {
+                    'linktoadd': linktoadd
+                }
+            }
+        )  
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -23,7 +23,8 @@ const Login = ({ setLoggedIn, setUser }) => {
             localStorage.setItem("last_name", fetchedData.last_name)
             localStorage.setItem("email", fetchedData.email)
             localStorage.setItem("points", fetchedData.points)
-            console.log(fetchedData.refresh_token)
+            localStorage.setItem("timetable", fetchedData.timetable)
+            console.log(fetchedData)
         } catch {
             console.log("Wrong credentials")
             setError(true)

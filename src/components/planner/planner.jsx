@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, FormGroup, Label, Input, Spinner, Collapse } from "reactstrap";
+import { setTimetableUrl } from "../../api/users";
 import { getDatesOfTargetDay } from "../../data/mockdata";
 
 import { parseUrl } from '../../data/parseImports'
@@ -18,11 +19,17 @@ const Planner = () => {
         return result
     }
 
+    const setLink = async (link, refreshToken, id) => {
+        const result = await setTimetableUrl(link, refreshToken, id)
+        return result
+    }
+
     const handleOnSubmit = async (event) => {
         event.preventDefault()
         localStorage.setItem("timetable", urllink)
+        setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
         resolvePromise()
-        window.location.reload()
+        // window.location.reload()
     }
 
     const handleLinkChange = (event) => {
@@ -95,6 +102,7 @@ const Planner = () => {
 
     useEffect(() => {
         resolvePromise()
+
     },[])
 
     return (
