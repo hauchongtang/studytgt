@@ -1,11 +1,9 @@
 body {
-  background-image: url("./assets/left-background.png"), url("./assets/right-background.png");
-    background-repeat: no-repeat, no-repeat;
-    background-position: bottom -80% left -25%, bottom 30% right -25%;
+  background-color: #E5E5E5;
 }
 
-.navbar {
-    background-color: #fff;
+/* .navbar {
+    background-color: #E5E5E5;
 }
 
 .navbar-light .navbar-nav .nav-link {
@@ -19,7 +17,7 @@ body {
   color: salmon;
   border: 1px solid salmon;
   border-radius: 50px;
-}
+} */
 
 #header h1 {
   margin: 0 0 10px 0;
@@ -154,18 +152,21 @@ h1#leaderboard {
 }
 
 #header {
-  width: 100%;
-  height: 80vh;
-  margin-top: 70px;
+  width: calc(90vw + 16px);
+  height: 86.5vh;
+  margin: 8px;
+  margin-left: calc(160px + 8px);
+  background-color: white;
 }
 #header .btn-get-started {
-  font-weight: 500;
+  font-weight: 700;
   font-size: 16px;
   letter-spacing: 1px;
   display: inline-block;
   padding: 10px 30px;
   border-radius: 50px;
   transition: 0.5s;
+  background: transparent;
   color: salmon;
   border: 2px solid salmon;
   text-decoration: none;
@@ -190,21 +191,29 @@ h1#leaderboard {
 }
 
 #login-component.container {
-  margin-top: 25px;
   width: 450px;
   color: grey;
 }
 
+/* .signup {
+  width: ;
+} */
+
 #signup-component.container {
-  margin-top: 25px;
   width: 600px;
   color: grey;
 }
 
-form {
+form#signup {
   border: 0px solid #f1f1f1;
   border-radius: 12px;
-  padding: 16px;
+  padding: 150px 56px 56px 56px;
+}
+
+form#login {
+  border: 0px solid #f1f1f1;
+  border-radius: 12px;
+  padding: 65px 19px 56px 19px;
 }
 
 button#loginbutton {

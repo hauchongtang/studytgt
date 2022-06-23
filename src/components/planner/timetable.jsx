@@ -139,32 +139,6 @@ const Timetable = ({moduleData}) => {
 
     return (
         <div className="timetable" id="timetable">
-            <Nav tabs>
-                <NavItem>
-                    <NavLink
-                        className={classnames(
-                            { active: activeTab === "1" }
-                        )}
-                        onClick={() => { setActiveTab("1") }}
-                        href="#"
-                    >
-                        Timetable
-                    </NavLink>
-                </NavItem>
-                <NavItem>
-                    <NavLink
-                        className={classnames(
-                            { active: activeTab === "2" }
-                        )}
-                        onClick={() => { setActiveTab("2") }}
-                        href="#1"
-                    >
-                        Add a new task !
-                    </NavLink>
-                </NavItem>
-            </Nav>
-            <TabContent activeTab={activeTab}>
-                <TabPane tabId={"1"} key={activeTab * Math.random()}>
                     <Calendar
                         localizer={momentLocalizer(moment)}
                         events={moduleData}
@@ -175,7 +149,7 @@ const Timetable = ({moduleData}) => {
                         formats={formats}
                         eventPropGetter={eventPropGetter}
                         onSelectEvent={() => console.log('hello')}
-                        style={{ height: '80%' }}
+                        style={{ height: '70vh' }}
                     />
                     <div className="container"><h2 style={{ fontSize: '22px', marginTop: '12px', textDecoration: 'underline' }}><strong>Modules Imported</strong></h2></div>
                     <div className="flex-container" style={{ display: 'flex' }}>
@@ -193,10 +167,6 @@ const Timetable = ({moduleData}) => {
                             )
                         })}
                     </div>
-
-                </TabPane>
-                <TabPane tabId={"2"} key={2 * Math.random()}>
-                    <>
                         {/* <Form onSubmit={handleSubmit}>
                             <FormGroup>
                                 <Label for='title'>
@@ -252,9 +222,6 @@ const Timetable = ({moduleData}) => {
                             </FormGroup>
                             <div className="container" style={{textAlign: 'center'}}><button type='submit' id='loginbutton'>Submit</button></div>
                         </Form> */}
-                    </>
-                </TabPane>
-            </TabContent>
         </div>
     )
 }

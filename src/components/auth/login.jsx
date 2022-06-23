@@ -3,6 +3,7 @@ import { Form, FormGroup, Input, Label, Spinner } from 'reactstrap'
 import { NavLink } from "react-router-dom";
 import { postForm } from '../../api/users'
 import splat_pic from '../../assets/splat-pic.png'
+import LandingPage from '../LandingPage';
 
 const Login = ({ setLoggedIn, setUser }) => {
     const [error, setError] = useState(false)
@@ -10,6 +11,7 @@ const Login = ({ setLoggedIn, setUser }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [submit, setSubmit] = useState(false)
+
     const [errorTxt, setErrorTxt] = useState("Failed to log in")
 
     const postLogin = async () => {
@@ -51,49 +53,52 @@ const Login = ({ setLoggedIn, setUser }) => {
     }
 
     return (
-        <div id="login-component" className='container'>
-            <Form onSubmit={handleLogin}>
-                <img
-                    src={splat_pic}
-                    className="img-fluid animated"
-                    alt="landingpage"
-                />
-                <FormGroup>
-                    <Label for='email'>
-                        Email
-                    </Label>
-                    <Input
-                        id='email-input'
-                        name='email'
-                        placeholder='Enter your email address'
-                        type='text'
-                        onChange={handleEmailChange}
-                        onClick={() => setErrorTxt("Log in")}
-                        invalid={error}
+        <>
+            <div id='header' >
+            {<div id="login-component" className='container'>
+                <Form onSubmit={handleLogin} id='login'>
+                    <img
+                        src={splat_pic}
+                        className="img-fluid animated"
+                        alt="landingpage"
                     />
-                </FormGroup>
-                <FormGroup>
-                    <Label for='password'>
-                        Password
-                    </Label>
-                    <Input
-                        id='password-input'
-                        name='password'
-                        placeholder='Enter your password (min 6 characters)'
-                        type='text'
-                        onChange={handlePasswordChange}
-                        onClick={() => setErrorTxt("Log in")}
-                        invalid={error}
-                    />
-                </FormGroup>
+                    <FormGroup>
+                        <Label for='email'>
+                            Email
+                        </Label>
+                        <Input
+                            id='email-input'
+                            name='email'
+                            placeholder='Enter your email address'
+                            type='text'
+                            onChange={handleEmailChange}
+                            onClick={() => setErrorTxt("Log in")}
+                            invalid={error}
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for='password'>
+                            Password
+                        </Label>
+                        <Input
+                            id='password-input'
+                            name='password'
+                            placeholder='Enter your password (min 6 characters)'
+                            type='password'
+                            onChange={handlePasswordChange}
+                            onClick={() => setErrorTxt("Log in")}
+                            invalid={error}
+                        />
+                    </FormGroup>
 
-                {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
-                    <button type='submit' id='loginbutton' >
-                        {error ? errorTxt : "Log in"}
-                    </button>}
-                <NavLink to="/signup" className="btn-signup">Sign Up</NavLink>
-            </Form>
-        </div>
+                    {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
+                        <button type='submit' id='loginbutton' >
+                            {error ? errorTxt : "Log in"}
+                        </button>}
+                    <NavLink to="/signup" className="btn-signup">Sign Up</NavLink>
+                </Form>
+            </div>}</div>
+        </>
     )
 }
 
