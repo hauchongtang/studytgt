@@ -1,19 +1,24 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useState } from 'react'
+
+import Login from './auth/login'
 import splat_pic from '../assets/splat-pic.png'
 
-const Home = () => {
-    const description = 'We aim to help you study smart'
-    const additional = 'We provide a pomodoro timer, planner, leaderboard features, personalised statistics and more..'
-    const signedIn = localStorage.getItem("user") != null
-    let name = ""
-    if (signedIn) {
-        name = localStorage.getItem("name")
-    }
-    return (
-        <>
-            <section id="header" className="d-flex align-items-center">
-            <div className="container-fluid nav_bg">
+const LandingPage = ({ setLoggedIn, setUser }) => {
+  const [getStartedClicked, setGetStartedClicked] = useState(false)
+  const description = 'We aim to help you study smart'
+  const additional = 'We provide a pomodoro timer, planner, leaderboard features, personalised statistics and more..'
+  const signedIn = localStorage.getItem("user") != null
+  let name = ""
+  if (signedIn) {
+    name = localStorage.getItem("name")
+  }
+  return (
+    <>
+      {
+        getStartedClicked && <Login setUser={setUser} />
+      }
+      {!getStartedClicked && <section id="header" className="d-flex align-items-center">
+        <div className="container-fluid nav_bg">
           <div className="row">
             <div className="col-10 mx-auto">
               <div className="row">
@@ -26,18 +31,18 @@ const Home = () => {
 
                   <h2 className="my-3">
                     {description}
-                    <br/>
+                    <br />
                   </h2>
 
                   <h2>
-                    <br/>
+                    <br />
                     {additional}
                   </h2>
 
                   <div className="mt-3">
-                    <NavLink to={"/planner"} className="btn-get-started">
+                    <button onClick={() => setGetStartedClicked(true)} className="btn-get-started">
                       {"Get Started"}
-                    </NavLink>
+                    </button>
                   </div>
                 </div>
 
@@ -52,9 +57,9 @@ const Home = () => {
             </div>
           </div>
         </div>
-            </section>
-        </>
-    )
+      </section>}
+    </>
+  )
 }
 
-export default Home
+export default LandingPage

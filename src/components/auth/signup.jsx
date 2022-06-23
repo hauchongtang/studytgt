@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { postSignUp } from '../../api/users'
 import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody } from 'reactstrap'
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 
 // TODO: Pass the state down from login to signup
 const SignUp = () => {
@@ -60,8 +60,12 @@ const SignUp = () => {
     }
 
     return (
-        <div id='signup-component' className='container'>
-            <Form onSubmit={handleSignUp}>
+        <div id='header'>
+            
+        <div id='signup-component' className='container' >
+            <Form onSubmit={handleSignUp} id='signup'>
+                <Link to='/' style={{ fontSize: '18px', textDecoration: 'none', color: 'grey' }}>{'<-- Back'}</Link>
+                <h2 style={{ marginBottom: '16px', textAlign: 'center', fontWeight: '700', textDecoration: 'underline' }}>Sign Up</h2>
                 <FormGroup>
                     <Label for='first_name'>
                         First Name
@@ -119,7 +123,7 @@ const SignUp = () => {
                         {error ? errMsg : "Submit"}
                     </button>}
             </Form>
-        </div>
+        </div></div>
     )
 }
 

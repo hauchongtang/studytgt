@@ -1,10 +1,9 @@
 import NavBar from './components/nav/navbar'
 import './App.css'
-import React, { useEffect, useState } from 'react'
-import { Route, Routes, useNavigate } from 'react-router-dom'
-import { unstable_HistoryRouter as HistoryRouter } from 'react-router-dom'
-import Home from './components/homepage'
-import Login from './components/auth/login'
+import React, { useEffect, useReducer, useState } from 'react'
+import { Route, BrowserRouter, Routes, Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+import LandingPage from './components/LandingPage'
 import SignUp from './components/auth/signup'
 import Profile from './components/profilepage'
 import Leaderboard from './components/leaderboard/leaderboard'
@@ -12,14 +11,16 @@ import { createBrowserHistory } from 'history'
 import { authLoginSession } from './api/users'
 import Planner from './components/planner/planner'
 import Timer from './components/pomodoro/timer'
+import Dashboard from './components/Dashboard'
+import SideNav from './components/nav/navbarv2'
 
-let history = createBrowserHistory()
+
 const App = () => {
   const [loggedOut, setLoggedOut] = useState(false);
   const [signedUp, setSignedUp] = useState(false)
   const [user, setUser] = useState()
   const [authResult, setAuthResult] = useState(null)
-
+  // let location = useLocation()
   const handleLogOut = (pathName) => {
     setUser({})
     // localStorage.clear()
@@ -39,21 +40,23 @@ const App = () => {
       authSession()
       setUser(loggedInUser)
     }
-  },[])
+  }, [])
 
   return (
     <>
-      <HistoryRouter history={history}>
-        <NavBar handleLogOut={handleLogOut} setLoggedOut={setLoggedOut}/>      
+
+      <BrowserRouter forceRefresh={false}>
+        <NavBar handleLogOut={handleLogOut} setLoggedOut={setLoggedOut} />
+        <SideNav loggedIn={user && !loggedOut}/>
         <Routes>
-          <Route path='/' element={user && !loggedOut ? <Home /> : <Login setUser={setUser}/>} />
-          <Route path='/signup' element={<SignUp setSignednUp={setSignedUp}/>} />
+          <Route path='/' element={user && !loggedOut ? <Dashboard /> : <LandingPage setUser={setUser} />} />
+          <Route path='/signup' element={<SignUp setSignednUp={setSignedUp} />} />
           <Route path='/profile' element={<Profile />} />
-          <Route path='/leaderboard' element={<Leaderboard/>} />
-          <Route path='/timer' element={<Timer/>} />
-          <Route path='/planner' element={<Planner/>} />
+          <Route path='/leaderboard' element={<Leaderboard />} />
+          <Route path='/timer' element={<Timer />} />
+          <Route path='/planner' element={<Planner />} />
         </Routes>
-      </HistoryRouter>
+      </BrowserRouter>
     </>
   )
 }
