@@ -6,7 +6,7 @@ function Widget({ id, backgroundColor }) {
   return (
     <div 
         style={{ 
-            width: '100%', height: '100%', backgroundColor,
+            width: 'auto', height: '100%', backgroundColor,
 
         }}
         className={styles.widget}
