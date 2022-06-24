@@ -13,11 +13,11 @@ const SideNav = ({ loggedIn }) => {
             <div className={styles.sidenav}>
                 {<Link className={styles.navlink} to='/'><img className={styles.img} src={splatlogo}></img></Link>}
                 {loggedIn && <Link style={{ marginTop: '20px' }} className={currentRoute === '/' ? styles.selected : ''} id='navelems' to="/">Dashboard</Link>}
-                {loggedIn && <Link className={currentRoute === '/leaderboard' ? styles.selected : ''} id='navelems' to="/leaderboard">Leaderboard</Link>}
                 {loggedIn && <Link className={currentRoute === '/planner' ? styles.selected : ''} id='navelems' to="/planner">Planner</Link>}
                 {loggedIn && <Link className={currentRoute === '/timer' ? styles.selected : ''} id='navelems' to="/timer">Timer</Link>}
                 {loggedIn && <Link className={currentRoute === '/profile' ? styles.selected : ''} id='navelems' to="/profile">Profile</Link>}
-                <a className={currentRoute === '/profile' ? styles.selected : ''} href='https://github.com/hauchongtang/studytgt' id='navelems' 
+                {loggedIn && <Link className={currentRoute === '/about' ? styles.selected : ''} id='navelems' to="/about">About</Link>}
+                <a className={''} href='https://github.com/hauchongtang/studytgt' id='navelems' 
                     style={{ textAlign: 'center', marginRight: '16px', marginTop: loggedIn ? '43.8vh' : '77vh'}}>
                     <GrGithub size={54} alignmentBaseline='middle'/>
                 </a>
