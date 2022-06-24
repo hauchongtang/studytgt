@@ -62,4 +62,4 @@ const LandingPage = ({ setLoggedIn, setUser }) => {
   )
 }
 
-export default LandingPage
+export default LandingPage;
