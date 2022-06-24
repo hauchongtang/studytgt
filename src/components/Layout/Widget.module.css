@@ -8,6 +8,20 @@
   margin-bottom: 8px;
 }
 
+.cardList {
+  padding: 8px;
+}
+
+.cardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cardColumn {
+  flex: 0 0 50%;
+  padding: 8px;
+}
+
 .a {
   text-decoration: none;
   margin-left: 8px;

@@ -5,7 +5,8 @@ import { Input, Alert } from 'reactstrap'
 import { increasePoints } from "../../api/users";
 
 const Timer = () => {
-    const [time, setTime] = useState(900)
+    const timerObj = JSON.parse(localStorage.getItem("timerObj"))
+    const [time, setTime] = useState(Number(timerObj.duration*60))
     const [playing, setPlaying] = useState(false)
     const [done, setDone] = useState(false)
 
@@ -28,10 +29,6 @@ const Timer = () => {
             return "Time is up !"
         }
         return `${hours} : ${minutes} :${seconds}`
-    }
-
-    const handleSliderChange = ({ target: { name, value } }) => {
-        if (!playing) setTime(value)
     }
 
     const increasePointsById = async () => {
@@ -74,14 +71,11 @@ const Timer = () => {
             >
                 {`You gained ${time/100} points ! Press reset to start again`}
             </Alert>
-            <button id="start-stop" onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</button>
-            {done && <button id="start-stop" onClick={() => {
-                window.location.reload()
-                setDone(false)
-            }}>Reset Timer</button>}
-            <div className="range-slider">
-                {(!playing) && <Input className='range-slider' type={"range"} min="30" max="7200" value={time} step={300} onChange={handleSliderChange}></Input>}
-                <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
+            <div style={{ marginLeft: '160px' }}>
+                <button id="start-stop" onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</button>
+                <div className="range-slider"> 
+                    <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
+                </div>
             </div>
         </>
     )

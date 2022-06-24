@@ -170,7 +170,7 @@ export const setTimetableUrl = async (linktoadd, refreshToken, id) => {
     }
 }
 
-export const addTask = async (firstname, lastname, taskName, moduleCode, duration, hidden, user_id) => {
+export const addTask = async (firstname, lastname, taskName, moduleCode, duration, hidden, user_id, refreshToken) => {
     try {
         const response = await axios.post('https://splatbackend.herokuapp.com/tasks',
             {
@@ -181,6 +181,11 @@ export const addTask = async (firstname, lastname, taskName, moduleCode, duratio
                 "duration": duration,
                 "hidden": hidden,
                 "user_id": user_id
+            },
+            {
+                headers: {
+                    'token': refreshToken
+                }
             }
         )
 

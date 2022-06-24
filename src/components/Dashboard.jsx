@@ -17,6 +17,7 @@ const Dashboard = () => {
     const [personalTasks, setPersonalTasks] = useState([])
     const refreshToken = localStorage.getItem("user")
     const user_id = localStorage.getItem("_id")
+
     const getAll = async () => {
         const result = await getAllUsers(refreshToken)
         setLeaderBoard(result)
@@ -50,15 +51,14 @@ const Dashboard = () => {
         getPersonalTasks()
     }, [])
     return (
-        <div className={styles.page}>
-            <Suspense fallback={<Spinner />}>
+        <div className={styles.page}> 
             <Responsive
                 className="layout"
                 layouts={layout}
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                 cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
                 rowHeight={60}
-                margin={{ lg: [42, 42], md: [36, 36], sm: [28, 28], xs: [16, 16], xxs: [0, 0] }}
+                margin={{ lg: [28, 28], md: [24, 24], sm: [20, 20], xs: [16, 16], xxs: [0, 0] }}
                 width={useWindowDimensions().width - 160}
             >
                 <div key="a">
@@ -71,7 +71,7 @@ const Dashboard = () => {
                     <PersonalTaskWidget personalTasks={personalTasks}/>
                 </div>
 
-            </Responsive></Suspense>
+            </Responsive>
         </div>
     )
 }

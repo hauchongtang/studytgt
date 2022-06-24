@@ -30,6 +30,7 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
             <div className={styles.cardList}>
                 {tabIndex === 0 && tasks.length !== 0 && tasks.map((item, idx) => {
                     return (
+                        !item.hidden &&
                         <div className={styles.cardContainer} key={idx}>
                             <TaskBubble 
                                 title={item.taskName} 
@@ -38,7 +39,6 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
                                 name={item.first_name + " " + item.last_name} 
                                 duration={item.duration} 
                                 date={item.created_at} 
-                                hidden={item.hidden}
                             />
                         </div>
                     )

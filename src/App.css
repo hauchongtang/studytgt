@@ -367,6 +367,7 @@ div.timer#timer {
   margin-top: 9vh;
   font-size: 40px;
   margin-right: 0px;
+  margin-left: 160px;
 }
 
 button#start-stop {
@@ -419,4 +420,11 @@ button#open-imports {
   padding-right: 16px;
   border-radius: 50px;
   background-color: salmon;
+}
+
+div.card-body#pending:hover {
+  background-color: rgba(250, 128, 114, 0.4) ;
+  cursor: pointer;
+  transition: 0.5s;
+  animation: ease-in-out;
 }

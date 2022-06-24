@@ -14,7 +14,7 @@ const SideNav = ({ loggedIn }) => {
                 {<Link className={styles.navlink} to='/'><img className={styles.img} src={splatlogo}></img></Link>}
                 {loggedIn && <Link style={{ marginTop: '20px' }} className={currentRoute === '/' ? styles.selected : ''} id='navelems' to="/">Dashboard</Link>}
                 {loggedIn && <Link className={currentRoute === '/planner' ? styles.selected : ''} id='navelems' to="/planner">Schedule</Link>}
-                {loggedIn && <Link className={currentRoute === '/timer' ? styles.selected : ''} id='navelems' to="/timer">Add Task</Link>}
+                {/* {loggedIn && <Link className={currentRoute === '/timer' ? styles.selected : ''} id='navelems' to="/timer">Add Task</Link>} */}
                 {loggedIn && <Link className={currentRoute === '/profile' ? styles.selected : ''} id='navelems' to="/profile">Profile</Link>}
                 {loggedIn && <Link className={currentRoute === '/about' ? styles.selected : ''} id='navelems' to="/about">About</Link>}
                 <a className={''} href='https://github.com/hauchongtang/studytgt' id='navelems' 

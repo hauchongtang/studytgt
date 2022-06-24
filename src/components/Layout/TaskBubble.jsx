@@ -1,18 +1,33 @@
 import React from 'react'
 import { Card, CardTitle, CardSubtitle, CardBody, Badge, CardText } from 'reactstrap'
 import moment from 'moment'
+import { useNavigate } from "react-router-dom";
 
 import styles from './TaskBubble.module.css'
 
-const TaskBubble = ({ title, subtitle, name, points, duration, date, hidden }) => {
+const TaskBubble = ({ title, subtitle, name, points, duration, date, hidden, onClick, onHover }) => {
     const fromString = moment(date).fromNow()
+    const navigate = useNavigate()
+
+    const handleOnClick = (event) => {
+        event.preventDefault()
+        var task = {
+            title,
+            subtitle,
+            name,
+            duration
+        }
+
+        localStorage.setItem("timerObj", JSON.stringify(task))
+        navigate("/timer", {replace: true})
+    }
     return (
         <>
-            <Card>
-                <CardBody>
+            <Card  style={{ backgroundColor: hidden ? 'rgba(255, 165, 0, 0.3)' : 'rgba(50,205,50, 0.1)' }} onClick={onClick ? handleOnClick : () => {}} onMouseOver={onHover}>
+                <CardBody id={hidden ? 'pending' : ''}>
                     <CardTitle tag='div' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                         <h6 style={{ fontWeight: '600' }}>{title}</h6>
-                        <h6>{hidden ? 'Anonoymous User' : name}</h6>
+                        <h6>{name}</h6>
                     </CardTitle>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start' }}>
                         <Badge color='success'>
