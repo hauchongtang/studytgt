@@ -4,7 +4,7 @@ import { Card, CardTitle, CardSubtitle, CardBody, Badge, CardText } from 'reacts
 import styles from './TaskBubble.module.css'
 
 const LeaderboardBubble = ({ title, subtitle, name, points }) => {
-    var hours = Math.round(Number(points) / 6000)
+    var hours = Math.round(Number(points) / 6)
     const determineBadgeFirstTask = () => {
         return hours >= 0
     }
@@ -32,7 +32,7 @@ const LeaderboardBubble = ({ title, subtitle, name, points }) => {
         <>
             <Card>
                 <CardBody>
-                    <CardTitle tag='h5' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <CardTitle tag='div' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                         <h6 style={{ fontWeight: '600' }}>{title}</h6>
                         <h6>#{name}</h6>
                     </CardTitle>
@@ -46,7 +46,7 @@ const LeaderboardBubble = ({ title, subtitle, name, points }) => {
                            {determineBadgeOneYear() && <>❣️</>}
                         </div> 
                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                            <Badge color='success'>{Math.round(Number(points) / 6000)} Hours</Badge>
+                            <Badge color='success'>{hours} Hours</Badge>
                             <div style={{ width: '4px' }}></div>
                             <Badge color='primary'>{points} Points</Badge>
                         </div>

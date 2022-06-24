@@ -169,3 +169,55 @@ export const setTimetableUrl = async (linktoadd, refreshToken, id) => {
         console.log(error)
     }
 }
+
+export const addTask = async (firstname, lastname, taskName, moduleCode, duration, hidden, user_id) => {
+    try {
+        const response = await axios.post('https://splatbackend.herokuapp.com/tasks',
+            {
+                "first_name": firstname,
+                "last_name": lastname,
+                "taskName": taskName,
+                "moduleCode": moduleCode,
+                "duration": duration,
+                "hidden": hidden,
+                "user_id": user_id
+            }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getTasks = async (refreshToken) => {
+    try {
+        const response = await axios.get('https://splatbackend.herokuapp.com/tasks',
+        {
+            headers: {
+                'token': refreshToken
+            }
+        }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+export const getTasksById = async (refreshToken, id) => {
+    try {
+        const response = await axios.get(`https://splatbackend.herokuapp.com/tasks/${id}`,
+        {
+            headers: {
+                "token": refreshToken
+            }
+        }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error) 
+    }
+}

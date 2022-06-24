@@ -1,70 +1,79 @@
-import { Collapse } from 'reactstrap'
-import React, { useState } from 'react'
-import { Responsive, WidthProvider } from "react-grid-layout";
+import React, { useState, useEffect, Suspense } from 'react'
+import { Responsive } from "react-grid-layout";
 
 import styles from './Dashboard.module.css'
 import '/node_modules/react-grid-layout/css/styles.css'
 import '/node_modules/react-resizable/css/styles.css'
-import Timer from './pomodoro/timer'
 import Widget from './Layout/Widget'
 import AllActivityWidget from './Layout/AllActivityWidget';
+import PersonalTaskWidget from './Layout/PersonalTaskWidget';
+import { getTasks, getAllUsers, getTasksById } from '../api/users';
+import useWindowDimensions from './hooks/useWindowDimensions';
+import { Spinner } from 'reactstrap';
 
 const Dashboard = () => {
+    const [leaderboard, setLeaderBoard] = useState([])
+    const [tasks, setTasks] = useState([])
+    const [personalTasks, setPersonalTasks] = useState([])
+    const refreshToken = localStorage.getItem("user")
+    const user_id = localStorage.getItem("_id")
+    const getAll = async () => {
+        const result = await getAllUsers(refreshToken)
+        setLeaderBoard(result)
+        return result
+    }
+
+    const getAllTasks = async () => {
+        const result = await getTasks(refreshToken)
+        setTasks(result)
+        return result
+    }
+
+    const getPersonalTasks = async () => {
+        const result = await getTasksById(refreshToken, user_id)
+        if (result != null) setPersonalTasks(result)
+        return result
+    }
+
+
     const layout = {
-    lg: [
-      { i: 'a', x: 0, y: 0, w: 4, h: 11.4, static: true },
-      { i: 'b', x: 4, y: 0, w: 8, h: 6, static: true },
-      { i: 'c', x: 5, y: 0, w: 8, h: 5.4, static: true },
-    ],
+        lg: [
+            { i: 'a', x: 0, y: 0, w: 4, h: 11.4, static: true },
+            { i: 'b', x: 4, y: 0, w: 8, h: 6, static: true },
+            { i: 'c', x: 5, y: 0, w: 8, h: 5.4, static: true },
+        ],
     };
 
-    const ResponsiveLayout = WidthProvider(Responsive)
-
+    useEffect(() => {
+        getAll()
+        getAllTasks()
+        getPersonalTasks()
+    }, [])
     return (
         <div className={styles.page}>
-            <ResponsiveLayout
+            <Suspense fallback={<Spinner />}>
+            <Responsive
                 className="layout"
                 layouts={layout}
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                 cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
                 rowHeight={60}
-                margin={{ lg: [42,42], md: [36,36], sm: [28,28], xs: [16,16], xxs: [0,0] }}
-                width={1760}
-            >   
+                margin={{ lg: [42, 42], md: [36, 36], sm: [28, 28], xs: [16, 16], xxs: [0, 0] }}
+                width={useWindowDimensions().width - 160}
+            >
                 <div key="a">
-                    <AllActivityWidget />
-                </div>               
-                <div key='c'>
-                    <Widget id='c' backgroundColor='white' />
+                    <AllActivityWidget leaderboard={leaderboard} tasks={tasks}/>
                 </div>
-                <div key="b">
+                <div key='c'>
                     <Widget id="b" backgroundColor="white" />
                 </div>
+                <div key="b">
+                    <PersonalTaskWidget personalTasks={personalTasks}/>
+                </div>
 
-            </ResponsiveLayout>
+            </Responsive></Suspense>
         </div>
     )
 }
-
-// const getFromLS = (key) => {
-//     let ls = {};
-//     if (global.localStorage) {
-//         try {
-//             ls = JSON.parse(global.localStorage.getItem('grid-layout-dash')) || {}
-//         } catch (error) {
-
-//         }
-//     }
-//     return ls[key]
-// }
-
-// const setToLS = (key, value) => {
-//     if (global.localStorage) {
-//         global.localStorage.setItem(
-//             'grid-layout-dash',
-//             JSON.stringify({ [key]: value, }),
-//         );
-//     }
-// }
 
 export default Dashboard
