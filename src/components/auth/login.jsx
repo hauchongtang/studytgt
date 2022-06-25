@@ -5,11 +5,10 @@ import { postForm } from '../../api/users'
 
 import styles from './Login.module.css'
 import SignUp from './signup';
+import { parseUrl } from '../../data/parseImports';
 
 const Login = ({ setLoggedIn, setUser }) => {
-    const description = 'We aim to help you study smart'
-    const additional = 'We provide a pomodoro timer, planner, leaderboard features, personalised statistics and more..'
-    const signedIn = localStorage.getItem("user") != null
+    const timetableUrl = localStorage.getItem("timetable")
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
@@ -44,7 +43,9 @@ const Login = ({ setLoggedIn, setUser }) => {
         setError(false)
         setLoading(true)
         setSubmit(true)
+        
         postLogin()
+        parseUrl(timetableUrl)
         // localStorage.setItem('user', JSON.stringify(result)) 
         // return result
     }
