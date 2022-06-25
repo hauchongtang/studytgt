@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { Form, FormGroup, Input, Label, Button, FormFeedback } from 'reactstrap';
-import { addTask } from '../../api/users';
+import { addTask, getTasks } from '../../api/users';
 
 const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
     const localUserData = {
@@ -26,6 +26,10 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
         }
         setPersonalTasks([toAppend, ...personalTasks])
         const result = await addTask(localUserData.first_name, localUserData.last_name, name, code, duration, true, localUserData.user_id, localUserData.refreshToken)
+        setTimeout(() => {
+            localStorage.setItem("addedTaskID", result.InsertedID)
+        }
+        , 1000)
         return result
     }
     const handleNameChange = ({ target: { name, value } }) => {
@@ -57,7 +61,7 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
             </FormGroup>
             <FormGroup>
                 <Label for='modulecode'>Module Code</Label>
-                <Input type={uniqueModules[0] !== "No Modules" ?  'select' : 'text'} valid={code.length >= 5} invalid={name.length < 5 || code.includes("E.g.")} placeholder={code} value={code} name='modulecode' onChange={handleModuleChange}>
+                <Input type={uniqueModules[0] !== "No Modules" ?  'select' : 'text'} valid={true} invalid={code.length <= 2} placeholder={code} value={code} name='modulecode' onChange={handleModuleChange}>
                     {uniqueModules !== null && uniqueModules.map((item, idx) => {
                         return (
                             <option key={idx}>{item}</option>
