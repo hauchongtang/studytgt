@@ -4,12 +4,12 @@ import { Responsive } from "react-grid-layout";
 import styles from './Dashboard.module.css'
 import '/node_modules/react-grid-layout/css/styles.css'
 import '/node_modules/react-resizable/css/styles.css'
-import Widget from './Layout/Widget'
+import StatsWidget from './Layout/StatsWidget'
 import AllActivityWidget from './Layout/AllActivityWidget';
 import PersonalTaskWidget from './Layout/PersonalTaskWidget';
 import { getTasks, getAllUsers, getTasksById } from '../api/users';
 import useWindowDimensions from './hooks/useWindowDimensions';
-import { Spinner } from 'reactstrap';
+import { getUniqueModules } from '../data/parseImports'
 
 const Dashboard = () => {
     const [leaderboard, setLeaderBoard] = useState([])
@@ -48,7 +48,7 @@ const Dashboard = () => {
     useEffect(() => {
         getAll()
         getAllTasks()
-        getPersonalTasks()
+        getPersonalTasks() 
     }, [])
     return (
         <div className={styles.page}> 
@@ -57,7 +57,7 @@ const Dashboard = () => {
                 layouts={layout}
                 breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
                 cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-                rowHeight={60}
+                rowHeight={65}
                 margin={{ lg: [28, 28], md: [24, 24], sm: [20, 20], xs: [16, 16], xxs: [0, 0] }}
                 width={useWindowDimensions().width - 160}
             >
@@ -65,10 +65,10 @@ const Dashboard = () => {
                     <AllActivityWidget leaderboard={leaderboard} tasks={tasks}/>
                 </div>
                 <div key='c'>
-                    <Widget id="b" backgroundColor="white" />
+                    <StatsWidget id="b" backgroundColor="white" />
                 </div>
                 <div key="b">
-                    <PersonalTaskWidget personalTasks={personalTasks}/>
+                    <PersonalTaskWidget personalTasks={personalTasks} setPersonalTasks={setPersonalTasks} uniqueModules={getUniqueModules()}/>
                 </div>
 
             </Responsive>

@@ -113,7 +113,7 @@ export const increasePoints = async (refreshToken, toAdd, id) => {
             }
         )
 
-        return response.data
+        return response
     } catch (error) {
         console.log(error)
     }
@@ -224,5 +224,21 @@ export const getTasksById = async (refreshToken, id) => {
         return response.data
     } catch (error) {
         console.log(error) 
+    }
+}
+
+export const toggleTaskVisible = async (refreshToken, id) => {
+    try {
+        const response = await axios.put(`https://splatbackend.herokuapp.com/tasks/${id}`, null,
+        {
+            headers: {
+                "token": refreshToken
+            }
+        }
+        )
+
+        return response.data
+    } catch (error) {
+        console.log(error)
     }
 }

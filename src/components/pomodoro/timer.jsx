@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import { Input, Alert } from 'reactstrap'
+import { Input, Alert, Button } from 'reactstrap'
+import { Responsive } from "react-grid-layout";
+import { FiArrowLeft } from 'react-icons/fi'
 
-import { increasePoints } from "../../api/users";
+import useWindowDimensions from '../hooks/useWindowDimensions';
+import { increasePoints, toggleTaskVisible } from "../../api/users";
+import ToDoWidget from '../Layout/PomodoroToDoWidget'
+import styles from '../Layout/Widget.module.css'
+import { Link } from "react-router-dom";
 
 const Timer = () => {
+    const layout = {
+        lg: [
+            { i: 'a', x: 0, y: 0, w: 4, h: 11.4, static: true },
+            { i: 'b', x: 4, y: 0, w: 8, h: 11.4, static: true },
+        ],
+    };
     const timerObj = JSON.parse(localStorage.getItem("timerObj"))
-    const [time, setTime] = useState(Number(timerObj.duration*60))
+    const [time, setTime] = useState(Number(timerObj.duration * 60))
     const [playing, setPlaying] = useState(false)
     const [done, setDone] = useState(false)
 
@@ -20,64 +32,119 @@ const Timer = () => {
         // }
         // setComplete(false)
         // return remainingTime
-        const hours = Math.floor(remainingTime / 3600)
-        const minutes = Math.floor((remainingTime % 3600) / 60)
+        const minutes = Math.floor((remainingTime) / 60)
         const seconds = remainingTime % 60
 
-        if (hours <= 0 && minutes <= 0 && seconds <= 0) {
+        if (minutes <= 0 && seconds <= 0) {
             setPlaying(false)
             return "Time is up !"
         }
-        return `${hours} : ${minutes} :${seconds}`
+        return `${minutes} : ${seconds.toString().length === 1 ? '0' + seconds.toString() : seconds}`
     }
 
     const increasePointsById = async () => {
-        const result = await increasePoints(localStorage.getItem("user"), Number(time / 100), localStorage.getItem("_id"))
-        console.log(result)
+        const points = time < 100 ? 1 : Math.round(Number(time / 100))
+        const result = await increasePoints(localStorage.getItem("user"), points, localStorage.getItem("_id"))
+        return result
+    }
+
+    const toggleVisible = async () => {
+        const result = await toggleTaskVisible(localStorage.getItem("user"), timerObj.id)
         return result
     }
 
     return (
-        <>
-            <div className="timer" id="timer">
-                <CountdownCircleTimer
-                    isPlaying={playing}
-                    duration={time}
-                    colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-                    colorsTime={[time * 1, time * 0.75, time * 0.5, time * 0.1]}
-                    size={300}
-                    onComplete={() => {
-                        increasePointsById()
-                        setDone(true)
-                        setPlaying(false)
-                    }}
-                >
-                    {handleTimerContent}
-                </CountdownCircleTimer>
-
-            </div>
-            <Alert
-                color="info"
-                isOpen={done}
-                style={{
-                    textAlign: 'center', 
-                    marginLeft: "700px", 
-                    marginRight: '700px' ,
-                    borderRadius: '50px', 
-                    marginTop: '8px',
-                    color: 'white',
-                    backgroundColor: 'salmon',
-                }}
+        <div className={styles.page} style={{ marginLeft: '160px' }}>
+            <Responsive
+                className="layout"
+                layouts={layout}
+                breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+                cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+                rowHeight={useWindowDimensions().height / 22.7}
+                margin={{ lg: [28, 28], md: [24, 24], sm: [20, 20], xs: [16, 16], xxs: [0, 0] }}
+                width={useWindowDimensions().width - 160}
             >
-                {`You gained ${time/100} points ! Press reset to start again`}
-            </Alert>
-            <div style={{ marginLeft: '160px' }}>
-                <button id="start-stop" onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</button>
-                <div className="range-slider"> 
-                    <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
+                <div key="a" style={{ backgroundColor: 'white' }}>
+                    <div style={{ justifyContent: 'center', display: 'flex', flexDirection: 'column', }}>
+                        {!done && <Link to={'/'} style={{ color: 'black', padding: '20px 20px 20px 20px', backgroundColor: 'white', border: '0px', display: 'flex', flexDirection: 'row', justifyContent: 'left' }}>
+                            <FiArrowLeft size={36} />
+                        </Link>}
+                        <div>
+                            <Alert isOpen={done} style={{}}>
+                                <h4 className="alert-heading">
+                                    Well done!
+                                </h4>
+                                <p>
+                                    You have completed your task. Kudos to being more efficient !
+                                </p>
+                                <hr />
+                                <p className="mb-0">
+                                    To continue on doing more tasks, click the button below to return to dashboard
+                                </p>
+                                <div style={{ textAlign: 'center', marginTop: '16px' }}>
+                                    <Button style={{ backgroundColor: 'rgba(50,205,50, 0.3)' }}>
+                                        <Link to={'/'}
+                                            style={{
+                                                color: 'darkgreen', margin: '36px 72px 16px 72px',
+                                                padding: '16px 8px 16px 8px', fontSize: '24px', textDecoration: 'none', fontWeight: '600'
+                                            }}
+                                        >
+                                            Back to Dashboard
+                                        </Link>
+                                    </Button>
+                                </div>
+                            </Alert>
+                        </div>
+                        <div style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop: '82px', fontSize: '52px', fontWeight: 600 }}>
+                            {<CountdownCircleTimer
+                                isPlaying={playing}
+                                duration={time}
+                                colors={['#004777', '#F7B801', '#A30000', '#A30000']}
+                                colorsTime={[time * 1, time * 0.75, time * 0.5, time * 0.1]}
+                                size={300}
+                                onComplete={() => {
+                                    increasePointsById()
+                                    toggleVisible()
+                                    setDone(true)
+                                    setPlaying(false)
+                                }}
+                            >
+                                {handleTimerContent}
+                            </CountdownCircleTimer>}
+                        </div>
+                        {!done && <Button style={{ margin: '36px 56px 16px 56px', padding: '16px 8px 16px 8px', fontSize: '24px' }} onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</Button>}
+                    </div>
                 </div>
-            </div>
-        </>
+                <div key="b">
+                    <ToDoWidget id="b" backgroundColor='white' />
+                </div>
+
+            </Responsive>
+        </div>
+        // <div style={{ backgroundColor: 'white', height: '100vh' }}>
+
+        //     <Alert
+        //         color="info"
+        //         isOpen={done}
+        //         style={{
+        //             textAlign: 'center', 
+        //             marginLeft: "700px", 
+        //             marginRight: '700px' ,
+        //             borderRadius: '50px', 
+        //             marginTop: '8px',
+        //             color: 'white',
+        //             backgroundColor: 'salmon',
+        //         }}
+        //     >
+        //         {`You gained ${time/100} points ! Press reset to start again`}
+        //     </Alert>
+        //     <div style={{ marginLeft: '160px', textAlign: 'left' }}>
+        //         <button id="start-stop" onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</button>
+        //         <div className="range-slider"> 
+        //             <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
+        //         </div>
+        //     </div>
+        // </div>
     )
 }
 

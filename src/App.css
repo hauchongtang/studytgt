@@ -364,10 +364,9 @@ div.timetable#timetable {
 div.timer#timer {
   justify-content: center;
   display: flex;
-  margin-top: 9vh;
   font-size: 40px;
   margin-right: 0px;
-  margin-left: 160px;
+  margin-top: 30px;
 }
 
 button#start-stop {
@@ -427,4 +426,9 @@ div.card-body#pending:hover {
   cursor: pointer;
   transition: 0.5s;
   animation: ease-in-out;
+}
+
+.form-control:focus {
+  border-color: black !important;
+  box-shadow: 0 0 0 !important;
 }
