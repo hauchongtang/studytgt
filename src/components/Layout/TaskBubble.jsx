@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import styles from './TaskBubble.module.css'
 
-const TaskBubble = ({ title, subtitle, name, points, duration, date, hidden, onClick, onHover }) => {
+const TaskBubble = ({ id, title, subtitle, name, points, duration, date, hidden, onClick, onHover }) => {
     const fromString = moment(date).fromNow()
     const navigate = useNavigate()
 
@@ -15,7 +15,8 @@ const TaskBubble = ({ title, subtitle, name, points, duration, date, hidden, onC
             title,
             subtitle,
             name,
-            duration
+            duration,
+            id
         }
 
         localStorage.setItem("timerObj", JSON.stringify(task))

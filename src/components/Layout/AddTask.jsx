@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import { useEffect } from 'react';
+import { Form, FormGroup, Input, Label, Button, FormFeedback } from 'reactstrap';
 import { addTask } from '../../api/users';
 
-const AddTaskWidget = () => {
+const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
     const localUserData = {
         first_name: localStorage.getItem("first_name"),
         last_name: localStorage.getItem("last_name"),
@@ -10,10 +11,20 @@ const AddTaskWidget = () => {
         refreshToken: localStorage.getItem("user")
     }
     const [name, setName] = useState("E.g. Assignment / Tutorial / Project")
-    const [code, setCode] = useState("E.g. CS1231S")
+    const [code, setCode] = useState(uniqueModules[0] === null ?  'E.g. CS1231S' : uniqueModules[0])
     const [duration, setDuration] = useState(0)
 
     const addFutureTask = async () => {
+        const toAppend = {
+            taskName: name,
+            moduleCode: code,
+            duration: duration,
+            hidden: true,
+            first_name: localUserData.first_name,
+            last_name: localUserData.last_name,
+            created_at: new Date()
+        }
+        setPersonalTasks([toAppend, ...personalTasks])
         const result = await addTask(localUserData.first_name, localUserData.last_name, name, code, duration, true, localUserData.user_id, localUserData.refreshToken)
         return result
     }
@@ -41,17 +52,26 @@ const AddTaskWidget = () => {
         <Form onSubmit={handleSubmit}>
             <FormGroup>
                 <Label for="taskname">Task Name</Label>
-                <Input placeholder={name} value={name} name='taskname' onChange={handleNameChange}></Input>
+                <Input valid={name.length >= 3} invalid={name.length < 3 || name.includes("E.g.")} placeholder={name} value={name} name='taskname' onChange={handleNameChange}></Input>
+                <FormFeedback>Task name is mandatory.</FormFeedback>
             </FormGroup>
             <FormGroup>
                 <Label for='modulecode'>Module Code</Label>
-                <Input placeholder={code} value={code} name='modulecode' onChange={handleModuleChange}></Input>
+                <Input type={uniqueModules[0] !== "No Modules" ?  'select' : 'text'} valid={code.length >= 5} invalid={name.length < 5 || code.includes("E.g.")} placeholder={code} value={code} name='modulecode' onChange={handleModuleChange}>
+                    {uniqueModules !== null && uniqueModules.map((item, idx) => {
+                        return (
+                            <option key={idx}>{item}</option>
+                        )
+                    })}
+                </Input>    
+                <FormFeedback>You must input a module code.</FormFeedback>
             </FormGroup>
             <FormGroup>
                 <Label for='duration'>Duration (mins)</Label>
-                <Input placeholder={duration} value={duration} name='duration' onChange={handleDurationChange}></Input>
+                <Input valid={duration >= 15 } invalid={duration < 15} placeholder={duration} value={duration} name='duration' onChange={handleDurationChange}></Input>
+                <FormFeedback>Duration must be more than 15 mins !</FormFeedback>
             </FormGroup>
-            <Button type="submit">Submit</Button>
+            <div style={{ textAlign: 'right', }}><Button type="submit" style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }}>Add</Button></div>
         </Form>
         </>
     )

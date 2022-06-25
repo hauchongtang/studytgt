@@ -11,7 +11,8 @@ function Widget({ id, backgroundColor }) {
         }}
         className={styles.widget}
     >
-        {id}
+        <h3 className={styles.h3}>Stats</h3>
+        <hr/>
     </div>
   );
 }

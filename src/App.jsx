@@ -12,6 +12,7 @@ import Planner from './components/planner/planner'
 import Timer from './components/pomodoro/timer'
 import Dashboard from './components/Dashboard'
 import SideNav from './components/nav/navbarv2'
+import Login from './components/auth/login'
 
 
 const App = () => {
@@ -45,10 +46,10 @@ const App = () => {
     <>
 
       <BrowserRouter forceRefresh={false}>
-        <NavBar handleLogOut={handleLogOut} setLoggedOut={setLoggedOut} />
+        {user && !loggedOut && <NavBar handleLogOut={handleLogOut} setLoggedOut={setLoggedOut} />}
         <SideNav loggedIn={user && !loggedOut}/>
         <Routes>
-          <Route path='/' element={user && !loggedOut ? <Dashboard /> : <LandingPage setUser={setUser} />} />
+          <Route path='/' element={user && !loggedOut ? <Dashboard /> : <Login setUser={setUser} />} />
           <Route path='/signup' element={<SignUp setSignednUp={setSignedUp} />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/timer' element={<Timer />} />

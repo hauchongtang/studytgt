@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 import LeaderboardBubble from "./LeaderboardBubble";
 import TaskBubble from "./TaskBubble";
-import { getAllUsers, getTasks } from "../../api/users";
 
 import styles from './Widget.module.css'
 import { Spinner } from "reactstrap";
@@ -27,7 +26,7 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
                     <a className={`${styles.a} ${tabIndex === 1 ? styles.selected : ''}`} href="#leaderboard" onClick={() => setTabIndex(1)}>Leaderboard</a>
                 </div>
             </div>
-            <div className={styles.cardList}>
+            <div className={styles.cardList} style={{ overflowY: 'scroll', height: '90vh' }}>
                 {tabIndex === 0 && tasks.length !== 0 && tasks.map((item, idx) => {
                     return (
                         !item.hidden &&
@@ -38,7 +37,7 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
                                 subtitle={item.moduleCode} 
                                 name={item.first_name + " " + item.last_name} 
                                 duration={item.duration} 
-                                date={item.created_at} 
+                                date={item.updated_at} 
                             />
                         </div>
                     )
@@ -58,97 +57,3 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
 }
 
 export default AllActivityWidget
-
-const mockData = [
-    {
-        name: 'Hau Chong',
-        taskName: 'Assignment',
-        moduleCode: 'CS2100',
-        duration: '',
-        hidden: false
-    },
-    {
-        name: 'Hau Chong',
-        taskName: 'Tutorial',
-        moduleCode: 'CS2105',
-        duration: '',
-        hidden: true
-    },
-    {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-        {
-        name: 'Hau Chong',
-        taskName: 'Project',
-        moduleCode: 'CS2102',
-        duration: '',
-        hidden: false
-    },
-]

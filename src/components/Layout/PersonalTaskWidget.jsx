@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "reactstrap";
 
 import AddTaskWidget from "./AddTask";
 import TaskBubble from "./TaskBubble";
 import styles from './Widget.module.css'
 
-const PersonalTaskWidget = ({ personalTasks }) => {
+const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) => {
     const [tabIndex, setTabIndex] = useState(0)
     const startTimer = (event) => {
         event.preventDefault()
         console.log("Timer started", event.target)
     }
+
     return (
         <div 
             style={{ 
-                width: 'auto', height: '100%', backgroundColor: 'white',
+                width: 'auto', height: '100%', backgroundColor: 'white', overflowY: 'inherit'
             }}
             className={styles.widget}
         >
@@ -27,7 +28,7 @@ const PersonalTaskWidget = ({ personalTasks }) => {
                 </div>
             </div>
             <div className={styles.cardWrapper}>
-                <div className={styles.cardColumn} style={{ borderRight: '1px solid lightgrey' }}>
+                <div className={styles.cardColumn} style={{ borderRight: '1px solid lightgrey', overflowY: 'scroll', height: '42vh' }}>
                     {tabIndex === 1 && personalTasks.length !== 0 && personalTasks.map((item, idx) => {
                         return (
                         item.hidden === false && <div className={styles.cardContainer} key={idx+1*2} >
@@ -48,6 +49,7 @@ const PersonalTaskWidget = ({ personalTasks }) => {
                         return (
                         item.hidden === true && <div className={styles.cardContainer} key={idx+1*2} >
                             <TaskBubble 
+                                id={item.ID}
                                 title={item.taskName} 
                                 points={Number(item.duration) * 60 / 100} 
                                 subtitle={item.moduleCode} 
@@ -62,9 +64,9 @@ const PersonalTaskWidget = ({ personalTasks }) => {
                     })}
                     {tabIndex === 0 && personalTasks.length === 0 && <Spinner type="grow" color="danger" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop: '140px' }} />}
                 </div>
-                <div className={styles.cardColumn}>
+                <div className={styles.cardColumn} style={{ overflowY: 'scroll', height: '42vh' }}>
                     <h4 style={{ textAlign: 'center', fontWeight: '600', marginTop: '-44px' }}>Add a Task</h4>
-                    {<AddTaskWidget/>}
+                    {<AddTaskWidget setPersonalTasks={setPersonalTasks} personalTasks={personalTasks} uniqueModules={uniqueModules} />}
                 </div>
             </div>
         </div>

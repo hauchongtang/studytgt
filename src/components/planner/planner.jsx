@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Form, FormGroup, Label, Input, Spinner, Collapse } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Collapse, FormFeedback } from "reactstrap";
 import { setTimetableUrl } from "../../api/users";
 import { getDatesOfTargetDay } from "../../data/mockdata";
 
 import { parseUrl } from '../../data/parseImports'
 import Timetable from "./timetable";
 
-const Planner = () => {
+const Planner = ({}) => {
     const [urllink, setUrlLink] = useState("")
     const [open, setOpen] = useState(false)
     const [error, setError] = useState(false)
@@ -24,18 +24,20 @@ const Planner = () => {
         return result
     }
 
-    const handleOnSubmit = async (event) => {
+    const handleOnSubmit = (event) => {
         event.preventDefault()
-        localStorage.setItem("timetable", urllink)
         setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
         resolvePromise()
-        // window.location.reload()
+        setOpen(false)
     }
 
     const handleLinkChange = (event) => {
         if (!event.target.value.includes("://")) {
             setError(true)
-        } else setUrlLink(event.target.value)
+        } else {
+            setUrlLink(event.target.value)
+            localStorage.setItem("timetable", event.target.value)
+        }
     }
 
     const processString = (str) => {
@@ -105,27 +107,29 @@ const Planner = () => {
 
     },[])
 
+    const valid = urllink.includes('https://nusmods.com/timetable') && urllink.includes("share")
+
     return (
-        <div className="container">
-        <button id="open-imports" onClick={() => setOpen(!open)}>{!open ? 'Open to import modules' : 'Hide'}</button>
-        <Collapse isOpen={open}>
-            {<Form onSubmit={handleOnSubmit} className="import">
-                <h1 id="profilename">Import your timetable here</h1>
+        <div style={{ backgroundColor: 'white', padding: '4.2vh 64px 0px 4.5vh' }}>
+        <Button color="primary" style={{ marginLeft: '160px', marginBottom: '8px' }} onClick={() => setOpen(!open)}>{!open ? 'Open to import modules' : 'Hide'}</Button>
+        <Collapse isOpen={open} style={{ marginLeft: '160px',  }}>
+            <div >
+            {<Form onSubmit={handleOnSubmit} style={{display: 'flex'}}>
                 <FormGroup>
-                    <Label for="import-link">
-                        Import link from <a href="nusmods.com">NUSmods</a> If you had inserted some fake link, you might want to logout and reinsert.
-                    </Label>
                     <Input
-                        invalid={error}
                         onChange={handleLinkChange}
-                        placeholder={error && "Not a link !"}
+                        placeholder={'NUSmods import link'}
+                        valid={valid}
+                        invalid={!valid}
+                        style={{ height: '40px', width: '30vw' }}
                     />
-                </FormGroup>
-                {dataAll === null ? <button type="submit" id="submitbutton">Submit</button> :
-                    <button type='submit' id='loadingbutton'>Update</button>}
-            </Form>}
+                    <FormFeedback>Invalid Link</FormFeedback>
+                </FormGroup> 
+                <Button style={{ height: '40px' }} type="submit">Submit</Button>
+            </Form>} 
+            </div>
         </Collapse>
-            {dataAll !== null && <Timetable moduleData={dataAll} />}
+            {dataAll !== null && <Timetable moduleData={dataAll}/>}
         </div>
     )
 }

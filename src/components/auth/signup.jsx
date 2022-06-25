@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { postSignUp } from '../../api/users'
-import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody } from 'reactstrap'
+import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody, FormFeedback, Alert } from 'reactstrap'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 
+import styles from './Login.module.css'
+import validateEmail from '../hooks/validateEmail'
+
 // TODO: Pass the state down from login to signup
-const SignUp = () => {
+const SignUp = ({ setGoSignUp }) => {
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
     const [email, setEmail] = useState("")
@@ -12,6 +15,8 @@ const SignUp = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(false)
     const [errMsg, setErrMsg] = useState("")
+    const [toast, setToast] = useState(false)
+    const [success, setSuccess] = useState(false)
     const [signupresponse, setSignUpResponse] = useState(null)
 
     let navigate = useNavigate()
@@ -34,23 +39,21 @@ const SignUp = () => {
 
     const signUpRequest = async () => {
         const result = await postSignUp(firstname, lastname, email, password, setError)
-        if (password.length < 6) {
-            setError(true)
-            setErrMsg("Password too short! Min: 6")
-        } else if (!email.includes("@") || !email.includes(".")) {
-            setError(true)
-            setErrMsg("Not an email")
+        setSignUpResponse(result)
+        setError(false)
+        console.log(result)
+        if (!error && result !== null) {
+            console.log("go back to sign in")
+            setSuccess(true)
+            setTimeout(() => {
+                setGoSignUp(false)
+            }, 1100) 
         }
         else {
-            setSignUpResponse(result)
-            setError(false)
-            console.log(result)
-            if (!error && result !== null) {
-                console.log("go back to sign in")
-                return navigate("/")
-            }
-            return navigate("/")  
+            setGoSignUp(true)
+            setToast(true)
         }
+
     }
 
     const handleSignUp = (event) => {
@@ -59,71 +62,95 @@ const SignUp = () => {
         signUpRequest()
     }
 
+    const inputStyle = {
+
+        borderTop: '0px', borderLeft: '0px', borderRight: '0px', borderBottom: '1.2px solid #042235',
+        borderRadius: '0px', padding: '0px 1px 0px 1px', fontSize: '22px', fontWeight: '600', color: '#042235',
+        width: '75%', marginBottom: '5vh', outline: 'none', display: 'block', marginLeft: 'auto', marginRight: 'auto',
+    }
+
     return (
-        <div id='header'>
-            
-        <div id='signup-component' className='container' >
+        <div className={styles.cardColumn} style={{ marginTop: '-16vh' }}>
             <Form onSubmit={handleSignUp} id='signup'>
-                <Link to='/' style={{ fontSize: '18px', textDecoration: 'none', color: 'grey' }}>{'<-- Back'}</Link>
-                <h2 style={{ marginBottom: '16px', textAlign: 'center', fontWeight: '700', textDecoration: 'underline' }}>Sign Up</h2>
+                <h3
+                    style={{
+                        fontSize: '40px', fontWeight: '700', lineHeight: '43px',
+                        width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto',
+                        marginBottom: '42px'
+                    }}>
+                    Create Account
+                </h3>
+                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'danger'} isOpen={toast}>
+                    Failed to sign up, try again
+                </Alert>
+                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'success'} isOpen={success}>
+                    Success
+                </Alert>
                 <FormGroup>
-                    <Label for='first_name'>
-                        First Name
-                    </Label>
                     <Input
                         id='firstname-input-signup'
                         name='firstname'
-                        placeholder='Enter your First Name'
+                        placeholder='First Name'
                         type='text'
                         onChange={handleFirstNameChange}
+                        valid={firstname.length > 0}
+                        invalid={firstname.length <= 0}
+                        style={inputStyle}
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='last_name'>
-                        Last Name
-                    </Label>
                     <Input
                         id='lastname-input-signup'
                         name='lastname'
-                        placeholder='Enter your Last Name'
+                        placeholder='Last Name'
                         type='text'
                         onChange={handleLastNameChange}
+                        valid={lastname.length > 0}
+                        invalid={lastname.length <= 0}
+                        style={inputStyle}
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Label for='email'>
-                        Email
-                    </Label>
                     <Input
                         id='email-input-signup'
                         name='email'
-                        placeholder='Enter your email address'
+                        placeholder='Email address'
                         type='text'
                         onChange={handleEmailChange}
-                        invalid={error}
+                        value={email}
+                        invalid={!validateEmail(email)}
+                        valid={validateEmail(email)}
+                        style={inputStyle}
                     />
                 </FormGroup>
-                <FormGroup>
-                    <Label for='password'>
-                        Password
-                    </Label>
+                <FormGroup id='signup'>
                     <Input
                         id='password-input-signup'
                         name='password'
-                        placeholder='Enter your Password (Min 6 characters)'
-                        type='text'
+                        placeholder={'Password'}
+                        type='password'
+                        value={password}
                         onChange={handlePasswordChange}
-                        invalid={error}
+                        valid={password.length >= 6}
+                        invalid={password.length < 6}
+                        style={inputStyle}
                     />
                 </FormGroup>
-                {loading && !error ? <button type='button' id='loadingbutton'>Loading  <Spinner className='loginloadingspinner'></Spinner></button> :
-                    <button type='submit' id='submitbutton' onMouseOver={() => {
+                {loading && !error && !toast ? <Button type='submit' className={styles.button}>Loading  <Spinner className='loginloadingspinner'></Spinner></Button> :
+                    <Button type='submit' className={styles.button} onMouseOver={() => {
                         if (error) setErrMsg("Submit")
                     }}>
                         {error ? errMsg : "Submit"}
-                    </button>}
+                    </Button>}
+                <div className={styles.signup}>
+                    <p style={{ marginBottom: '0px' }} className={styles.h6}>Have an account ? &nbsp;
+                        <a onClick={() => setGoSignUp(false)} style={{ fontSize: '18px', fontWeight: '400', textDecoration: 'none', padding: '0px', color: 'red', cursor: 'pointer' }}>
+                            Login
+                        </a>
+                    </p>
+                </div>
             </Form>
-        </div></div>
+        </div>
     )
 }
 

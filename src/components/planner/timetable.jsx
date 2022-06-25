@@ -9,30 +9,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { getUniqueModules } from "../../data/parseImports";
 
-const Timetable = ({moduleData}) => {
+const Timetable = ({moduleData, setSubmit}) => {
     const [activeTab, setActiveTab] = useState("1")
-    // const [from, setFrom] = useState(8)
-    // const [to, setTo] = useState(8)
-    // const [title, setTitle] = useState("")
-    // const [date, setDate] = useState(null)
-    // const [data, setData] = useState(moduleData)
-
-    // const handleTitleChange = (event) => {
-    //     event.preventDefault()
-    //     setTitle(event.target.value)
-    // }
-    // const handleFromChange = (event) => {
-    //     event.preventDefault()
-    //     setFrom(event.target.value)
-    // }
-    // const handleToChange = (event) => {
-    //     event.preventDefault()
-    //     setTo(event.target.value)
-    // }
-    // // const handleDateChange = ({ target: { name, value } }) => {
-    // //     console.log(value)
-    // //     setDate(value)
-    // // }
 
     const { components } = useMemo(
         () => ({
@@ -97,20 +75,6 @@ const Timetable = ({moduleData}) => {
         []
     )
 
-    // console.log(moduleData)
-
-    // const handleSubmit = (response) => {
-    //     if (date !== null)
-    //     setData([...moduleData, {
-    //         id: data.length,
-    //         title: title,
-    //         allDay: false,
-    //         start: new Date(date.getFullYear(), date.getMonth(), date.getDate(), from),
-    //         end: new Date(date.getFullYear(), date.getMonth(), date.getDate(), to),
-    //     }])
-    //     // console.log(data)
-    // }
-
     const colorMapper = (idx) => {
         switch (idx) {
             case 1:
@@ -138,7 +102,7 @@ const Timetable = ({moduleData}) => {
     },[activeTab])
 
     return (
-        <div className="timetable" id="timetable">
+        <div style={{ backgroundColor: 'white', display: 'block', marginLeft: '160px', marginRight: 'auto' }}>
                     <Calendar
                         localizer={momentLocalizer(moment)}
                         events={moduleData}
@@ -149,10 +113,10 @@ const Timetable = ({moduleData}) => {
                         formats={formats}
                         eventPropGetter={eventPropGetter}
                         onSelectEvent={() => console.log('hello')}
-                        style={{ height: '70vh' }}
+                        style={{ height: '65vh' }}
                     />
                     <div className="container"><h2 style={{ fontSize: '22px', marginTop: '12px', textDecoration: 'underline' }}><strong>Modules Imported</strong></h2></div>
-                    <div className="flex-container" style={{ display: 'flex' }}>
+                    <div className="container" style={{ display: 'flex' }}>
                         {getUniqueModules().length > 0 && getUniqueModules().map((item, idx) => {
                             return (
                                 <div style={{ width: '130px', marginRight: '16px', marginLeft: '16px', marginTop: '16px' }} key={idx}>
@@ -167,76 +131,8 @@ const Timetable = ({moduleData}) => {
                             )
                         })}
                     </div>
-                        {/* <Form onSubmit={handleSubmit}>
-                            <FormGroup>
-                                <Label for='title'>
-                                    Title
-                                </Label>
-                                <InputName handleTitleChange={handleTitleChange} title={title} />
-                                <Label for='title'>
-                                    Duration
-                                </Label>
-                                <Input
-                                    id='duration'
-                                    name='duration'
-                                    type='select'
-                                    value={from}
-                                    onChange={handleFromChange}
-                                >
-                                    {
-                                        [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].map((item, idx) => {
-                                            return (
-                                                <option key={idx}>{item}</option>
-                                            )
-                                        })
-                                    }
-                                </Input>
-                                <Input
-                                    id="to"
-                                    name="to"
-                                    type='select'
-                                    value={to}
-                                    onChange={handleToChange}
-                                >
-                                    {
-                                        [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].map((item, idx) => {
-                                            return (
-                                                <option key={idx}>{item}</option>
-                                            )
-                                        })
-                                    }
-                                </Input>
-                                <Label for="exampleDate">
-                                    Date
-                                </Label>
-                                <Input
-                                    id="exampleDate"
-                                    name="date"
-                                    value={date}
-                                    type="date"
-                                    onChange={(event) => {
-                                        event.preventDefault()
-                                        setDate(event.target.valueAsDate)
-                                    }}
-                                />
-                            </FormGroup>
-                            <div className="container" style={{textAlign: 'center'}}><button type='submit' id='loginbutton'>Submit</button></div>
-                        </Form> */}
         </div>
     )
 }
-
-// const InputName = ({ handleTitleChange, title }) => {
-//     return (
-//         <Input
-//             id='title'
-//             name='title'
-//             type='text'
-//             onChange={handleTitleChange}
-//             value={title}
-//             autoFocus
-//         />
-//     )
-// }
 
 export default Timetable
