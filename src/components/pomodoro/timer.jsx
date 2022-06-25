@@ -82,7 +82,11 @@ const Timer = () => {
                                     To continue on doing more tasks, click the button below to return to dashboard
                                 </p>
                                 <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                                    <Button style={{ backgroundColor: 'rgba(50,205,50, 0.3)' }}>
+                                    <Button style={{ backgroundColor: 'rgba(50,205,50, 0.3)' }}
+                                        onClick={() => {
+                                            toggleVisible()
+                                        }}
+                                    >
                                         <Link to={'/'}
                                             style={{
                                                 color: 'darkgreen', margin: '36px 72px 16px 72px',
@@ -103,8 +107,8 @@ const Timer = () => {
                                 colorsTime={[time * 1, time * 0.75, time * 0.5, time * 0.1]}
                                 size={300}
                                 onComplete={() => {
-                                    increasePointsById()
                                     toggleVisible()
+                                    increasePointsById() 
                                     setDone(true)
                                     setPlaying(false)
                                 }}
@@ -118,33 +122,8 @@ const Timer = () => {
                 <div key="b">
                     <ToDoWidget id="b" backgroundColor='white' />
                 </div>
-
             </Responsive>
         </div>
-        // <div style={{ backgroundColor: 'white', height: '100vh' }}>
-
-        //     <Alert
-        //         color="info"
-        //         isOpen={done}
-        //         style={{
-        //             textAlign: 'center', 
-        //             marginLeft: "700px", 
-        //             marginRight: '700px' ,
-        //             borderRadius: '50px', 
-        //             marginTop: '8px',
-        //             color: 'white',
-        //             backgroundColor: 'salmon',
-        //         }}
-        //     >
-        //         {`You gained ${time/100} points ! Press reset to start again`}
-        //     </Alert>
-        //     <div style={{ marginLeft: '160px', textAlign: 'left' }}>
-        //         <button id="start-stop" onClick={() => setPlaying(true)}>{done && !playing ? "-" : !playing ? "Start" : "Focus !"}</button>
-        //         <div className="range-slider"> 
-        //             <h1>{"Timer set to " + time / 60 + " minutes"}</h1>
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 

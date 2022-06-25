@@ -188,7 +188,7 @@ export const addTask = async (firstname, lastname, taskName, moduleCode, duratio
                 }
             }
         )
-
+        // console.log(response.data)
         return response.data
     } catch (error) {
         console.log(error)
@@ -237,7 +237,7 @@ export const toggleTaskVisible = async (refreshToken, id) => {
         }
         )
 
-        return response.data
+        return response
     } catch (error) {
         console.log(error)
     }

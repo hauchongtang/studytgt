@@ -13,6 +13,7 @@ import Timer from './components/pomodoro/timer'
 import Dashboard from './components/Dashboard'
 import SideNav from './components/nav/navbarv2'
 import Login from './components/auth/login'
+import { parseUrl } from './data/parseImports'
 
 
 const App = () => {
@@ -29,16 +30,17 @@ const App = () => {
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user")
+    const timetableUrl = localStorage.getItem("timetable")
 
     const authSession = async () => {
       const result = await authLoginSession(loggedInUser)
       setAuthResult(result)
-      console.log(result)
     }
 
     if (loggedInUser !== null && authResult !== "") {
       authSession()
       setUser(loggedInUser)
+      parseUrl(timetableUrl)
     }
   }, [])
 

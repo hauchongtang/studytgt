@@ -16,11 +16,11 @@ const TaskBubble = ({ id, title, subtitle, name, points, duration, date, hidden,
             subtitle,
             name,
             duration,
-            id
+            id: id !== undefined ? id : localStorage.getItem("addedTaskID")
         }
 
         localStorage.setItem("timerObj", JSON.stringify(task))
-        navigate("/timer", {replace: true})
+        navigate("/timer", {replace: false})
     }
     return (
         <>
