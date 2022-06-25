@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Spinner } from "reactstrap";
 
 import AddTaskWidget from "./AddTask";
@@ -7,10 +7,14 @@ import styles from './Widget.module.css'
 
 const PersonalTaskWidget = ({ personalTasks }) => {
     const [tabIndex, setTabIndex] = useState(0)
+    const [tasks, setTasks] = useState([])
     const startTimer = (event) => {
         event.preventDefault()
         console.log("Timer started", event.target)
     }
+
+    useEffect(() => setTasks(personalTasks),[])
+
     return (
         <div 
             style={{ 
@@ -28,7 +32,7 @@ const PersonalTaskWidget = ({ personalTasks }) => {
             </div>
             <div className={styles.cardWrapper}>
                 <div className={styles.cardColumn} style={{ borderRight: '1px solid lightgrey' }}>
-                    {tabIndex === 1 && personalTasks.length !== 0 && personalTasks.map((item, idx) => {
+                    {tabIndex === 1 && tasks.length !== 0 && tasks.map((item, idx) => {
                         return (
                         item.hidden === false && <div className={styles.cardContainer} key={idx+1*2} >
                             <TaskBubble 
@@ -44,7 +48,7 @@ const PersonalTaskWidget = ({ personalTasks }) => {
                         </div>
                     )
                     })}
-                    {tabIndex === 0 && personalTasks.length !== 0 && personalTasks.map((item, idx) => {
+                    {tabIndex === 0 && tasks.length !== 0 && tasks.map((item, idx) => {
                         return (
                         item.hidden === true && <div className={styles.cardContainer} key={idx+1*2} >
                             <TaskBubble 
@@ -64,7 +68,7 @@ const PersonalTaskWidget = ({ personalTasks }) => {
                 </div>
                 <div className={styles.cardColumn}>
                     <h4 style={{ textAlign: 'center', fontWeight: '600', marginTop: '-44px' }}>Add a Task</h4>
-                    {<AddTaskWidget/>}
+                    {<AddTaskWidget setTasks={setTasks} tasks={tasks} />}
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import { addTask } from '../../api/users';
 
-const AddTaskWidget = () => {
+const AddTaskWidget = ({ setTasks, tasks }) => {
     const localUserData = {
         first_name: localStorage.getItem("first_name"),
         last_name: localStorage.getItem("last_name"),
@@ -14,6 +14,16 @@ const AddTaskWidget = () => {
     const [duration, setDuration] = useState(0)
 
     const addFutureTask = async () => {
+        const toAppend = {
+            taskName: name,
+            moduleCode: code,
+            duration: duration,
+            hidden: true,
+            first_name: localUserData.first_name,
+            last_name: localUserData.last_name,
+            created_at: new Date()
+        }
+        setTasks([toAppend, ...tasks])
         const result = await addTask(localUserData.first_name, localUserData.last_name, name, code, duration, true, localUserData.user_id, localUserData.refreshToken)
         return result
     }
