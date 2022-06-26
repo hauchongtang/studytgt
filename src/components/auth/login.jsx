@@ -8,11 +8,12 @@ import SignUp from './signup';
 import { parseUrl } from '../../data/parseImports';
 
 const Login = ({ setLoggedIn, setUser }) => {
-    const timetableUrl = localStorage.getItem("timetable")
+    // const timetableUrl = localStorage.getItem("timetable")
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [timetable, setTimetable] = useState("")
     const [goSignUp, setGoSignUp] = useState(false)
     const [submit, setSubmit] = useState(false)
 
@@ -29,8 +30,10 @@ const Login = ({ setLoggedIn, setUser }) => {
             localStorage.setItem("last_name", fetchedData.last_name)
             localStorage.setItem("email", fetchedData.email)
             localStorage.setItem("points", fetchedData.points)
-            // localStorage.setItem("timetable", fetchedData.timetable)
+            localStorage.setItem("timetable", fetchedData.timetable)
+            setTimetable(fetchedData.timetable)
             // console.log(fetchedData)
+            console.log("Login Success")
         } catch {
             console.log("Wrong credentials")
             setError(true)
@@ -45,7 +48,7 @@ const Login = ({ setLoggedIn, setUser }) => {
         setSubmit(true)
         
         postLogin()
-        parseUrl(timetableUrl)
+        parseUrl(timetable === "" ? "https://nusmods.com/timetable/sem-1/share?CS2101=&CS2102=LEC:1V,TUT:04" : timetable)
         // localStorage.setItem('user', JSON.stringify(result)) 
         // return result
     }
@@ -93,8 +96,9 @@ const Login = ({ setLoggedIn, setUser }) => {
                                 type='email'
                                 onChange={handleEmailChange}
                                 onClick={() => setErrorTxt("Log in")}
-                                invalid={error}
+                                invalid={error ? true : undefined}
                                 style={inputStyle}
+                                data-testid='email-input'
                             />
                         </FormGroup>
                         <FormGroup>
@@ -105,13 +109,14 @@ const Login = ({ setLoggedIn, setUser }) => {
                                 type='password'
                                 onChange={handlePasswordChange}
                                 onClick={() => setErrorTxt("Log in")}
-                                invalid={error}
+                                invalid={error ? true : undefined}
                                 style={inputStyle}
+                                data-testid='password-input'
                             />
                         </FormGroup>
 
                         {loading && !error ? <Button type='submit' className={styles.button}>Loading  <Spinner className='loginloadingspinner'></Spinner></Button> :
-                            <Button type='submit' className={styles.button}>
+                            <Button data-testid='loginsubmit' type='submit' className={styles.button}>
                                 {error ? errorTxt : "Log in"}
                             </Button>}
                         {/* <Button><NavLink to="/signup">Sign Up</NavLink></Button> */}

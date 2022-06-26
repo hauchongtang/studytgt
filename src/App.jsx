@@ -27,7 +27,6 @@ const App = () => {
     // localStorage.clear()
     // window.location.reload()
   }
-
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user")
     const timetableUrl = localStorage.getItem("timetable")
@@ -35,12 +34,14 @@ const App = () => {
     const authSession = async () => {
       const result = await authLoginSession(loggedInUser)
       setAuthResult(result)
+      
     }
 
     if (loggedInUser !== null && authResult !== "") {
       authSession()
       setUser(loggedInUser)
-      parseUrl(timetableUrl)
+      const parseURL = async () => await parseUrl(timetableUrl)
+      parseURL()
     }
   }, [])
 
