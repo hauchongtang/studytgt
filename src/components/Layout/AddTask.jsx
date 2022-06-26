@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import { Form, FormGroup, Input, Label, Button, FormFeedback } from 'reactstrap';
+import { Form, FormGroup, Input, Label, Button, FormFeedback, Spinner } from 'reactstrap';
 import { addTask, getTasks } from '../../api/users';
 
 const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
@@ -13,6 +13,7 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
     const [name, setName] = useState("E.g. Assignment / Tutorial / Project")
     const [code, setCode] = useState(uniqueModules[0] === null ?  'E.g. CS1231S' : uniqueModules[0])
     const [duration, setDuration] = useState(0)
+    const [loading, setLoading] = useState(false)
 
     const addFutureTask = async () => {
         const toAppend = {
@@ -24,12 +25,16 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
             last_name: localUserData.last_name,
             created_at: new Date()
         }
-        setPersonalTasks([toAppend, ...personalTasks])
-        const result = await addTask(localUserData.first_name, localUserData.last_name, name, code, duration, true, localUserData.user_id, localUserData.refreshToken)
+        
+        const result = await addTask(localUserData.first_name, localUserData.last_name, name, code, duration, true, localUserData.user_id, localUserData.refreshToken) 
         setTimeout(() => {
-            localStorage.setItem("addedTaskID", result.InsertedID)
+            if (result.InsertedID !== undefined)
+                localStorage.setItem("addedTaskID", result.InsertedID)
+            else localStorage.setItem("addedTaskItem", "Failed to get ID")
         }
-        , 1000)
+        , 250)
+        setPersonalTasks([toAppend, ...personalTasks])
+        setLoading(false)
         return result
     }
     const handleNameChange = ({ target: { name, value } }) => {
@@ -46,9 +51,10 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
         setDuration(event.target.value)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        addFutureTask()
+        setLoading(true)
+        await addFutureTask()
     }
     return (
         <>
@@ -75,7 +81,11 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
                 <Input valid={duration >= 15 } invalid={duration < 15} placeholder={duration} value={duration} name='duration' onChange={handleDurationChange}></Input>
                 <FormFeedback>Duration must be more than 15 mins !</FormFeedback>
             </FormGroup>
-            <div style={{ textAlign: 'right', }}><Button type="submit" style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }}>Add</Button></div>
+            <div style={{ textAlign: 'right', }}>
+                <Button type="submit" style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }}>
+                    {!loading ? 'Add' : 'Loading'}
+                    {loading && <>&nbsp;&nbsp;<Spinner style={{ height: '18px', width: '18px' }}/></>}
+                </Button></div>
         </Form>
         </>
     )
