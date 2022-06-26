@@ -9,7 +9,7 @@ import AllActivityWidget from './Layout/AllActivityWidget';
 import PersonalTaskWidget from './Layout/PersonalTaskWidget';
 import { getTasks, getAllUsers, getTasksById } from '../api/users';
 import useWindowDimensions from './hooks/useWindowDimensions';
-import { getUniqueModules } from '../data/parseImports'
+import { getUniqueModules, parseUrl } from '../data/parseImports'
 
 const Dashboard = () => {
     const [leaderboard, setLeaderBoard] = useState([])
@@ -48,7 +48,8 @@ const Dashboard = () => {
     useEffect(() => {
         getAll()
         getAllTasks()
-        getPersonalTasks() 
+        getPersonalTasks()
+        parseUrl(localStorage.getItem("timetable")) 
     }, [])
     return (
         <div className={styles.page}> 

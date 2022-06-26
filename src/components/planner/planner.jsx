@@ -24,10 +24,10 @@ const Planner = ({}) => {
         return result
     }
 
-    const handleOnSubmit = (event) => {
+    const handleOnSubmit = async (event) => {
         event.preventDefault()
-        setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
-        resolvePromise()
+        await setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
+        await resolvePromise()
         setOpen(false)
     }
 
