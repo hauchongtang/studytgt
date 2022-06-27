@@ -12,7 +12,7 @@ jobs:
       - name: Install Yarn
         run: npm install yarn@latest -g
       - name: Install dependencies
-        run: yarn add
+        run: yarn
       - name: Build the module
         run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
