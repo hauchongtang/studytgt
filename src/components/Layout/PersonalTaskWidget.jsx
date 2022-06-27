@@ -11,6 +11,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
         event.preventDefault()
         console.log("Timer started", event.target)
     }
+    personalTasks.sort((a,b) => Date.parse(b) - Date.parse(a));
 
     return (
         <div 
@@ -38,7 +39,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                                 subtitle={item.moduleCode} 
                                 name={item.first_name + " " + item.last_name} 
                                 duration={item.duration} 
-                                date={item.created_at} 
+                                date={item.updated_at} 
                                 hidden={item.hidden}
                             />
                             
@@ -55,7 +56,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                                 subtitle={item.moduleCode} 
                                 name={item.first_name + " " + item.last_name} 
                                 duration={item.duration} 
-                                date={item.created_at} 
+                                date={item.updated_at} 
                                 hidden={item.hidden}
                                 onClick={startTimer}
                             /> 
