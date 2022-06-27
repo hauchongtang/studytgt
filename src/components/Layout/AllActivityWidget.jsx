@@ -9,7 +9,7 @@ import { Spinner } from "reactstrap";
 
 const AllActivityWidget = ({ leaderboard, tasks }) => {
     const [tabIndex, setTabIndex] = useState(0)
-
+    tasks.sort((a,b) => Date.parse(b.updated_at) - Date.parse(a.updated_at))
     return (
         <div
             style={{
@@ -26,7 +26,7 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
                     <a className={`${styles.a} ${tabIndex === 1 ? styles.selected : ''}`} href="#leaderboard" onClick={() => setTabIndex(1)}>Leaderboard</a>
                 </div>
             </div>
-            <div className={styles.cardList} style={{ overflowY: 'scroll', height: '90vh' }}>
+            <div className={styles.cardList} style={{ overflowY: 'scroll', height: '800px' }}>
                 {tabIndex === 0 && tasks.length !== 0 && tasks.map((item, idx) => {
                     return (
                         !item.hidden &&
