@@ -1,8 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Button, Card, CardBody, CardTitle } from "reactstrap";
-
-import styles from './Widget.module.css'
+import { Card, CardBody } from "reactstrap";
 
 const ToDoComponent = ({ name, title }) => {
     const [done, setDone] = useState(false)
