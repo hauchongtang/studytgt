@@ -9,8 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm i -y
-      - run: npm run build
+      - name: Install Yarn
+      - run: npm install yarn@latest -g
+      - name: Install dependencies
+      - run: yarn add
+      - name: Build the module
+      - run: yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
