@@ -26,7 +26,7 @@ const AllActivityWidget = ({ leaderboard, tasks }) => {
                     <a className={`${styles.a} ${tabIndex === 1 ? styles.selected : ''}`} href="#leaderboard" onClick={() => setTabIndex(1)}>Leaderboard</a>
                 </div>
             </div>
-            <div className={styles.cardList} style={{ overflowY: 'scroll', height: '800px' }}>
+            <div className={styles.cardList}>
                 {tabIndex === 0 && tasks.length !== 0 && tasks.map((item, idx) => {
                     return (
                         !item.hidden &&
