@@ -27,7 +27,7 @@ const TaskBubble = ({ id, title, subtitle, name, points, duration, date, hidden,
             <Card  style={{ backgroundColor: hidden ? 'rgba(255, 165, 0, 0.3)' : 'rgba(50,205,50, 0.1)' }} onClick={onClick ? handleOnClick : () => {}} onMouseOver={onHover}>
                 <CardBody id={hidden ? 'pending' : ''}>
                     <CardTitle tag='div' style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <h6 style={{ fontWeight: '600' }}>{title}</h6>
+                        <h6 style={{ fontWeight: '600', wordBreak: 'break-word' }}>{title}</h6>
                         <h6>{name}</h6>
                     </CardTitle>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'start' }}>
