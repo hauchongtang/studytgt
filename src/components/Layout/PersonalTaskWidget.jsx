@@ -29,7 +29,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                 </div>
             </div>
             <div className={styles.cardWrapper}>
-                <div className={styles.cardColumn} style={{ borderRight: '1px solid lightgrey', overflowY: 'scroll', height: '360px' }}>
+                <div className={styles.cardColumn}>
                     {tabIndex === 1 && personalTasks.length !== 0 && personalTasks.map((item, idx) => {
                         return (
                         item.hidden === false && <div className={styles.cardContainer} key={idx+1*2} >
@@ -65,7 +65,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                     })}
                     {tabIndex === 0 && personalTasks.length === 0 && <Spinner type="grow" color="danger" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop: '140px' }} />}
                 </div>
-                <div className={styles.cardColumn} style={{ overflowY: 'scroll', height: '360px' }}>
+                <div className={styles.cardColumn}>
                     <h4 style={{ textAlign: 'center', fontWeight: '600', marginTop: '-44px' }}>Add a Task</h4>
                     {<AddTaskWidget setPersonalTasks={setPersonalTasks} personalTasks={personalTasks} uniqueModules={uniqueModules} />}
                 </div>
