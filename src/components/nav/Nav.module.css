@@ -76,7 +76,7 @@
 
 .navbartop {
     margin-left: 160px;
-    width: calc(100vw - 160px);
+    /* width: calc(100vw - 160px); */
     background-color: white;
     position: relative;
     display: flex;
