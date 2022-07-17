@@ -16,7 +16,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
     return (
         <div 
             style={{ 
-                width: 'auto', height: '100%', backgroundColor: 'white', overflowY: 'inherit'
+                width: 'auto', height: '100%', backgroundColor: 'white', overflowY: 'scroll'
             }}
             className={styles.widget}
         >

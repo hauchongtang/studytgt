@@ -242,3 +242,50 @@ export const toggleTaskVisible = async (refreshToken, id) => {
         console.log(error)
     }
 }
+
+export const getMostPopularModulesById = async (refreshToken, id) => {
+    try {
+        const response = await axios.get(`https://splatbackend.herokuapp.com/tasks/${id}`,
+        {
+            headers: {
+                "token": refreshToken
+            }
+        }
+        )
+        const moduleCountMap = new Map();
+        response.data.forEach(item => {
+            if (moduleCountMap.get(item.moduleCode) === undefined)
+                moduleCountMap.set(item.moduleCode, 1)
+            else {
+                moduleCountMap.set(item.moduleCode, moduleCountMap.get(item.moduleCode)+1)
+            }
+        })
+        var array = []
+        array = Array.from(moduleCountMap, ([moduleCode, count]) => ({ moduleCode, count }));
+        console.log(response)
+
+        return array;
+    } catch (error) {
+       console.log(error); 
+    }
+}
+
+export const getMostPopularModules = async (refreshToken) => {
+    try {
+        const response = await axios.get(`https://splatbackend.herokuapp.com/stats/mostpopular`,
+        {
+            headers: {
+                "token": refreshToken
+            }
+        }
+        )
+        response.data.sort((a,b) => b.count - a.count)
+        var result = []
+        response.data.forEach(element => {
+            result.push({module_code: element._id.module_code, count: element.count})
+        });
+        return result;
+    } catch (error) {
+       console.log(error); 
+    }
+}
