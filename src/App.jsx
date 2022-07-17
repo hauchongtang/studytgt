@@ -34,14 +34,22 @@ const App = () => {
     const authSession = async () => {
       const result = await authLoginSession(loggedInUser)
       setAuthResult(result)
-      
+      if (result === undefined) {
+        setLoggedOut(true)
+        localStorage.clear()
+    }
     }
 
     if (loggedInUser !== null && authResult !== "") {
-      authSession()
-      setUser(loggedInUser)
-      const parseURL = async () => await parseUrl(timetableUrl)
-      parseURL()
+      try {
+        authSession()
+        setUser(loggedInUser)
+        const parseURL = async () => await parseUrl(timetableUrl)
+        parseURL()
+      } catch (error) {
+        console.log(error, "caught")
+        setLoggedOut(true)
+      }
     }
   }, [])
 
