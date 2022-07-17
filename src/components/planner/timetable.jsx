@@ -8,6 +8,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { getUniqueModules } from "../../data/parseImports";
+import CalendarLayout from "./CalendarLayout";
 
 const Timetable = ({moduleData, setSubmit}) => {
     const [activeTab, setActiveTab] = useState("1")
@@ -102,35 +103,8 @@ const Timetable = ({moduleData, setSubmit}) => {
     },[activeTab])
 
     return (
-        <div style={{ backgroundColor: 'white', display: 'block', marginLeft: '160px', marginRight: 'auto' }}>
-                    <Calendar
-                        localizer={momentLocalizer(moment)}
-                        events={moduleData}
-                        defaultView={Views.WEEK}
-                        min={new Date(2022, 5, 1, 8)}
-                        max={new Date(2022, 5, 1, 23)}
-                        components={components}
-                        formats={formats}
-                        eventPropGetter={eventPropGetter}
-                        onSelectEvent={() => console.log('hello')}
-                        style={{ height: '65vh' }}
-                    />
-                    <div className="container"><h2 style={{ fontSize: '22px', marginTop: '12px', textDecoration: 'underline' }}><strong>Modules Imported</strong></h2></div>
-                    <div className="container" style={{ display: 'flex' }}>
-                        {getUniqueModules().length > 0 && getUniqueModules().map((item, idx) => {
-                            return (
-                                <div style={{ width: '130px', marginRight: '16px', marginLeft: '16px', marginTop: '16px' }} key={idx}>
-                                    <div style={{ display: 'flex' }}>
-                                        <div className='container'><h3 style={{ fontSize: '20px' }}><strong>{item}</strong></h3>
-                                            <h6>4 MCs</h6>
-                                        </div>
-                                        <button id="color" style={{ backgroundColor: colorMapper(idx) }}></button>
-                                    </div>
-
-                                </div>
-                            )
-                        })}
-                    </div>
+        <div style={{ backgroundColor: 'white', marginLeft: '160px', marginRight: 'auto' }}>
+                    <CalendarLayout moduleData={moduleData} uniqueModules={getUniqueModules()}/>
         </div>
     )
 }

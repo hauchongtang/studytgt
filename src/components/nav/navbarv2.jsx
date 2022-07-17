@@ -19,7 +19,7 @@ const SideNav = ({ loggedIn }) => {
                 {loggedIn && <Link className={currentRoute === '/about' ? styles.selected : ''} id='navelems' to="/about">About</Link>}
                 <a className={''} href='https://github.com/hauchongtang/studytgt' id='navelems' 
                     style={{ textAlign: 'center', marginRight: '16px', marginTop: loggedIn ? '43.8vh' : '77vh'}}>
-                    <GrGithub size={54} alignmentBaseline='middle'/>
+                    <GrGithub size={'6vh'} alignmentBaseline='middle'/>
                 </a>
             </div>
         </>
