@@ -21,7 +21,7 @@ const NavBar = ({handleLogOut}) => {
             <div className={styles.user}>
                 {signedIn && <h6 className={styles.h6}>{name !== "" ? `Hello, ${name}` : 'Hello, User'}</h6>}
                 {signedIn && <button className={styles.logout} onClick={() => {
-                        navigate("/")
+                        // navigate("/")
                         handleLogOut()
                         var timetable = localStorage.getItem("timetable")
                         localStorage.clear()

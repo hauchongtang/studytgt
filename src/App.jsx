@@ -5,7 +5,6 @@ import { Route, BrowserRouter, Routes, Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import LandingPage from './components/LandingPage'
 import SignUp from './components/auth/signup'
-import Profile from './components/profilepage'
 import { createBrowserHistory } from 'history'
 import { authLoginSession } from './api/users'
 import Planner from './components/planner/planner'
@@ -14,6 +13,7 @@ import Dashboard from './components/Dashboard'
 import SideNav from './components/nav/navbarv2'
 import Login from './components/auth/login'
 import { parseUrl } from './data/parseImports'
+import ProfilePage from './components/Profile/profilepage'
 
 
 const App = () => {
@@ -54,7 +54,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={user && !loggedOut ? <Dashboard /> : <Login setUser={setUser} />} />
           <Route path='/signup' element={<SignUp setSignednUp={setSignedUp} />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/timer' element={<Timer />} />
           <Route path='/planner' element={<Planner />} />
         </Routes>
