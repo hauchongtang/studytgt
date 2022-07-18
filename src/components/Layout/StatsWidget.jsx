@@ -128,7 +128,7 @@ function Widget({ id, backgroundColor, popularModules, personalTasks }) {
 
 export default Widget
 
-const getPopularTasks = (target) => {
+export const getPopularTasks = (target) => {
   const moduleCountMap = new Map();
   target.forEach(item => {
     if (moduleCountMap.get(item.moduleCode) === undefined)

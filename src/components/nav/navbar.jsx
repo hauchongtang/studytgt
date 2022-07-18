@@ -26,7 +26,7 @@ const NavBar = ({handleLogOut}) => {
                         var timetable = localStorage.getItem("timetable")
                         localStorage.clear()
                         localStorage.setItem("timetable", timetable)
-                        window.location.reload()
+                        window.location.href('/')
                     }}>Log Out<GrLogout size={20} style={{ marginTop: 'auto', marginBottom: '4px', marginLeft: '12px' }}/></button>}
             </div>
             

@@ -59,7 +59,7 @@ export const modifyAccountDetails = async (firstname, lastname, email, setSucces
                 "email": email,
             }
         )
-        console.log(response.data)
+        // console.log(response.data)
         setSuccess(true)
         return response.data
     } catch (error) {
@@ -145,7 +145,7 @@ export const getModuleInfoByModuleCode = async (moduleCode, semester, lessonType
             localStorage.setItem(moduleCode + "-code", JSON.stringify(response.data.semesterData))
             return response.data.semesterData[semester - 1].timetable.filter(value => value.classNo === classNo && value.lessonType === type).map(value => value)
         }
-        console.log("returned cached")
+        // console.log("returned cached")
         return JSON.parse(localStorage.getItem(moduleCode + "-code"))[semester - 1].timetable.filter(value => value.classNo === classNo && value.lessonType === type)
     } catch (error) {
         console.log(error)
@@ -220,7 +220,7 @@ export const getTasksById = async (refreshToken, id) => {
                 }
             }
         )
-
+        // console.log(response)
         return response.data
     } catch (error) {
         console.log(error)
@@ -262,7 +262,7 @@ export const getMostPopularModulesById = async (refreshToken, id) => {
         })
         var array = []
         array = Array.from(moduleCountMap, ([moduleCode, count]) => ({ moduleCode, count }));
-        console.log(response)
+        // console.log(response)
 
         return array;
     } catch (error) {
