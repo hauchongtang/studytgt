@@ -4,7 +4,8 @@ import styles from '../Layout/Widget.module.css'
 import TaskBubble from '../Layout/TaskBubble'
 import EditParticulars from './EditParticulars'
 
-import { getUserById, modifyAccountDetails, getTasksById } from '../../api/users'
+import { getUserById, modifyAccountDetails, getTasksById, getAllUsers } from '../../api/users'
+import MiniProfile from './MiniProfile'
 
 const ProfilePage = () => {
     const first_name = localStorage.getItem("first_name")
@@ -14,6 +15,7 @@ const ProfilePage = () => {
     const user_id = localStorage.getItem("_id")
     const [personalTasks, setPersonalTasks] = useState([])
     const [done, setDone] = useState(0)
+    const [users, setUsers] = useState([])
     const [firstname, setFirstName] = useState(first_name !== null ? first_name : "")
     const [lastname, setLastName] = useState(last_name !== null ? last_name : "")
     const [email, setEmail] = useState(email_ !== null ? email_ : "")
@@ -25,7 +27,7 @@ const ProfilePage = () => {
         const result = await getTasksById(refreshToken, user_id);
         if (result != null) {
             result.sort((a, b) => Date.parse(b) - Date.parse(a));
-            result.slice(0,3)
+            result.slice(0, 3)
             setPersonalTasks(result)
             var doneCounter = 0
             result.forEach(item => {
@@ -36,9 +38,16 @@ const ProfilePage = () => {
         return result
     }
 
+    const getAll = async () => {
+        const result = await getAllUsers(refreshToken)
+        setUsers(result)
+        return result
+    }
+
     useEffect(() => {
         getPersonalTasks()
-    }, [])
+        getAll()
+    }, []) 
 
     return (
         <div
@@ -111,37 +120,80 @@ const ProfilePage = () => {
                                                     // name={item.first_name + " " + item.last_name}
                                                     duration={item.duration}
                                                     date={item.updated_at}
-                                                    hidden={item.hidden} 
+                                                    hidden={item.hidden}
                                                 />
                                             </div>
                                         )
-                                    })} 
+                                    })}
+                                    <div
+                                        style={{
+                                            textAlign: 'center'
+                                        }}
+                                    >
+                                        {done === 0 && <Spinner />}
+                                    </div>
                                 </div>
                             </CardBody>
                         </Card>
                     </Col>
                     <Col className="" xs={8}>
-                        <div style={{ height: '3vh' }} />
-                        <Card
-                            style={{
-                                boxShadow: '0px 0px 18px 9px #9E9E9E20',
-                                border: 'none',
-                                borderRadius: '17px'
-                            }}
-                        >
-                            <CardBody>
-                                <h5
-                                    style={{
-                                        fontSize: '3.5vh',
-                                        textAlign: 'start',
-                                    }}
-                                >
-                                    Edit Profile
-                                </h5>
-                                <div style={{ height: '2vh' }} />
-                                <EditParticulars />
-                            </CardBody>
-                        </Card>
+                        <Row>
+                            <div style={{ height: '3vh' }} />
+                            <Card
+                                style={{
+                                    boxShadow: '0px 0px 18px 9px #9E9E9E20',
+                                    border: 'none',
+                                    borderRadius: '17px'
+                                }}
+                            >
+                                <CardBody>
+                                    <h5
+                                        style={{
+                                            fontSize: '3.5vh',
+                                            textAlign: 'start',
+                                        }}
+                                    >
+                                        Edit Profile
+                                    </h5>
+                                    <div style={{ height: '2vh' }} />
+                                    <EditParticulars />
+                                </CardBody>
+                            </Card>
+                        </Row>
+                        <Row>
+                            <div style={{ height: '1.5vh' }} />
+                            <Card
+                                style={{
+                                    boxShadow: '0px 0px 18px 9px #9E9E9E20',
+                                    border: 'none',
+                                    borderRadius: '17px'
+                                }}
+                            >
+                                <CardBody>
+                                    <h5
+                                        style={{
+                                            fontSize: '3.5vh',
+                                            textAlign: 'start',
+                                        }}
+                                    >
+                                        Discover People
+                                    </h5>
+                                    <div style={{ height: '1vh' }} />
+                                    <Container  
+                                    >
+                                        <Row>
+                                            {users.length > 0 && users.map((item, idx) => {
+                                                if (idx < 9) return (
+                                                    <Col xs={4} style={{ marginTop: '1vh' }}>
+                                                        <MiniProfile data={item} key={item.user_id} />
+                                                    </Col>
+                                                )
+                                            })}
+                                        </Row> 
+                                    </Container>
+                                </CardBody>
+                            </Card>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
