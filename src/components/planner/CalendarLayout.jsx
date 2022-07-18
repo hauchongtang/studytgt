@@ -28,7 +28,7 @@ const CalendarLayout = ({ moduleData, uniqueModules }) => {
           moduleColorMapping[item] = '#90bede'
       }
     })
-    console.log(moduleColorMapping)
+    // console.log(moduleColorMapping)
     return moduleColorMapping;
   }
   return (
@@ -51,7 +51,7 @@ const CalendarLayout = ({ moduleData, uniqueModules }) => {
           })}
         </Row>
         {moduleData.map((item, idx) => {
-          console.log(item)
+          // console.log(item)
           return (
             <Row key={idx} style={{ width: '85vw' }}>
               <Col 

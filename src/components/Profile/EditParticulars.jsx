@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Form, FormGroup, Input, Button, Spinner } from 'reactstrap';
+import { Form, FormGroup, Input, Button, Spinner, Alert } from 'reactstrap';
+import { changeParticulars } from "../../api/users";
 import validateEmail from "../hooks/validateEmail";
 
 const EditParticulars = ({ }) => {
@@ -10,8 +11,10 @@ const EditParticulars = ({ }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
   const [errMsg, setErrMsg] = useState("")
-  const [toast, setToast] = useState(false)
+  const [toast, setToast] = useState(null)
   const [success, setSuccess] = useState(false)
+  const refreshToken = localStorage.getItem("user")
+  const user_id = localStorage.getItem("_id")
 
   const inputStyle = {}
   const styles = {}
@@ -32,8 +35,41 @@ const EditParticulars = ({ }) => {
     setPassword(value)
   }
 
+  const updateParticulars = async (formObj) => {
+    const response = await changeParticulars(user_id, refreshToken, formObj, setError);
+
+    if (!response.error) {
+      setSuccess(true)
+      setToast(response)
+      setTimeout(() => setToast(null), 2000)
+      setLoading(false)
+      localStorage.setItem("user", response.refresh_token)
+      localStorage.setItem("_id", response.user_id)
+      localStorage.setItem("name", response.first_name + " " + response.last_name)
+      localStorage.setItem("first_name", response.first_name)
+      localStorage.setItem("last_name", response.last_name)
+      localStorage.setItem("email", response.email)
+      localStorage.setItem("points", response.points)
+      localStorage.setItem("timetable", response.timetable) 
+    }
+
+    return response;
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const formObj = {
+      first_name: firstname,
+      last_name: lastname,
+      email: email,
+      password: password
+    }
+    setLoading(true)
+    updateParticulars(formObj);
+  }
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
         <Input
           type="text"
@@ -81,12 +117,18 @@ const EditParticulars = ({ }) => {
           style={inputStyle}
         />
       </FormGroup>
-      {loading && !error && !toast ? <Button type='submit' className={styles.button}>Loading  <Spinner className='loginloadingspinner'></Spinner></Button> :
+      {loading && !toast ? <Button type='submit' className={styles.button}>Loading  <Spinner className='loginloadingspinner'></Spinner></Button> :
         <Button type='submit' className={styles.button} onMouseOver={() => {
           if (error) setErrMsg("Submit")
         }}>
           {error ? errMsg : "Submit"}
         </Button>}
+      <Alert style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'danger'} isOpen={error}>
+        Failed to sign up, try again
+      </Alert>
+      <Alert style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'success'} isOpen={toast != null}>
+        Success
+      </Alert>
     </Form>
   )
 }

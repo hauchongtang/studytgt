@@ -90,7 +90,7 @@ const Planner = ({}) => {
         [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
         [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
         [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }]]
-        console.log(data)
+        // console.log(data)
         if (link === "") {
             return "no link"
         } else {
@@ -98,7 +98,7 @@ const Planner = ({}) => {
                 var objKeys = Object.keys(data[i].moduleInfo)
                 for (var key of objKeys) {
                     for (var object of data[i].moduleInfo[key][0]) {
-                        console.log(object)
+                        // console.log(object)
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].module = data[i].moduleCode
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].lessonType = processLessonType(object.lessonType)
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].classNo = object.classNo
