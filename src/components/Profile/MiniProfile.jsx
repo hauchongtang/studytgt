@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Card, CardBody } from 'reactstrap';
 
 const MiniProfile = ({ data }) => {
@@ -20,7 +21,7 @@ const MiniProfile = ({ data }) => {
             <div>
               <img
                 alt="Card image"
-                src="https://picsum.photos/40/40"
+                src={`https://picsum.photos/40/40?random=${Math.random()*100}`}
                 style={{
                   borderRadius: '50%',
                 }}
@@ -32,17 +33,17 @@ const MiniProfile = ({ data }) => {
                 marginBottom: 'auto'
               }}
             >
-              <a
+              <Link
                 style={{
                   fontSize: '16px',
                   fontWeight: 600,
                   marginLeft: '8px',
                   color: 'black'
                 }}
-                href={`/${data.user_id}`}
+                to={`/${data.user_id}`}
               >
                 {data.first_name + " " + data.last_name}
-              </a>
+              </Link>
             </div>
           </div>
           <div style={{ height: '1vh' }} />
@@ -54,8 +55,7 @@ const MiniProfile = ({ data }) => {
               marginLeft: '-0.6vw'
             }}
           >
-            <div style={{ borderRight: '0.2px solid grey', padding: '0px 12px 0px 12px' }}>{`Pts: ${data.points}`}</div>
-            <div style={{ padding: '0px 12px 0px 12px' }}>{`Done: ${''}`}</div>
+            <div style={{ padding: '0px 12px 0px 12px' }}>{`Pts: ${data.points}`}</div>
           </div>
         </CardBody>
       </Card>
