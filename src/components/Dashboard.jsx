@@ -47,8 +47,8 @@ const Dashboard = () => {
     const layout = {
         lg: [
             { i: 'a', x: 0, y: 0, w: 4, h: 15, static: true },
-            { i: 'b', x: 4, y: 0, w: 8, h: 7, static: true },
-            { i: 'c', x: 5, y: 0, w: 8, h: 8, static: true },
+            { i: 'b', x: 4, y: 0, w: 8, h: 6, static: true },
+            { i: 'c', x: 5, y: 0, w: 8, h: 9, static: true },
         ],
     };
 

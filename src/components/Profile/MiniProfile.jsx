@@ -2,7 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardBody } from 'reactstrap';
 
+import { determineLevel } from "../hooks/determineLevel";
+
 const MiniProfile = ({ data }) => {
+  const { level, nextLevel, targetPointsToNextLevel, points } = determineLevel(data.points);
   return (
     <div>
       <Card
@@ -18,15 +21,20 @@ const MiniProfile = ({ data }) => {
               justifyContent: 'flex-start'
             }}
           >
-            <div>
-              <img
-                alt="Card image"
-                src={`https://picsum.photos/40/40?random=${Math.random()*100}`}
-                style={{
-                  borderRadius: '50%',
-                }}
-              />
-            </div>
+            <Link
+              to={`/${data.user_id}`}
+              style={{ textDecoration: 'none' }}
+            >
+              <div>
+                <img
+                  alt="Card image"
+                  src={`https://picsum.photos/40/40?random=${Math.random() * 100}`}
+                  style={{
+                    borderRadius: '50%',
+                  }}
+                />
+              </div>
+            </Link>
             <div
               style={{
                 display: 'block', marginTop: 'auto',
@@ -55,7 +63,8 @@ const MiniProfile = ({ data }) => {
               marginLeft: '-0.6vw'
             }}
           >
-            <div style={{ padding: '0px 12px 0px 12px' }}>{`Pts: ${data.points}`}</div>
+            <div style={{ padding: '0px 12px 0px 12px', borderRight: '0.1px solid black' }}>{`Level: ${level}`}</div>
+            <div style={{ padding: '0px 12px 0px 12px' }}>{`Points: ${points}`}</div>
           </div>
         </CardBody>
       </Card>

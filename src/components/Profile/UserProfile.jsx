@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, CardBody, Spinner, Button } from 'reactstrap
 import { useParams } from 'react-router-dom';
 import { getTasksById, getUserById } from "../../api/users";
 import TaskBubble from '../Layout/TaskBubble';
+import { determineLevel } from "../hooks/determineLevel";
 
 const styles = {}
 
@@ -10,6 +11,7 @@ const UserProfile = () => {
   const [done, setDone] = useState("");
   const [user, setUser] = useState(null);
   const [personalTasks, setPersonalTasks] = useState([]);
+  const [lvlObj, setLvlObj] = useState(null);
   const { id } = useParams();
   const refreshToken = localStorage.getItem("user")
 
@@ -32,6 +34,7 @@ const UserProfile = () => {
     const result = await getUserById(refreshToken, id);
     if (!result.error) {
       setUser(result)
+      setLvlObj(determineLevel(result.points));
     }
     return result;
   }
@@ -53,7 +56,7 @@ const UserProfile = () => {
         style={{
         }}
       >
-        <Row
+        {user && <Row
           style={{
             height: '100vh',
             width: 'auto'
@@ -97,7 +100,7 @@ const UserProfile = () => {
                     justifyContent: 'center'
                   }}
                 >
-                  <div style={{ borderRight: '0.2px solid grey', padding: '4px 12px 4px 12px' }}>Level: 10</div>
+                  <div style={{ borderRight: '0.2px solid grey', padding: '4px 12px 4px 12px' }}>{`Level: ${lvlObj.level}`}</div>
                   <div style={{ borderRight: '0.2px solid grey', padding: '4px 12px 4px 12px' }}>{`Points: ${user.points}`}</div>
                   <div style={{ padding: '4px 12px 4px 12px' }}>{`Done: ${done}`}</div>
                 </div>
@@ -138,7 +141,8 @@ const UserProfile = () => {
           <Col>
                     &nbsp;
           </Col>
-        </Row>
+        </Row>}
+        {!user && <div style={{ textAlign: 'center', height: '90vh', paddingTop: '40vh', backgroundColor: 'transparent' }}><Spinner /></div>}
       </Container>
     </div>
   )

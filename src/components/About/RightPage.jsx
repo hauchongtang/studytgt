@@ -44,7 +44,7 @@ const RightPage = () => {
             <td>
               Star: Completed 1 hour worth of tasks !
             </td>
-          </tr> 
+          </tr>
           <tr>
             <th scope="row">
               3
@@ -55,7 +55,7 @@ const RightPage = () => {
             <td>
               Star: Completed 1 day worth of tasks !
             </td>
-          </tr> 
+          </tr>
           <tr>
             <th scope="row">
               4
@@ -66,7 +66,7 @@ const RightPage = () => {
             <td>
               Star: Completed 1 week worth of tasks !
             </td>
-          </tr> 
+          </tr>
           <tr>
             <th scope="row">
               5
@@ -77,9 +77,12 @@ const RightPage = () => {
             <td>
               Star: Completed 1 months worth of tasks !
             </td>
-          </tr> 
+          </tr>
         </tbody>
       </Table>
+      <div style={{ height: '2vh' }} />
+      <h4>Levelling Up</h4>
+      <p>Progressive levelling up system.</p>
     </div>
   )
 }

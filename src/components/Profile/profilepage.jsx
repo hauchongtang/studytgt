@@ -6,6 +6,7 @@ import TaskBubble from '../Layout/TaskBubble'
 import EditParticulars from './EditParticulars'
 
 import { getUserById, modifyAccountDetails, getTasksById, getAllUsers } from '../../api/users'
+import { determineLevel } from '../hooks/determineLevel'
 import MiniProfile from './MiniProfile'
 
 const ProfilePage = ({ match }) => {
@@ -14,7 +15,8 @@ const ProfilePage = ({ match }) => {
     const last_name = localStorage.getItem("last_name")
     const email_ = localStorage.getItem("email")
     const refreshToken = localStorage.getItem("user")
-    
+    const { level, nextLevel, targetPointsToNextLevel, pts } = determineLevel(localStorage.getItem("points"));
+
     const [personalTasks, setPersonalTasks] = useState([])
     const [done, setDone] = useState(0)
     const [users, setUsers] = useState([])
@@ -31,27 +33,34 @@ const ProfilePage = ({ match }) => {
         const result = await getTasksById(refreshToken, user_id);
         if (result != null) {
             result.sort((a, b) => Date.parse(b) - Date.parse(a));
-            
+
             var doneCounter = 0
             result.forEach(item => {
                 if (!item.hidden) doneCounter++;
-            }) 
+            })
             setPersonalTasks(result)
             setDone(doneCounter)
         }
-        return result.slice(0,3)
+        return result.slice(0, 3)
     }
 
     const getAll = async () => {
         const result = await getAllUsers(refreshToken)
+        for (var i = result.length - 1; i > 0; i--) {
+            var j = Math.floor(Math.random() * i)
+            var k = result[i]
+            result[i] = result[j]
+            result[j] = k
+        }
         setUsers(result)
+
         return result
     }
 
     useEffect(() => {
         getPersonalTasks()
         getAll()
-    }, []) 
+    }, [])
 
     return (
         <div
@@ -103,7 +112,7 @@ const ProfilePage = ({ match }) => {
                                         justifyContent: 'center'
                                     }}
                                 >
-                                    <div style={{ borderRight: '0.2px solid grey', padding: '0px 12px 0px 12px' }}>Level: 10</div>
+                                    <div style={{ borderRight: '0.2px solid grey', padding: '0px 12px 0px 12px' }}>{`Level: ${level}`}</div>
                                     <div style={{ borderRight: '0.2px solid grey', padding: '0px 12px 0px 12px' }}>{`Points: ${localStorage.getItem("points")}`}</div>
                                     <div style={{ padding: '0px 12px 0px 12px' }}>{`Done: ${done}`}</div>
                                 </div>
@@ -183,7 +192,7 @@ const ProfilePage = ({ match }) => {
                                         Discover People
                                     </h5>
                                     <div style={{ height: '1vh' }} />
-                                    <Container  
+                                    <Container
                                     >
                                         <Row>
                                             {users.length > 0 && users.map((item, idx) => {
@@ -194,7 +203,7 @@ const ProfilePage = ({ match }) => {
                                                 )
                                             })}
                                             <div style={{ textAlign: 'center' }}>{users.length === 0 && <Spinner />}</div>
-                                        </Row> 
+                                        </Row>
                                     </Container>
                                 </CardBody>
                             </Card>
