@@ -14,6 +14,7 @@ import SideNav from './components/nav/navbarv2'
 import Login from './components/auth/login'
 import { parseUrl } from './data/parseImports'
 import ProfilePage from './components/Profile/profilepage'
+import About from './components/About/AboutPage'
 
 
 const App = () => {
@@ -65,6 +66,7 @@ const App = () => {
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/timer' element={<Timer />} />
           <Route path='/planner' element={<Planner />} />
+          <Route path='/about' element={<About />} />
         </Routes>
       </BrowserRouter>
     </>
