@@ -104,7 +104,7 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
                 <FormFeedback>Duration must be more than 15 mins !</FormFeedback>
             </FormGroup>
             <div style={{ textAlign: 'right', }}>
-                <Button type="submit" style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }} data-testid={'add-button'}>
+                <Button type="submit" disabled={duration < 15 && name === "E.g. Assignment / Tutorial / Project"} style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }} data-testid={'add-button'}>
                     {!loading ? 'Add' : 'Loading'}
                     {loading && <>&nbsp;&nbsp;<Spinner style={{ height: '18px', width: '18px' }}/></>}
                 </Button></div>
