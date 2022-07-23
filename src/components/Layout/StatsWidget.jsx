@@ -194,7 +194,7 @@ export const getYearlyImcompleteData = (target) => {
 
 export const toMonthName = (monthNumber) => {
   const date = new Date();
-  date.setMonth(monthNumber - 1);
+  date.setMonth(monthNumber);
 
   return date.toLocaleString('en-US', {
     month: 'long',
