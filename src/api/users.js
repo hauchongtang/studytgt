@@ -25,11 +25,11 @@ export const postSignUp = async (firstname, lastname, email, password, setError)
                 "password": password
             }
         )
-
         return response.data
     } catch (error) {
         setError(true)
         console.log(error)
+        return error.response.data
     }
 }
 

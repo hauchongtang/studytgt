@@ -71,13 +71,13 @@ const Dashboard = () => {
                 width={useWindowDimensions().width - 160}
             >
                 <div key="a">
-                    <AllActivityWidget leaderboard={leaderboard} tasks={tasks}/>
+                    <AllActivityWidget leaderboard={leaderboard} tasks={tasks} data-testid={'dashboard-components'}/>
                 </div>
                 <div key='c'>
-                    <StatsWidget id="b" backgroundColor="white" popularModules={mostPopularModules} personalTasks={personalTasks}/>
+                    <StatsWidget id="b" backgroundColor="white" popularModules={mostPopularModules} personalTasks={personalTasks} data-testid={'dashboard-components'}/>
                 </div>
                 <div key="b">
-                    <PersonalTaskWidget personalTasks={personalTasks} setPersonalTasks={setPersonalTasks} uniqueModules={getUniqueModules()}/>
+                    <PersonalTaskWidget personalTasks={personalTasks} setPersonalTasks={setPersonalTasks} uniqueModules={getUniqueModules()} data-testid={'dashboard-components'}/>
                 </div>
 
             </Responsive>

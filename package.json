@@ -23,12 +23,13 @@
     "react-scripts": "5.0.1",
     "react-sizeme": "^3.0.2",
     "reactstrap": "^9.0.2",
+    "resize-observer-polyfill": "^1.5.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --setupFiles ./src/setupTests.js ",
+    "test": "react-scripts test --setupFiles ./src/setupTests.js --silent --detectOpenHandles",
     "eject": "react-scripts eject"
   },
   "jest": {
@@ -57,6 +58,7 @@
     ]
   },
   "devDependencies": {
+    "jest-canvas-mock": "^2.4.0",
     "jest-localstorage-mock": "^2.4.21"
   }
 }

@@ -26,7 +26,9 @@ const Planner = ({}) => {
 
     const handleOnSubmit = async (event) => {
         event.preventDefault()
-        await setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
+        const token = localStorage.getItem("user") || "";
+        const userId = localStorage.getItem("_id") || "";
+        await setLink(urllink, token, userId);
         await resolvePromise()
         setOpen(false)
     }
@@ -97,7 +99,7 @@ const Planner = ({}) => {
             for (var i = 0; i < data.length; i++) {
                 var objKeys = Object.keys(data[i].moduleInfo)
                 for (var key of objKeys) {
-                    for (var object of data[i].moduleInfo[key][0]) {
+                    if (data[i].moduleInfo[key][0]) for (var object of data[i].moduleInfo[key][0]) {
                         // console.log(object)
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].module = data[i].moduleCode
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].lessonType = processLessonType(object.lessonType)
@@ -127,10 +129,10 @@ const Planner = ({}) => {
         if (urllink !== "") {
             const result = await processData(urllink)
             setDataAll(result)
-            localStorage.setItem("moduleData", JSON.stringify(result))
+            localStorage.setItem("moduleData", result != null ? JSON.stringify(result) : "")
             return result
         } else {
-            const url = localStorage.getItem("timetable")
+            const url = localStorage.getItem("timetable") || ""
             const result = await processData(url)
             setDataAll(result)
             localStorage.setItem("moduleData", JSON.stringify(result))
@@ -166,10 +168,11 @@ const Planner = ({}) => {
                         valid={valid}
                         invalid={!valid}
                         style={{ height: '40px', width: '30vw' }}
+                        data-testid={'import-input'}
                     />
                     <FormFeedback>Invalid Link</FormFeedback>
                 </FormGroup> 
-                <Button style={{ height: '40px' }} type="submit">Submit</Button>
+                <Button style={{ height: '40px' }} type="submit" data-testid={'submit-button'}>Submit</Button>
             </Form>} 
             </div>
         </Collapse>

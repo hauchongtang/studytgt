@@ -59,6 +59,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                                 date={item.updated_at} 
                                 hidden={item.hidden}
                                 onClick={startTimer}
+                                data-testid={idx === 0 ? "task-element" : ""}
                             /> 
                         </div>
                     )
