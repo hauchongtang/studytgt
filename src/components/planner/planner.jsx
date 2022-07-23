@@ -97,7 +97,7 @@ const Planner = ({}) => {
             for (var i = 0; i < data.length; i++) {
                 var objKeys = Object.keys(data[i].moduleInfo)
                 for (var key of objKeys) {
-                    for (var object of data[i].moduleInfo[key][0]) {
+                    if (data[i].moduleInfo[key][0]) for (var object of data[i].moduleInfo[key][0]) {
                         // console.log(object)
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].module = data[i].moduleCode
                         result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].lessonType = processLessonType(object.lessonType)
