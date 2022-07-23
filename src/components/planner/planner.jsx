@@ -26,7 +26,9 @@ const Planner = ({}) => {
 
     const handleOnSubmit = async (event) => {
         event.preventDefault()
-        await setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
+        const token = localStorage.getItem("user") || "";
+        const userId = localStorage.getItem("_id") || "";
+        await setLink(urllink, token, userId);
         await resolvePromise()
         setOpen(false)
     }
@@ -127,10 +129,10 @@ const Planner = ({}) => {
         if (urllink !== "") {
             const result = await processData(urllink)
             setDataAll(result)
-            localStorage.setItem("moduleData", JSON.stringify(result))
+            localStorage.setItem("moduleData", result != null ? JSON.stringify(result) : "")
             return result
         } else {
-            const url = localStorage.getItem("timetable")
+            const url = localStorage.getItem("timetable") || ""
             const result = await processData(url)
             setDataAll(result)
             localStorage.setItem("moduleData", JSON.stringify(result))
