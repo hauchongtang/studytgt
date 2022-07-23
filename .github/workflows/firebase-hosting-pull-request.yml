@@ -19,6 +19,8 @@ jobs:
         run: yarn
       - name: Build the module
         run: yarn build
+      - name: Run Tests
+        run: npm run test
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

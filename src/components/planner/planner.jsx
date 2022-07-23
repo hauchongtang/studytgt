@@ -166,10 +166,11 @@ const Planner = ({}) => {
                         valid={valid}
                         invalid={!valid}
                         style={{ height: '40px', width: '30vw' }}
+                        data-testid={'import-input'}
                     />
                     <FormFeedback>Invalid Link</FormFeedback>
                 </FormGroup> 
-                <Button style={{ height: '40px' }} type="submit">Submit</Button>
+                <Button style={{ height: '40px' }} type="submit" data-testid={'submit-button'}>Submit</Button>
             </Form>} 
             </div>
         </Collapse>

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { postSignUp } from '../../api/users'
 import { Form, FormGroup, Input, Label, Button, Spinner, Toast, ToastHeader, ToastBody, FormFeedback, Alert } from 'reactstrap'
-import { useNavigate, useLocation, Link } from 'react-router-dom'
-
 import styles from './Login.module.css'
 import validateEmail from '../hooks/validateEmail'
 
@@ -18,13 +16,10 @@ const SignUp = ({ setGoSignUp }) => {
     const [toast, setToast] = useState(false)
     const [success, setSuccess] = useState(false)
     const [signupresponse, setSignUpResponse] = useState(null)
-
-    let navigate = useNavigate()
-
+    
     const handleFirstNameChange = ({ target: { name, value } }) => {
         setFirstName(value)
     }
-
     const handleLastNameChange = ({ target: { name, value } }) => {
         setLastName(value)
     }
@@ -41,8 +36,7 @@ const SignUp = ({ setGoSignUp }) => {
         const result = await postSignUp(firstname, lastname, email, password, setError)
         setSignUpResponse(result)
         setError(false)
-        console.log(result)
-        if (!error && result !== null) {
+        if (!result.error && result !== null) {
             console.log("go back to sign in")
             setSuccess(true)
             setTimeout(() => {
@@ -52,8 +46,8 @@ const SignUp = ({ setGoSignUp }) => {
         else {
             setGoSignUp(true)
             setToast(true)
+            setErrMsg(result.error);
         }
-
     }
 
     const handleSignUp = (event) => {
@@ -80,10 +74,10 @@ const SignUp = ({ setGoSignUp }) => {
                     }}>
                     Create Account
                 </h3>
-                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'danger'} isOpen={toast}>
-                    Failed to sign up, try again
+                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'danger'} isOpen={toast} data-testid={'failed'}>
+                    {`Failed to sign up ${errMsg}`}
                 </Alert>
-                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'success'} isOpen={success}>
+                <Alert style={{ width: '75%', display: 'block', marginLeft: 'auto', marginRight: 'auto', }} color={'success'} isOpen={!error && success}>
                     Success
                 </Alert>
                 <FormGroup>
@@ -96,6 +90,7 @@ const SignUp = ({ setGoSignUp }) => {
                         valid={firstname.length > 0}
                         invalid={firstname.length <= 0}
                         style={inputStyle}
+                        data-testid={'firstname-input'}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -108,6 +103,7 @@ const SignUp = ({ setGoSignUp }) => {
                         valid={lastname.length > 0}
                         invalid={lastname.length <= 0}
                         style={inputStyle}
+                        data-testid={'lastname-input'}
                     />
                 </FormGroup>
                 <FormGroup>
@@ -121,6 +117,7 @@ const SignUp = ({ setGoSignUp }) => {
                         invalid={!validateEmail(email)}
                         valid={validateEmail(email)}
                         style={inputStyle}
+                        data-testid={'email-input'}
                     />
                 </FormGroup>
                 <FormGroup id='signup'>
@@ -134,12 +131,14 @@ const SignUp = ({ setGoSignUp }) => {
                         valid={password.length >= 6}
                         invalid={password.length < 6}
                         style={inputStyle}
+                        data-testid={'password-input'}
                     />
                 </FormGroup>
                 {loading && !error && !toast ? <Button type='submit' className={styles.button}>Loading  <Spinner className='loginloadingspinner'></Spinner></Button> :
                     <Button type='submit' className={styles.button} onMouseOver={() => {
                         if (error) setErrMsg("Submit")
-                    }}>
+                    }} data-testid={'signup-submit'}
+                    >
                         {error ? errMsg : "Submit"}
                     </Button>}
                 <div className={styles.signup}>
