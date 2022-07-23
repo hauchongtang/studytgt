@@ -62,12 +62,26 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
         <Form onSubmit={handleSubmit}>
             <FormGroup>
                 <Label for="taskname">Task Name</Label>
-                <Input valid={name.length >= 3} invalid={name.length < 3 || name.includes("E.g.")} placeholder={name} value={name} name='taskname' onChange={handleNameChange}></Input>
+                <Input
+                  valid={name.length >= 3}
+                  invalid={name.length < 3 || name.includes("E.g.")}
+                  placeholder={name} value={name}
+                  name='taskname'
+                  onChange={handleNameChange}
+                  data-testid="taskname-input"
+                ></Input>
                 <FormFeedback>Task name is mandatory.</FormFeedback>
             </FormGroup>
             <FormGroup>
                 <Label for='modulecode'>Module Code</Label>
-                <Input type={uniqueModules[0] !== "No Modules" ?  'select' : 'text'} valid={true} invalid={code.length <= 2} placeholder={code} value={code} name='modulecode' onChange={handleModuleChange}>
+                <Input
+                  type={uniqueModules[0] !== "No Modules" ?  'select' : 'text'}
+                  valid={true} invalid={code.length <= 2}
+                  placeholder={code} value={code}
+                  name='modulecode'
+                  onChange={handleModuleChange}
+                  data-testid={'modulecode-input'}
+                >
                     {uniqueModules !== null && uniqueModules.map((item, idx) => {
                         return (
                             <option key={idx}>{item}</option>
@@ -78,11 +92,19 @@ const AddTaskWidget = ({ setPersonalTasks, personalTasks, uniqueModules }) => {
             </FormGroup>
             <FormGroup>
                 <Label for='duration'>Duration (mins)</Label>
-                <Input valid={duration >= 15 } invalid={duration < 15} placeholder={duration} value={duration} name='duration' onChange={handleDurationChange}></Input>
+                <Input
+                  valid={duration >= 15 }
+                  invalid={duration < 15}
+                  placeholder={duration}
+                  value={duration}
+                  name='duration'
+                  onChange={handleDurationChange}
+                  data-testid={'duration-input'}
+                ></Input>
                 <FormFeedback>Duration must be more than 15 mins !</FormFeedback>
             </FormGroup>
             <div style={{ textAlign: 'right', }}>
-                <Button type="submit" style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }}>
+                <Button type="submit" disabled={duration < 15 && name === "E.g. Assignment / Tutorial / Project"} style={{ fontSize: '18px', padding: '8px 48px 8px 48px' }} data-testid={'add-button'}>
                     {!loading ? 'Add' : 'Loading'}
                     {loading && <>&nbsp;&nbsp;<Spinner style={{ height: '18px', width: '18px' }}/></>}
                 </Button></div>

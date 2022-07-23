@@ -16,7 +16,7 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
     return (
         <div 
             style={{ 
-                width: 'auto', height: '100%', backgroundColor: 'white', overflowY: 'inherit'
+                width: 'auto', height: '100%', backgroundColor: 'white', overflowY: 'scroll'
             }}
             className={styles.widget}
         >
@@ -53,12 +53,12 @@ const PersonalTaskWidget = ({ personalTasks, setPersonalTasks, uniqueModules }) 
                                 id={item.ID}
                                 title={item.taskName} 
                                 points={Number(item.duration) * 60 / 100} 
-                                subtitle={item.moduleCode} 
-                                name={item.first_name + " " + item.last_name} 
+                                subtitle={item.moduleCode}
                                 duration={item.duration} 
                                 date={item.updated_at} 
                                 hidden={item.hidden}
                                 onClick={startTimer}
+                                data-testid={idx === 0 ? "task-element" : ""}
                             /> 
                         </div>
                     )

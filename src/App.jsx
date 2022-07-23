@@ -5,7 +5,6 @@ import { Route, BrowserRouter, Routes, Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 import LandingPage from './components/LandingPage'
 import SignUp from './components/auth/signup'
-import Profile from './components/profilepage'
 import { createBrowserHistory } from 'history'
 import { authLoginSession } from './api/users'
 import Planner from './components/planner/planner'
@@ -14,6 +13,9 @@ import Dashboard from './components/Dashboard'
 import SideNav from './components/nav/navbarv2'
 import Login from './components/auth/login'
 import { parseUrl } from './data/parseImports'
+import ProfilePage from './components/Profile/profilepage'
+import About from './components/About/AboutPage'
+import UserProfile from './components/Profile/UserProfile'
 
 
 const App = () => {
@@ -25,7 +27,7 @@ const App = () => {
   const handleLogOut = (pathName) => {
     setUser({})
     // localStorage.clear()
-    // window.location.reload()
+    window.location.replace('/')
   }
   useEffect(() => {
     const loggedInUser = localStorage.getItem("user")
@@ -34,29 +36,41 @@ const App = () => {
     const authSession = async () => {
       const result = await authLoginSession(loggedInUser)
       setAuthResult(result)
-      
+      console.log(result)
+      if (result === undefined) {
+        setLoggedOut(true)
+        localStorage.clear()
+        window.location.replace('/')
+    }
     }
 
     if (loggedInUser !== null && authResult !== "") {
-      authSession()
-      setUser(loggedInUser)
-      const parseURL = async () => await parseUrl(timetableUrl)
-      parseURL()
+      try {
+        authSession()
+        setUser(loggedInUser)
+        const parseURL = async () => await parseUrl(timetableUrl)
+        parseURL()
+      } catch (error) {
+        console.log(error, "caught")
+        setLoggedOut(true)
+      }
     }
   }, [])
 
   return (
     <>
 
-      <BrowserRouter forceRefresh={false}>
+      <BrowserRouter forceRefresh={true}>
         {user && !loggedOut && <NavBar handleLogOut={handleLogOut} setLoggedOut={setLoggedOut} />}
         <SideNav loggedIn={user && !loggedOut}/>
         <Routes>
           <Route path='/' element={user && !loggedOut ? <Dashboard /> : <Login setUser={setUser} />} />
           <Route path='/signup' element={<SignUp setSignednUp={setSignedUp} />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<ProfilePage />} />
           <Route path='/timer' element={<Timer />} />
           <Route path='/planner' element={<Planner />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/:id' element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </>
