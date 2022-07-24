@@ -104,7 +104,7 @@ const Timetable = ({moduleData, setSubmit}) => {
 
     return (
         <div style={{ backgroundColor: 'white', marginLeft: '160px', marginRight: 'auto' }}>
-                    <CalendarLayout moduleData={moduleData} uniqueModules={getUniqueModules()}/>
+          {moduleData != "no link" && <CalendarLayout moduleData={moduleData} uniqueModules={getUniqueModules()}/>}
         </div>
     )
 }

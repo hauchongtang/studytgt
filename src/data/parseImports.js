@@ -25,7 +25,7 @@ export const parseUrl = async (url) => {
 
         result.push(moduleObj)
     }
-    // console.log(result)
+    console.log(result)
     return result
 }
 

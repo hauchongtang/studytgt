@@ -50,7 +50,7 @@ const CalendarLayout = ({ moduleData, uniqueModules }) => {
             )
           })}
         </Row>
-        {moduleData.map((item, idx) => {
+        {moduleData != "no link" && moduleData.map((item, idx) => {
           // console.log(item)
           return (
             <Row key={idx} style={{ width: '85vw' }}>

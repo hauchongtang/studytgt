@@ -95,7 +95,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Friday",
 							"lessonType": "Lecture",
 							"size": 20,
-							"covidZone": "A"
+							"covidZone": "B"
 						},
 						{
 							"classNo": "G16",
@@ -120,7 +120,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Friday",
 							"lessonType": "Lecture",
 							"size": 20,
-							"covidZone": "A"
+							"covidZone": "B"
 						},
 						{
 							"classNo": "G16",
@@ -145,7 +145,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Friday",
 							"lessonType": "Lecture",
 							"size": 20,
-							"covidZone": "A"
+							"covidZone": "B"
 						},
 						{
 							"classNo": "G16",
@@ -170,7 +170,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Tuesday",
 							"lessonType": "Lecture",
 							"size": 20,
-							"covidZone": "A"
+							"covidZone": "B"
 						}
 					]
 				]
@@ -267,7 +267,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Monday",
 							"lessonType": "Lecture",
 							"size": 410,
-							"covidZone": "A"
+							"covidZone": "B"
 						}
 					]
 				]
@@ -301,7 +301,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Tuesday",
 							"lessonType": "Lecture",
 							"size": 628,
-							"covidZone": "A"
+							"covidZone": "B"
 						}
 					]
 				],
@@ -330,7 +330,7 @@ test("Check for the import url parser's correctness", async () => {
 							"day": "Tuesday",
 							"lessonType": "Tutorial",
 							"size": 45,
-							"covidZone": "A"
+							"covidZone": "B"
 						}
 					]
 				]
