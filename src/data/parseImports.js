@@ -1,9 +1,8 @@
 import { getModuleInfoByModuleCode } from "../api/users"
 var uniqueModCode = []
 export const parseUrl = async (url) => {
-    const urlParse = new URL(typeof(url) === "String"
-      ? url
-      : "https://nusmods.com/timetable/sem-1/share?CS2102=LEC:1,TUT:05&CS2103T=LEC:G16&CS2105=TUT:06,LEC:1&FSC2101=LEC:1&ST2334=LEC:1,TUT:10")
+    if (url === null) return [];
+    const urlParse = new URL(url);
     const urlSearch = new URLSearchParams(urlParse.search)
     const entries = Array.from(urlSearch.entries())
 
@@ -25,7 +24,7 @@ export const parseUrl = async (url) => {
 
         result.push(moduleObj)
     }
-    // console.log(result)
+    console.log(result)
     return result
 }
 
