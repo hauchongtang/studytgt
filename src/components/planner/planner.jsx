@@ -26,7 +26,9 @@ const Planner = ({}) => {
 
     const handleOnSubmit = async (event) => {
         event.preventDefault()
-        await setLink(urllink, localStorage.getItem("user"), localStorage.getItem("_id"))
+        const token = localStorage.getItem("user") || "";
+        const userId = localStorage.getItem("_id") || "";
+        await setLink(urllink, token, userId);
         await resolvePromise()
         setOpen(false)
     }
@@ -50,40 +52,76 @@ const Planner = ({}) => {
         return str
     }
 
+    const processDay = (dayString) => {
+        switch (dayString) {
+            case "Monday":
+                return 0;
+            case "Tuesday":
+                return 1;
+            case "Wednesday":
+                return 2;
+            case "Thursday":
+                return 3;
+            case "Friday":
+                return 4;
+            default:
+                return 1;
+        }
+    }
+
+    const processLessonType = (lesson) => {
+        switch (lesson) {
+            case "Lecture":
+                return "LEC"
+            case "Tutorial":
+                return "TUT"
+            case "Laboratory" || "Lab":
+                return "LAB"
+            case "Sectional" || "Sectionals":
+                return "SEC"
+            default:
+                return ""
+        }
+    }
+
     const processData = async (link) => {
         const data = await getModuleDataset(link)
-        var result = []
+        var result = [
+        [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
+        [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
+        [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
+        [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }],
+        [{ }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }, { }]]
+        // console.log(data)
         if (link === "") {
             return "no link"
         } else {
-            var idx = 0
             for (var i = 0; i < data.length; i++) {
                 var objKeys = Object.keys(data[i].moduleInfo)
                 for (var key of objKeys) {
-                    for (var object of data[i].moduleInfo[key][0]) {
-                        const obj = object
-                        const daysOfWeek = getDatesOfTargetDay(obj.day, 0)
-                        for (var d of daysOfWeek) {
-                            const currentDate = new Date(d)
-                            const startTime = processString(obj.startTime)
-                            const endTime = processString(obj.endTime)
-                            var toAdd = {
-                                id: idx,
-                                title: data[i].moduleCode,
-                                allDay: false,
-                                start: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), startTime),
-                                end: new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), endTime)
+                    if (data[i].moduleInfo[key][0]) for (var object of data[i].moduleInfo[key][0]) {
+                        // console.log(object)
+                        result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].module = data[i].moduleCode
+                        result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].lessonType = processLessonType(object.lessonType)
+                        result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].classNo = object.classNo
+                        result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].first = true;
+                        result[processDay(object.day)][(parseInt(object.startTime)/100) - 8].venue = object.venue;
+                        // result[processDay(object.day)][((parseInt(object.endTime) - 100)/100) - 8].module = data[i].moduleCode
+                        // result[processDay(object.day)][((parseInt(object.endTime) - 100)/100) - 8].lessonType = object.lessonType
+                        // result[processDay(object.day)][((parseInt(object.endTime) - 100)/100) - 8].classNo = object.classNo
+                        const duration = parseInt(object.endTime) - parseInt(object.startTime)
+                        if (duration > 100) { 
+                            for (var j = 0; j < duration / 100; j++) {
+                                result[processDay(object.day)][((parseInt(object.startTime) + j*100)/100) - 8].module = data[i].moduleCode
+                                result[processDay(object.day)][((parseInt(object.startTime) + j*100)/100) - 8].lessonType = processLessonType(object.lessonType)
+                                result[processDay(object.day)][((parseInt(object.startTime) + j*100)/100) - 8].classNo = object.classNo
+                                result[processDay(object.day)][((parseInt(object.startTime) + j*100)/100) - 8].venue = object.venue
                             }
-
-                            result.push(toAdd)
-                            idx++
                         }
                     }
-
                 }
-            }
+            } 
         }
-
         return result
     }
 
@@ -91,10 +129,10 @@ const Planner = ({}) => {
         if (urllink !== "") {
             const result = await processData(urllink)
             setDataAll(result)
-            localStorage.setItem("moduleData", JSON.stringify(result))
+            localStorage.setItem("moduleData", result != null ? JSON.stringify(result) : "")
             return result
         } else {
-            const url = localStorage.getItem("timetable")
+            const url = localStorage.getItem("timetable") || ""
             const result = await processData(url)
             setDataAll(result)
             localStorage.setItem("moduleData", JSON.stringify(result))
@@ -110,11 +148,19 @@ const Planner = ({}) => {
     const valid = urllink.includes('https://nusmods.com/timetable') && urllink.includes("share")
 
     return (
-        <div style={{ backgroundColor: 'white', padding: '4.2vh 64px 0px 4.5vh' }}>
-        <Button color="primary" style={{ marginLeft: '160px', marginBottom: '8px' }} onClick={() => setOpen(!open)}>{!open ? 'Open to import modules' : 'Hide'}</Button>
+        <div style={{ backgroundColor: 'white', padding: '4.2vh 250px 0px 4.5vh', height: '100vh', width: 'auto', overflowX: 'scroll' }}>
+        <Button color="primary" style={{ marginLeft: '180px', marginBottom: '8px' }} onClick={() => setOpen(!open)}>{!open ? 'Open to import modules' : 'Hide'}</Button>
+        <div 
+            style={{ 
+                marginLeft: '180px', marginBottom: '8px',
+                fontSize: '20px', color: 'salmon' 
+            }}
+        >
+            Click the module to find out more about it !
+        </div>
         <Collapse isOpen={open} style={{ marginLeft: '160px',  }}>
             <div >
-            {<Form onSubmit={handleOnSubmit} style={{display: 'flex'}}>
+            {<Form onSubmit={handleOnSubmit} style={{display: 'flex', marginLeft: '20px'}}>
                 <FormGroup>
                     <Input
                         onChange={handleLinkChange}
@@ -122,10 +168,11 @@ const Planner = ({}) => {
                         valid={valid}
                         invalid={!valid}
                         style={{ height: '40px', width: '30vw' }}
+                        data-testid={'import-input'}
                     />
                     <FormFeedback>Invalid Link</FormFeedback>
                 </FormGroup> 
-                <Button style={{ height: '40px' }} type="submit">Submit</Button>
+                <Button style={{ height: '40px' }} type="submit" data-testid={'submit-button'}>Submit</Button>
             </Form>} 
             </div>
         </Collapse>

@@ -7,7 +7,7 @@ import '/node_modules/react-resizable/css/styles.css'
 import StatsWidget from './Layout/StatsWidget'
 import AllActivityWidget from './Layout/AllActivityWidget';
 import PersonalTaskWidget from './Layout/PersonalTaskWidget';
-import { getTasks, getAllUsers, getTasksById } from '../api/users';
+import { getTasks, getAllUsers, getTasksById, getMostPopularModules } from '../api/users';
 import useWindowDimensions from './hooks/useWindowDimensions';
 import { getUniqueModules, parseUrl } from '../data/parseImports'
 
@@ -15,6 +15,7 @@ const Dashboard = () => {
     const [leaderboard, setLeaderBoard] = useState([])
     const [tasks, setTasks] = useState([])
     const [personalTasks, setPersonalTasks] = useState([])
+    const [mostPopularModules, setMostPopularModules] = useState([])
     const refreshToken = localStorage.getItem("user")
     const user_id = localStorage.getItem("_id")
 
@@ -36,12 +37,18 @@ const Dashboard = () => {
         return result
     }
 
+    const getMostPopularTasks = async () => {
+        const result = await getMostPopularModules(refreshToken);
+        if (result != null) setMostPopularModules(result) 
+        // console.log(result)
+        return result
+    }
 
     const layout = {
         lg: [
-            { i: 'a', x: 0, y: 0, w: 4, h: 11.4, static: true },
+            { i: 'a', x: 0, y: 0, w: 4, h: 15, static: true },
             { i: 'b', x: 4, y: 0, w: 8, h: 6, static: true },
-            { i: 'c', x: 5, y: 0, w: 8, h: 5.4, static: true },
+            { i: 'c', x: 5, y: 0, w: 8, h: 9, static: true },
         ],
     };
 
@@ -49,6 +56,7 @@ const Dashboard = () => {
         getAll()
         getAllTasks()
         getPersonalTasks()
+        getMostPopularTasks()
         parseUrl(localStorage.getItem("timetable")) 
     }, [])
     return (
@@ -63,13 +71,13 @@ const Dashboard = () => {
                 width={useWindowDimensions().width - 160}
             >
                 <div key="a">
-                    <AllActivityWidget leaderboard={leaderboard} tasks={tasks}/>
+                    <AllActivityWidget leaderboard={leaderboard} tasks={tasks} data-testid={'dashboard-components'}/>
                 </div>
                 <div key='c'>
-                    <StatsWidget id="b" backgroundColor="white" />
+                    <StatsWidget id="b" backgroundColor="white" popularModules={mostPopularModules} personalTasks={personalTasks} data-testid={'dashboard-components'}/>
                 </div>
                 <div key="b">
-                    <PersonalTaskWidget personalTasks={personalTasks} setPersonalTasks={setPersonalTasks} uniqueModules={getUniqueModules()}/>
+                    <PersonalTaskWidget personalTasks={personalTasks} setPersonalTasks={setPersonalTasks} uniqueModules={getUniqueModules()} data-testid={'dashboard-components'}/>
                 </div>
 
             </Responsive>

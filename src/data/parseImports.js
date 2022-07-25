@@ -1,7 +1,8 @@
 import { getModuleInfoByModuleCode } from "../api/users"
 var uniqueModCode = []
 export const parseUrl = async (url) => {
-    const urlParse = new URL(url)
+    if (url === null) return [];
+    const urlParse = new URL(url);
     const urlSearch = new URLSearchParams(urlParse.search)
     const entries = Array.from(urlSearch.entries())
 
@@ -23,6 +24,7 @@ export const parseUrl = async (url) => {
 
         result.push(moduleObj)
     }
+    console.log(result)
     return result
 }
 
@@ -33,7 +35,7 @@ const getModuleByCode = async (code, sem, key, mode) => {
     return valuesGlobal
 }
 
-const parseModuleInfo = async (infoStr, moduleCode) => {
+export const parseModuleInfo = async (infoStr, moduleCode) => {
     let values = infoStr.split(',')
     let stringArr = []
     for (let value of values) {

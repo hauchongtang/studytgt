@@ -21,12 +21,12 @@ const NavBar = ({handleLogOut}) => {
             <div className={styles.user}>
                 {signedIn && <h6 className={styles.h6}>{name !== "" ? `Hello, ${name}` : 'Hello, User'}</h6>}
                 {signedIn && <button className={styles.logout} onClick={() => {
-                        navigate("/")
+                        // navigate("/")
                         handleLogOut()
                         var timetable = localStorage.getItem("timetable")
                         localStorage.clear()
                         localStorage.setItem("timetable", timetable)
-                        window.location.reload()
+                        window.location.href('/')
                     }}>Log Out<GrLogout size={20} style={{ marginTop: 'auto', marginBottom: '4px', marginLeft: '12px' }}/></button>}
             </div>
             

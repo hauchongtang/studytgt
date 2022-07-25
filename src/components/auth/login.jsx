@@ -34,6 +34,7 @@ const Login = ({ setLoggedIn, setUser }) => {
             setTimetable(fetchedData.timetable)
             // console.log(fetchedData)
             console.log("Login Success")
+            setTimeout(() => window.location.reload(), 20)
         } catch {
             console.log("Wrong credentials")
             setError(true)
