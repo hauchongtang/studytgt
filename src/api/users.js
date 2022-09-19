@@ -1,8 +1,10 @@
 const axios = require('axios')
 
+const domainProvider = 'https://splatbackend-production.up.railway.app';
+
 export const postForm = async (email, password, setError) => {
     try {
-        const response = await axios.post('https://splatbackend.herokuapp.com/users/login',
+        const response = await axios.post(`${domainProvider}/users/login`,
             {
                 "email": email,
                 "password": password
@@ -17,7 +19,7 @@ export const postForm = async (email, password, setError) => {
 
 export const postSignUp = async (firstname, lastname, email, password, setError) => {
     try {
-        const response = await axios.post('https://splatbackend.herokuapp.com/users/signup',
+        const response = await axios.post(`${domainProvider}/users/signup`,
             {
                 "first_name": firstname,
                 "last_name": lastname,
@@ -36,7 +38,7 @@ export const postSignUp = async (firstname, lastname, email, password, setError)
 // Authenticate with backend server using refresh token to see if its expired
 export const authLoginSession = async (refreshToken) => {
     try {
-        const response = await axios.get('https://splatbackend.herokuapp.com/splat/api',
+        const response = await axios.get(`${domainProvider}/splat/api`,
             {
                 headers: {
                     'token': refreshToken
@@ -52,7 +54,7 @@ export const authLoginSession = async (refreshToken) => {
 
 export const modifyAccountDetails = async (firstname, lastname, email, setSuccess) => {
     try {
-        const response = await axios.put('https://splatbackend.herokuapp.com/users',
+        const response = await axios.put(`${domainProvider}/users`,
             {
                 "first_name": firstname,
                 "last_name": lastname,
@@ -70,7 +72,7 @@ export const modifyAccountDetails = async (firstname, lastname, email, setSucces
 
 export const getAllUsers = async (refreshToken) => {
     try {
-        const response = await axios.get('https://splatbackend.herokuapp.com/users',
+        const response = await axios.get(`${domainProvider}/users`,
             {
                 headers: {
                     'token': refreshToken
@@ -86,7 +88,7 @@ export const getAllUsers = async (refreshToken) => {
 
 export const getUserById = async (refreshToken, id) => {
     try {
-        const response = await axios.get(`https://splatbackend.herokuapp.com/users/${id}`,
+        const response = await axios.get(`${domainProvider}/users/${id}`,
             {
                 headers: {
                     'token': refreshToken
@@ -102,7 +104,7 @@ export const getUserById = async (refreshToken, id) => {
 
 export const increasePoints = async (refreshToken, toAdd, id) => {
     try {
-        const response = await axios.put(`https://splatbackend.herokuapp.com/users/${id}`, null,
+        const response = await axios.put(`${domainProvider}/users/${id}`, null,
             {
                 headers: {
                     'token': refreshToken,
@@ -154,7 +156,7 @@ export const getModuleInfoByModuleCode = async (moduleCode, semester, lessonType
 
 export const setTimetableUrl = async (linktoadd, refreshToken, id) => {
     try {
-        const response = await axios.put(`https://splatbackend.herokuapp.com/users/modules/${id}`, null,
+        const response = await axios.put(`${domainProvider}/users/modules/${id}`, null,
             {
                 headers: {
                     'token': refreshToken,
@@ -172,7 +174,7 @@ export const setTimetableUrl = async (linktoadd, refreshToken, id) => {
 
 export const addTask = async (firstname, lastname, taskName, moduleCode, duration, hidden, user_id, refreshToken) => {
     try {
-        const response = await axios.post('https://splatbackend.herokuapp.com/tasks',
+        const response = await axios.post(`${domainProvider}/tasks`,
             {
                 "first_name": firstname,
                 "last_name": lastname,
@@ -197,7 +199,7 @@ export const addTask = async (firstname, lastname, taskName, moduleCode, duratio
 
 export const getTasks = async (refreshToken) => {
     try {
-        const response = await axios.get('https://splatbackend.herokuapp.com/tasks',
+        const response = await axios.get(`${domainProvider}/tasks`,
             {
                 headers: {
                     'token': refreshToken
@@ -213,7 +215,7 @@ export const getTasks = async (refreshToken) => {
 
 export const getTasksById = async (refreshToken, id) => {
     try {
-        const response = await axios.get(`https://splatbackend.herokuapp.com/tasks/${id}`,
+        const response = await axios.get(`${domainProvider}/tasks/${id}`,
             {
                 headers: {
                     "token": refreshToken
@@ -229,7 +231,7 @@ export const getTasksById = async (refreshToken, id) => {
 
 export const toggleTaskVisible = async (refreshToken, id) => {
     try {
-        const response = await axios.put(`https://splatbackend.herokuapp.com/tasks/${id}`, null,
+        const response = await axios.put(`${domainProvider}/tasks/${id}`, null,
             {
                 headers: {
                     "token": refreshToken
@@ -245,7 +247,7 @@ export const toggleTaskVisible = async (refreshToken, id) => {
 
 export const getMostPopularModulesById = async (refreshToken, id) => {
     try {
-        const response = await axios.get(`https://splatbackend.herokuapp.com/tasks/${id}`,
+        const response = await axios.get(`${domainProvider}/tasks/${id}`,
             {
                 headers: {
                     "token": refreshToken
@@ -272,7 +274,7 @@ export const getMostPopularModulesById = async (refreshToken, id) => {
 
 export const getMostPopularModules = async (refreshToken) => {
     try {
-        const response = await axios.get(`https://splatbackend.herokuapp.com/stats/mostpopular`,
+        const response = await axios.get(`${domainProvider}/stats/mostpopular`,
             {
                 headers: {
                     "token": refreshToken
@@ -292,10 +294,10 @@ export const getMostPopularModules = async (refreshToken) => {
 
 export const changeParticulars = async (id, refreshToken, formObj, setError) => {
     try {
-        var url = new URL(`https://splatbackend.herokuapp.com/users/update/${id}`);
+        var url = new URL(`${domainProvider}/users/update/${id}`);
         
         for (var item of Object.keys(formObj)) {
-            if (formObj[item].toString() != "") {
+            if (formObj[item].toString() !== "") {
                 url.searchParams.append(item, formObj[item].toString())
             }
         }
