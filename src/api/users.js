@@ -72,7 +72,7 @@ export const modifyAccountDetails = async (firstname, lastname, email, setSucces
 
 export const getAllUsers = async (refreshToken) => {
     try {
-        const response = await axios.get(`${domainProvider}/users`,
+        const response = await axios.get(`${domainProvider}/cached/users`,
             {
                 headers: {
                     'token': refreshToken
@@ -88,7 +88,7 @@ export const getAllUsers = async (refreshToken) => {
 
 export const getUserById = async (refreshToken, id) => {
     try {
-        const response = await axios.get(`${domainProvider}/users/${id}`,
+        const response = await axios.get(`${domainProvider}/cached/users/${id}`,
             {
                 headers: {
                     'token': refreshToken
