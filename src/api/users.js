@@ -199,7 +199,7 @@ export const addTask = async (firstname, lastname, taskName, moduleCode, duratio
 
 export const getTasks = async (refreshToken) => {
     try {
-        const response = await axios.get(`${domainProvider}/tasks`,
+        const response = await axios.get(`${domainProvider}/cached/tasks`,
             {
                 headers: {
                     'token': refreshToken
@@ -215,7 +215,7 @@ export const getTasks = async (refreshToken) => {
 
 export const getTasksById = async (refreshToken, id) => {
     try {
-        const response = await axios.get(`${domainProvider}/tasks/${id}`,
+        const response = await axios.get(`${domainProvider}/cached/tasks/${id}`,
             {
                 headers: {
                     "token": refreshToken
