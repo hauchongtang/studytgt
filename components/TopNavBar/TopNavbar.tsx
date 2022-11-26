@@ -1,6 +1,4 @@
-import { Disclosure } from '@headlessui/react'
 import React from 'react'
-import SearchBox from './SearchBox'
 
 function TopNavbar() {
   return (
