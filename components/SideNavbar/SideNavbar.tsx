@@ -55,7 +55,7 @@ const micItems = [
 function SideNavbar() {
   return (
     <>
-      <Disclosure>
+      <Disclosure as='nav'>
         <Disclosure.Button className={styles.hamburgerButton}>
           <GiHamburgerMenu className="block md:hidden h-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
