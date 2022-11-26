@@ -5,7 +5,7 @@ import { MdOutlineSpaceDashboard, MdEditCalendar, MdOutlineLogout, MdOutlineHelp
 import { BsGithub } from "react-icons/bs"
 import { FaUserFriends } from "react-icons/fa"
 
-import styles from "../../styles/SideNavbar.styles"
+import styles from "./SideNavbar.styles"
 import NavLink from './NavLink'
 
 const navLinkStyles = "text-2xl text-gray-600 group-hover:text-white";
@@ -55,7 +55,7 @@ const micItems = [
 function SideNavbar() {
   return (
     <>
-      <Disclosure as="nav">
+      <Disclosure>
         <Disclosure.Button className={styles.hamburgerButton}>
           <GiHamburgerMenu className="block md:hidden h-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
@@ -70,7 +70,7 @@ function SideNavbar() {
               )
             })}
           </div>
-          <div className="absolute my-4 inset-x-4 bottom-0">
+          <div className="absolute my-4 inset-x-6 bottom-0">
             {micItems.map((item, idx) => {
               return (
                 <NavLink key={idx} text={item.text} icon={item.icon} link={item.link} />
