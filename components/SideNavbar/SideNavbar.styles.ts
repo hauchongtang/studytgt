@@ -1,7 +1,7 @@
 export default {
   hamburgerButton: [
-    "absolute" ,
-    "top-4" ,
+    "fixed" ,
+    "top-3" ,
     "right-4" ,
     "inline-flex" ,
     "items-center" ,
@@ -15,7 +15,8 @@ export default {
     "focus:ring-inset",
     "focus:rind-white",
     "group",
-    "hover:bg-gray-900"
+    "hover:bg-gray-900",
+    "z-10"
   ].join(' '),
   container: [
     "p-6",

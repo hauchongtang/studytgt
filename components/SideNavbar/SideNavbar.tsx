@@ -8,7 +8,7 @@ import { FaUserFriends } from "react-icons/fa"
 import styles from "./SideNavbar.styles"
 import NavLink from './NavLink'
 
-const navLinkStyles = "text-2xl text-gray-600 group-hover:text-white";
+const navLinkStyles = "text-2xl group-hover:text-white";
 const githubRepo = "https://github.com/hauchongtang/studytgt"
 
 const menuItems = [
@@ -57,7 +57,7 @@ function SideNavbar() {
     <>
       <Disclosure as='nav'>
         <Disclosure.Button className={styles.hamburgerButton}>
-          <GiHamburgerMenu className="block md:hidden h-6 w-6" aria-hidden="true" />
+          <GiHamburgerMenu className="block lg:hidden h-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
         <div className={styles.container}>
           <h1 className="text-xl text-center cursor-pointer font-bold text-red-400 border-b border-gray-100 pb-4 w-full">
