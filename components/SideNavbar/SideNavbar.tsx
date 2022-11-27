@@ -7,6 +7,7 @@ import { FaUserFriends } from "react-icons/fa"
 
 import styles from "./SideNavbar.styles"
 import NavLink from './NavLink'
+import SignOutButton from './SignOutButton'
 
 const navLinkStyles = "text-2xl group-hover:text-white";
 const githubRepo = "https://github.com/hauchongtang/studytgt"
@@ -45,12 +46,13 @@ const micItems = [
     link: githubRepo,
     icon: <BsGithub className={navLinkStyles} />
   },
-  {
-    text: 'Logout',
-    link: '/',
-    icon: <MdOutlineLogout className={navLinkStyles} />
-  }
 ]
+
+const signOutItem =   {
+  text: 'Logout',
+  link: '/api/auth/signout',
+  icon: <MdOutlineLogout className={navLinkStyles} />
+}
 
 function SideNavbar() {
   return (
@@ -76,6 +78,7 @@ function SideNavbar() {
                 <NavLink key={idx} text={item.text} icon={item.icon} link={item.link} />
               )
             })}
+            <SignOutButton text={signOutItem.text} icon={signOutItem.icon} link={signOutItem.link}/>
           </div>
         </div>
       </Disclosure>

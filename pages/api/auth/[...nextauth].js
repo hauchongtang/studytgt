@@ -61,8 +61,13 @@ export default NextAuth({
       return session;
     }
   },
-  redirect: async ({ url, baseUrl }) => {
-    return url
+  async redirect({ url, baseUrl }) {
+    return url;
   },
+  // pages: {
+  //   signIn: '/auth/signin',
+  //   error: '/auth/error',
+  // },
+  url: "http://localhost:3000",
   secret: "iamnosecret"
 })
