@@ -50,7 +50,7 @@ function NavLink(props: ISignOutProps) {
     };
 
   return (
-    <button onClick={() => signOut()}>
+    <button className="w-full" onClick={() => handleSignOut()}>
       <div className={styleNames}>
         {icon}
         <h3 className={h3StyleNames}>

@@ -64,10 +64,9 @@ export default NextAuth({
   async redirect({ url, baseUrl }) {
     return url;
   },
-  // pages: {
-  //   signIn: '/auth/signin',
-  //   error: '/auth/error',
-  // },
+  pages: {
+    signIn: '/signin',
+  },
   url: "http://localhost:3000",
   secret: "iamnosecret"
 })
