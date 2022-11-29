@@ -19,10 +19,14 @@ export default {
     "z-10"
   ].join(' '),
   container: [
+    "bg-white",
+    "shadow-lg",
+    "bg-opacity-60",
+    "bg-clip-padding",
+    "backdrop-blur-lg",
     "p-6",
     "w-1/2",
     "h-screen",
-    "bg-white",
     "z-20",
     "fixed",
     "top-0",

@@ -1,8 +1,15 @@
-export type leaderboardData = { name: any; points: any; userId: any; }
-export const generateLeaderboard = (data: leaderboardData[]) => {
-  let result: leaderboardData[] = [];
+/**
+ * Default data type for a leaderboard.
+ */
+export type Leaderboard = { name: any; points: any; userId: any; }
 
-  data.forEach((item: any) => {
+/**
+ * Generates a list of `Leaderboard` objects.
+ */
+export const generateLeaderboard = (data: Leaderboard[]) => {
+  let result: Leaderboard[] = [];
+
+  data?.forEach((item: any) => {
     result.push({
       name: item.first_name,
       points: item.points,

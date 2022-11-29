@@ -44,6 +44,7 @@ export default NextAuth({
         token.access_token = user.credentials.token;
         token.refresh_token = user.credentials.refresh_token;
         token.email = user.userInfo.email;
+        token.userId = user.userInfo.user_id;
         token.first_name = user.userInfo.first_name;
         token.last_name = user.userInfo.last_name;
         token.timetable = user.userInfo.timetable;
@@ -57,7 +58,7 @@ export default NextAuth({
       session.user.name = token.first_name + " " + token.last_name;
       session.user.timetable = token.timetable;
       session.user.points = token.points;
-      // console.log("session", session)
+      session.user.userId = token.userId;
       return session;
     }
   },

@@ -1,5 +1,5 @@
 import React from 'react'
-import { generateLeaderboard, leaderboardData } from '../../util/misc/leaderboard';
+import { generateLeaderboard } from '../../util/misc/leaderboard';
 import TopUserTable from './Tables/TopUserTable'
 
 interface ILeaderboardProps {

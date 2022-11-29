@@ -6,7 +6,7 @@ function TopNavbar() {
   const username = session?.user?.name?.length === 0 ? "User" : session?.user?.name;
 
   return (
-    <nav className="fixed z-10 inset-x-0 top-0 h-16 bg-white w-full">
+    <nav className="fixed z-10 inset-x-0 top-0 h-16 w-full bg-white shadow-lg bg-opacity-70 bg-clip-padding backdrop-blur-lg">
         <div className="flex justify-end">
           <button 
             type="button" 

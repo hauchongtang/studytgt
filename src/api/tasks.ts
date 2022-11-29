@@ -17,3 +17,19 @@ export const getTasks = async (accessToken: string) => {
       console.log(error)
   }
 }
+
+export const getTasksByUserId = async (accessToken: string, userId: string) => {
+    try {
+        const response = await axios.get(`${domainProvider}/cached/tasks/${userId}`,
+            {
+                headers: {
+                    'token': accessToken
+                }
+            }
+        )
+  
+        return response.data
+    } catch (error) {
+        console.log(error)
+    }
+}
