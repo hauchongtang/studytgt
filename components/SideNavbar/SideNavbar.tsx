@@ -57,11 +57,12 @@ const signOutItem =   {
 function SideNavbar() {
   return (
     <>
-      <Disclosure as='nav'>
+      <Disclosure defaultOpen as={"nav"}>
         <Disclosure.Button className={styles.hamburgerButton}>
           <GiHamburgerMenu className="block lg:hidden h-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
-        <div className={styles.container}>
+        <Disclosure.Panel className={styles.container}>
+          <div>
           <h1 className="text-xl text-center cursor-pointer font-bold text-red-400 border-b border-gray-100 pb-4 w-full">
             splat
           </h1>
@@ -81,6 +82,7 @@ function SideNavbar() {
             <SignOutButton text={signOutItem.text} icon={signOutItem.icon} link={signOutItem.link}/>
           </div>
         </div>
+        </Disclosure.Panel>
       </Disclosure>
     </>
   )
