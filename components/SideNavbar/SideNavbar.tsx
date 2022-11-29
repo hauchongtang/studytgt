@@ -61,7 +61,7 @@ function SideNavbar() {
         <Disclosure.Button className={styles.hamburgerButton}>
           <GiHamburgerMenu className="block lg:hidden h-6 w-6" aria-hidden="true" />
         </Disclosure.Button>
-        <Disclosure.Panel className={styles.container}>
+        <Disclosure.Panel static defaultChecked className={styles.container}>
           <div>
           <h1 className="text-xl text-center cursor-pointer font-bold text-red-400 border-b border-gray-100 pb-4 w-full">
             splat

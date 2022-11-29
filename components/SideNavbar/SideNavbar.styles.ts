@@ -25,7 +25,7 @@ export default {
     "bg-clip-padding",
     "backdrop-blur-lg",
     "p-6",
-    "w-1/2",
+    "w-[50vw]",
     "h-screen",
     "z-20",
     "fixed",
