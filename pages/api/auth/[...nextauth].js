@@ -68,6 +68,5 @@ export default NextAuth({
   pages: {
     signIn: '/signin',
   },
-  url: "http://localhost:3000",
   secret: "iamnosecret"
 })
