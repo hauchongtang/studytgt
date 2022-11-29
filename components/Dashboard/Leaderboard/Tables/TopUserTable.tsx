@@ -19,7 +19,7 @@ function TopUserTable(props: ITopUserTableProps) {
             <div className="font-semibold text-center">Points</div>
           </th>
           <th className="p-2">
-            <div className="font-semibold text-center">Badges</div>
+            <div className="font-semibold text-center">Achievements</div>
           </th>
           <th className="p-2">
             <div className="font-semibold text-center">Total Time</div>
