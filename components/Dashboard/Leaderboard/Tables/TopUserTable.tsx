@@ -1,8 +1,8 @@
 import React from 'react'
-import { determineBadgeFirstHour, determineBadgeFirstTask, determineBadgeOneDay, determineBadgeOneMonth, determineBadgeOneWeek, determineBadgeOneYear, determineHours, leaderboardData } from '../../../util/misc/leaderboard';
+import { determineBadgeFirstHour, determineBadgeFirstTask, determineBadgeOneDay, determineBadgeOneMonth, determineBadgeOneWeek, determineBadgeOneYear, determineHours, Leaderboard } from '../../../util/misc/leaderboard';
 
 interface ITopUserTableProps {
-  data: leaderboardData[]
+  data: Leaderboard[]
 }
 
 function TopUserTable(props: ITopUserTableProps) {
@@ -28,7 +28,7 @@ function TopUserTable(props: ITopUserTableProps) {
       </thead>
       <tbody className="text-sm font-medium divide-y divide-slate-100">
         {
-          data?.slice(0, 10).map((item: leaderboardData, idx) => {
+          data?.slice(0, 10).map((item: Leaderboard, idx) => {
             let hours = determineHours(item.points);
             return (
               <tr key={idx}>

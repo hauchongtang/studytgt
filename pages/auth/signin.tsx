@@ -2,7 +2,6 @@ import { getCsrfToken, signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { CtxOrReq } from "next-auth/client/_utils";
-import TopNavbar from "../../components/TopNavBar/TopNavbar";
 import LandingNavBar from "../../components/TopNavBar/LandingNavBar";
 
 interface ISignInProps {
@@ -75,7 +74,7 @@ export default function Signin(props: ISignInProps) {
                   Login
                 </button>
                 <p className="text-sm text-white font-semibold mt-2 pt-1 mb-0">
-                  Don't have an account?
+                  Don&apos;t have an account?
                   <a
                     href="#!"
                     className="text-white p-1.5 mx-2 rounded-2xl bg-pink-600"

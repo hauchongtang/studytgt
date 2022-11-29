@@ -43,6 +43,10 @@ export async function getServerSideProps(context: any) {
     }
   }
   return {
+    redirect: {
+      destination: '/dashboard',
+      permanent: false
+    },
     props: {
       session
     },
