@@ -31,10 +31,10 @@ function DashboardView(props: IDashboardProps) {
           <div className="relative h-96 col-span-12 lg:col-span-5 bg-white shadow-lg border border-slate-200 rounded-lg">
             <PopularCard />
           </div>
-          <div className="relative h-[39rem] col-span-12 lg:col-span-5 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
+          <div className="relative h-[39rem] col-span-12 lg:col-span-6 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
             <RecentActivity data={tasks}/>
           </div>
-          <div className="relative h-[39rem] col-span-12 lg:col-span-7 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
+          <div className="relative h-[39rem] col-span-12 lg:col-span-6 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
             <MyTasks data={userTasks}/>
           </div>
         </div>

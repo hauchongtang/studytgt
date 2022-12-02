@@ -10,6 +10,7 @@ export type Task = {
   hidden: boolean,
   moduleCode: string,
   taskName: string,
+  created_at: string,
   updated_at: string,
   user_id: string,
 }
@@ -67,6 +68,7 @@ export const generateTasks = (data: any[]) => {
       duration: item.duration,
       hidden: item.hidden,
       moduleCode: item.moduleCode,
+      created_at: item.created_at,
       updated_at: item.updated_at,
       user_id: item.user_id
     };

@@ -15,7 +15,7 @@ function TopUsers(props: ILeaderboardProps) {
       <header className="px-5 py-4 border-b border-slate-100">
         <h2 className="font-semibold text-slate-800">Leaderboard</h2>
       </header>
-      <div className="p-3">
+      <div className="p-4">
         <div className="overflow-x-auto">
           <TopUserTable data={leaderboard}/>
         </div>

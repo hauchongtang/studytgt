@@ -19,7 +19,7 @@ export const currentDateString = `${dayOfMonth} ${monthNames[monthOfYear]} ${cur
 export const dayOfWeekString = `${dayNames[dayOfWeek]}`
 
 export const generateDateString = (dateTime: string) => {
-  const date = new Date();
+  const date = new Date(dateTime);
   const dayOfMonth = date.getDate();
   const monthOfYear = date.getMonth();
   const currentYear = date.getFullYear();
