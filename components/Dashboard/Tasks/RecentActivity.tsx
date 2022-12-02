@@ -1,4 +1,5 @@
 import React from 'react'
+import GridCardHeader from '../../Common/GridCardHeader';
 import { generateTasks, Task } from '../../util/misc/tasklist';
 import ActivityCard from './ActivityCard'
 
@@ -13,10 +14,6 @@ function RecentActivity(props: IRecentActivityProps) {
     visibleWeekTasks,
     visibleMonthTasks,
     visibleYearTasks,
-    hiddenDayTasks,
-    hiddenWeekTasks,
-    hiddenMonthTasks,
-    hiddenYearTasks,
   } = generateTasks(data);
 
   const determineFirstSection = () => {
@@ -41,9 +38,7 @@ function RecentActivity(props: IRecentActivityProps) {
   
   return (
     <div className="col-span-full xl:col-span-6 bg-whiterounded-sm">
-      <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-800">Recent Activity</h2>
-      </header>
+      <GridCardHeader text='Recent Activity' />
       <div className="px-4">
           <header className="text-xs uppercase text-slate-400 bg-slate-50 rounded-sm font-semibold p-2">
             X Moments ago

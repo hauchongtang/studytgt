@@ -23,7 +23,7 @@ function TaskCard(props: ITaskCardProps) {
   }
 
   return (
-    <li className="flex flex-col justify-between dark:bg-pink-300 bg-white dark:border-gray-100 rounded-lg border border-gray-400 mb-6 py-6 px-6 h-36">
+    <li className="flex flex-col justify-between dark:bg-purple-200 bg-white dark:border-gray-100 rounded-lg border border-gray-400 mb-6 py-6 px-6 h-36">
       <div>
         <h4 className="text-gray-800 font-bold mb-3">{data?.taskName}</h4>
         <p className="text-gray-800 text-sm font-medium italic">for {data?.duration} min</p>
@@ -31,7 +31,7 @@ function TaskCard(props: ITaskCardProps) {
       <div>
         <div className="flex items-center justify-between text-gray-800">
           <p className="text-sm font-semibold">Created: {generateDateString(data?.updated_at)}</p>
-          <TaskStartModal isOpen={isOpen} closeModal={closeModal} />
+          <TaskStartModal isOpen={isOpen} closeModal={closeModal} taskData={data} />
           {!isDone 
             ? <button 
                 onClick={openModal}

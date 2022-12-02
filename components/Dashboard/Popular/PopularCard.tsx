@@ -1,4 +1,5 @@
 import React from 'react'
+import GridCardHeader from '../../Common/GridCardHeader';
 import DoughnutChart from '../../util/charts/Doughnut'
 
 function PopularCard() {
@@ -28,11 +29,7 @@ function PopularCard() {
 
   return (
     <>
-      <header className="px-5 py-4 border-b border-slate-100">
-        <h2 className="font-semibold text-slate-800">
-          Top Modules
-        </h2>
-      </header>
+      <GridCardHeader text='Top Modules' />
       <div className="flex justify-center my-2">
         <div>
           <DoughnutChart chartData={chartData} height="300" width="300" />

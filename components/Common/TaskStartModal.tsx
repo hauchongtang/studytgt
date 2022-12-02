@@ -1,14 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { FunctionExpression } from 'typescript';
+import { Task } from '../util/misc/tasklist';
 
 interface IModalProps {
   isOpen: boolean,
-  closeModal: any
+  closeModal: any,
+  taskData: Task
 }
 
 export default function TaskStartModal(props: IModalProps) {
-  const { isOpen, closeModal } = props;
+  const { isOpen, closeModal, taskData } = props;
 
   return (
     <>
@@ -45,22 +47,25 @@ export default function TaskStartModal(props: IModalProps) {
                     Confirmation
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Do you want to start the task ?
+                    <p className="text-sm font-medium text-gray-500">
+                      Do you want to start the task:
+                    </p>
+                    <p className="text-sm font-bold text-violet-500">
+                      {taskData.taskName} for {taskData.duration} minutes ?
                     </p>
                   </div>
 
                   <div className="mt-4">
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-green-100 mr-2 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-green-100 mr-2 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-violet-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       Yes, please!
                     </button>
                     <button
                       type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-slate-900 hover:bg-violet-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
                       No.
