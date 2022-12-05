@@ -3,11 +3,10 @@ import React from 'react'
 import Banner from '../../components/Dashboard/Banner'
 import TopUsers from '../../components/Dashboard/Leaderboard/TopUsers'
 import PopularCard from '../../components/Dashboard/Popular/PopularCard'
-import AddTask from '../../components/Dashboard/Tasks/PersonalTasks/AddTask'
 import MyTasks from '../../components/Dashboard/Tasks/PersonalTasks/MyTasks'
-import RecentActivity from '../../components/Dashboard/Tasks/RecentActivity'
 import Layout from '../../components/Layout'
 import MiniTimeTable from '../../components/Dashboard/Timetable/MiniTimeTable'
+import TaskGroup from '../../components/Dashboard/Tasks/TaskGroup'
 import { getTasks, getTasksByUserId } from '../../src/api/tasks'
 import { getAllUsers } from '../../src/api/users'
 import { GetServerSideProps } from 'next/types'
@@ -38,15 +37,7 @@ function DashboardView(props: IDashboardProps) {
           <div className="relative h-80 bg-white shadow-lg lg:col-span-6 col-span-12 rounded-lg">
             <MiniTimeTable data={currentUserTimetable}/>
           </div>
-          <div className="relative h-80 hidden lg:block lg:col-span-6 bg-white shadow-lg rounded-lg">
-            <AddTask />
-          </div>
-          <div className="relative h-[39rem] col-span-12 lg:col-span-6 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
-            <RecentActivity data={tasks}/>
-          </div>
-          <div className="relative h-[39rem] col-span-12 lg:col-span-6 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
-            <MyTasks data={userTasks}/>
-          </div>
+          <TaskGroup data={userTasks} allTasks={tasks} />
         </div>
       </div>
     </Layout>

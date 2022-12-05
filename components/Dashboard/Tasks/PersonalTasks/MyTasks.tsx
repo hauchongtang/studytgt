@@ -5,7 +5,7 @@ import TaskCard from './TaskCard'
 import TaskListItem from './TaskListTabHeader';
 
 interface IPersonalTasksProps {
-  data: []
+  data: Task[]
 }
 
 function MyTasks(props: IPersonalTasksProps) {

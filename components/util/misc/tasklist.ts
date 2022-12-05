@@ -51,14 +51,8 @@ export const generateHiddenTasks = (data: any[]) => {
  * @returns object `{ visibleTasks, hiddenTasks }`
  * */ 
 export const generateTasks = (data: any[]) => {
-  let visibleDayTasks: Task[] = [];
-  let visibleWeekTasks: Task[] = [];
-  let visibleMonthTasks: Task[] = [];
-  let visibleYearTasks: Task[] = [];
-  let hiddenDayTasks: Task[] = [];
-  let hiddenWeekTasks: Task[] = [];
-  let hiddenMonthTasks: Task[] = [];
-  let hiddenYearTasks: Task[] = [];
+  let visibleTasks: Task[] = [];
+  let hiddenTasks: Task[] = [];
 
   for (let item of data) {
     let singleTask = {
@@ -74,45 +68,14 @@ export const generateTasks = (data: any[]) => {
     };
 
     if (item.hidden) {
-      if (isLessThanWeekAgo(singleTask.updated_at)) {
-        hiddenDayTasks.push(singleTask);
-        continue;
-      } else if (isLessThanMonthAgo(singleTask.updated_at)) {
-        hiddenWeekTasks.push(singleTask);
-        continue;
-      } else if (isLessThanYearAgo(singleTask.updated_at)) {
-        hiddenMonthTasks.push(singleTask);
-        continue;
-      } else {
-        hiddenYearTasks.push(singleTask);
-      }
+      hiddenTasks.push(singleTask)
     } else {
-      if (isLessThanWeekAgo(singleTask.updated_at)) {
-        visibleMonthTasks.push(singleTask);
-        continue;
-      }
-      if (isLessThanMonthAgo(singleTask.updated_at)) {
-        visibleWeekTasks.push(singleTask);
-        continue;
-      }
-      if (isLessThanYearAgo(singleTask.updated_at)) {
-        visibleDayTasks.push(singleTask);
-        continue;
-      }
-       else {
-        visibleYearTasks.push(singleTask);
-      }
+      visibleTasks.push(singleTask);
     }
   }
 
   return {
-    visibleDayTasks,
-    visibleWeekTasks,
-    visibleMonthTasks,
-    visibleYearTasks,
-    hiddenDayTasks,
-    hiddenWeekTasks,
-    hiddenMonthTasks,
-    hiddenYearTasks,
+    visibleTasks,
+    hiddenTasks
   };
 }

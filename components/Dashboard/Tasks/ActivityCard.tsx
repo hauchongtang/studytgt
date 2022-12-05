@@ -22,9 +22,9 @@ function ActivityCard(props: IActivityProps) {
         <div className="grow flex justify-between">
           <div className="self-center">
             <a className="font-bold text-slate-800 hover:text-slate-900">
-              {name.length > 20 ? name.substring(20) + "..." : name}
+              {name?.length > 20 ? name.substring(20) + "..." : name}
             </a> done
-            <p className="italic"> {taskName.length > 20 ? taskName.substring(20) + "...\n" : taskName + "\n"} of <a className="font-bold text-slate-800"
+            <p className="italic"> {taskName?.length > 20 ? taskName.substring(20) + "...\n" : taskName + "\n"} of <a className="font-bold text-slate-800"
             href={`https://nusmods.com/modules/${moduleCode}`}>
               {moduleCode}
             </a></p>
