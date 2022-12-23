@@ -45,8 +45,8 @@ function AddTaskForm({ addNewTask }: any) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="px-8 py-3">
+    <form onSubmit={handleSubmit} className="pt-3">
+      <div className="px-8 pt-2">
         <label className="block mb-2 text-sm font-medium text-gray-900">Task Name</label>
         <input 
           type="text" 

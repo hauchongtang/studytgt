@@ -1,5 +1,4 @@
 import axios from "axios"
-import { Task } from "../../components/util/misc/tasklist";
 
 const domainProvider = 'https://splatbackend-production.up.railway.app';
 
