@@ -34,7 +34,7 @@ function DashboardView(props: IDashboardProps) {
           <div className="relative h-96 col-span-12 lg:col-span-5 bg-white shadow-lg border border-slate-200 rounded-lg">
             <PopularCard />
           </div>
-          <div className="relative h-80 bg-white shadow-lg lg:col-span-6 col-span-12 rounded-lg">
+          <div className="relative h-[24rem] bg-white shadow-lg lg:col-span-6 col-span-12 rounded-lg">
             <MiniTimeTable data={currentUserTimetable}/>
           </div>
           <TaskGroup data={userTasks} allTasks={tasks} />
@@ -60,10 +60,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   )
 
   const session: any = await getSession(context);
-  const users = await getAllUsers(session.refreshToken);
-  const tasks = await getTasks(session.refreshToken);
-  const userTasks = await getTasksByUserId(session.refreshToken, session.user.userId);
-  const currentUserTimetable = session.user.timetable ? session.user.timetable : null;
+  let users = await getAllUsers(session.refreshToken);
+  let tasks = await getTasks(session.refreshToken);
+  let userTasks = await getTasksByUserId(session.refreshToken, session.user.userId);
+  let currentUserTimetable = session.user.timetable ? session.user.timetable : null;
+
+  if (users.error) users = null;
+  if (!tasks) tasks = [];
+  if (!userTasks) userTasks = null;
 
   return { props: {
     users,

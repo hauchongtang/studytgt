@@ -46,7 +46,7 @@ function TaskGroup(props: ITaskGroupProps) {
 
   return (
     <>
-      <div className="relative h-80 hidden lg:block lg:col-span-6 bg-white shadow-lg rounded-lg">
+      <div className="relative h-[24rem] hidden lg:block lg:col-span-6 bg-white shadow-lg rounded-lg overflow-auto">
         <AddTask addNewTask={addNewTask}/>
       </div>
       <div className="relative h-[39rem] col-span-12 lg:col-span-6 bg-white shadow-lg border border-slate-200 rounded-lg overflow-auto">
