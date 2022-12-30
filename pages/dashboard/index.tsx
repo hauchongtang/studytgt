@@ -3,23 +3,23 @@ import React from 'react'
 import Banner from '../../components/Dashboard/Banner'
 import TopUsers from '../../components/Dashboard/Leaderboard/TopUsers'
 import PopularCard from '../../components/Dashboard/Popular/PopularCard'
-import MyTasks from '../../components/Dashboard/Tasks/PersonalTasks/MyTasks'
 import Layout from '../../components/Layout'
 import MiniTimeTable from '../../components/Dashboard/Timetable/MiniTimeTable'
 import TaskGroup from '../../components/Dashboard/Tasks/TaskGroup'
 import { getTasks, getTasksByUserId } from '../../src/api/tasks'
 import { getAllUsers } from '../../src/api/users'
 import { GetServerSideProps } from 'next/types'
+import { parseUrl } from '../../src/api/timetable'
 
 interface IDashboardProps {
   users: [],
   tasks: [],
   userTasks: [],
-  currentUserTimetable: string | null
+  timetable: any
 }
 
 function DashboardView(props: IDashboardProps) {
-  const { users, tasks, userTasks, currentUserTimetable } = props;
+  const { users, tasks, userTasks, timetable } = props;
 
   return (
     <Layout>
@@ -35,7 +35,7 @@ function DashboardView(props: IDashboardProps) {
             <PopularCard />
           </div>
           <div className="relative h-[24rem] bg-white shadow-lg lg:col-span-6 col-span-12 rounded-lg">
-            <MiniTimeTable data={currentUserTimetable}/>
+            <MiniTimeTable timetable={timetable}/>
           </div>
           <TaskGroup data={userTasks} allTasks={tasks} />
         </div>
@@ -64,7 +64,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let tasks = await getTasks(session.refreshToken);
   let userTasks = await getTasksByUserId(session.refreshToken, session.user.userId);
   let currentUserTimetable = session.user.timetable ? session.user.timetable : null;
-
+  let parsedTimetable = await parseUrl(currentUserTimetable);
   if (users.error) users = null;
   if (!tasks) tasks = [];
   if (!userTasks) userTasks = null;
@@ -73,7 +73,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     users,
     tasks,
     userTasks,
-    currentUserTimetable
+    timetable: {
+      url: currentUserTimetable,
+      moduleData: parsedTimetable
+    },
   } }
 }
 

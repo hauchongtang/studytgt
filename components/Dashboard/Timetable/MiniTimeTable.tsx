@@ -2,16 +2,32 @@ import React from 'react'
 import GridCardHeader from '../../Common/GridCardHeader'
 
 interface ITimetableProps {
-  data: string | null
+  timetable: {
+    url: string,
+    moduleData: IModuleProps[]
+  }
+}
+
+interface IModuleProps {
+    moduleCode: string,
+    moduleInfo: object
 }
 
 function MiniTimeTable(props: ITimetableProps) {
-  const { data } = props;
-
+  const { timetable } = props;
+  console.log(timetable)
   return (
     <>
       <GridCardHeader text='Timetable' />
-      <div>{data}</div>
+      <div>
+        {timetable.moduleData.map((item: IModuleProps, idx: number) => {
+          return (
+            <p>
+              {item.moduleCode}
+            </p>
+          )
+        })}
+      </div>
     </>
   )
 }
