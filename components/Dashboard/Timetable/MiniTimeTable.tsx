@@ -18,11 +18,11 @@ function MiniTimeTable(props: ITimetableProps) {
   console.log(timetable)
   return (
     <>
-      <GridCardHeader text='Timetable' />
-      <div>
+      <GridCardHeader text='Timetable' link={timetable.url} />
+      <div className='px-5'>
         {timetable.moduleData.map((item: IModuleProps, idx: number) => {
           return (
-            <p>
+            <p key={idx}>
               {item.moduleCode}
             </p>
           )
